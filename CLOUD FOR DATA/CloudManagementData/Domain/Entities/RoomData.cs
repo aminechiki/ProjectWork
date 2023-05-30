@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace deviceToCloud
+namespace Domain.Entities
 {
-    public class deviceData
+    public class RoomData
     {
         public string numberRoom { get; set; }
         public int code { get; set; }
         public DateTime date { get; set; }
-
     }
 }

@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=ProjectWork.X
+PROJECTNAME=Project_Work.X
 
 # Active Configuration
 DEFAULTCONF=default

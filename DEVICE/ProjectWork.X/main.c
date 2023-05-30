@@ -88,8 +88,10 @@ unsigned char keypressed = 99;
 // flag che indica se è stato premuto un tasto o no
 char keyf = 0;
 
-char dato[50];                                  // vettore che conterrà il dato ricevuto
-char i = 0;                                     // indice del vettore "dato"
+char datoSeriale[16];                           // vettore che conterrà il dato ricevuto in seriale
+char datoTastierino[16];                        // vettore che conterrà il valore inserito da tastierino
+char iS = 0;                                    // indice del vettore "datoSeriale"
+char iT = 0;                                    // indice del vettore "datoTastierino"
 char recieved = 0;                              // flag che indica se è arrivato un dato
 
 unsigned long milliseconds = 0;
@@ -130,9 +132,9 @@ void main(void)
         {
             // lo stampo a display
             lcdSend(L_CLR, COMMAND);
-            lcdPrint(dato);
+            lcdPrint(datoSeriale);
             recieved = 0;
-            i = 0;
+            iS = 0;
         }
     }
     
@@ -361,9 +363,15 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
                 // genero un numero casuale a 4 cifre (tra min = 1000 e MAX = 9999)
-                srand(milliseconds);
+                srand(TMR0);
                 // se vuoi ottenre un numero random tra 2 valori --> (rand()%(MAX-min)) + min
                 num_rand = ((rand()%8999)+1000);
+            }
+            // se non hai cliccato ne' '#', ne '*'
+            else if(keypressed != 0)
+            {
+                datoTastierino[iT++] = keys[keypressed];
+                datoTastierino[iT] = '\0';
             }
 
             PORTD |= 0x0F;
@@ -422,8 +430,8 @@ void __interrupt() IRS()
     // se scatta l'interrupt della seriale prelevo il dato
     if(RCIF)
     {
-        dato[i++] = RCREG;
-        dato[i] = '\0';
+        datoSeriale[iS++] = RCREG;
+        datoSeriale[iS] = '\0';
         recieved = 1;
         RCIF = 0;
     }

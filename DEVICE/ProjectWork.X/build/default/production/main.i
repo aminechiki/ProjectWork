@@ -2094,8 +2094,10 @@ unsigned char keypressed = 99;
 
 char keyf = 0;
 
-char dato[50];
-char i = 0;
+char datoSeriale[16];
+char datoTastierino[16];
+char iS = 0;
+char iT = 0;
 char recieved = 0;
 
 unsigned long milliseconds = 0;
@@ -2136,9 +2138,9 @@ void main(void)
         {
 
             lcdSend(0x01, 0);
-            lcdPrint(dato);
+            lcdPrint(datoSeriale);
             recieved = 0;
-            i = 0;
+            iS = 0;
         }
     }
 
@@ -2292,7 +2294,7 @@ int strcat(char* str1, char* str2)
 
     return length_str1;
 }
-# 319 "main.c"
+# 321 "main.c"
 void init_NumPad(void)
 {
     TRISD |= 0x0F;
@@ -2338,9 +2340,15 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
 
-                srand(milliseconds);
+                srand(TMR0);
 
                 num_rand = ((rand()%8999)+1000);
+            }
+
+            else if(keypressed != 0)
+            {
+                datoTastierino[iT++] = keys[keypressed];
+                datoTastierino[iT] = '\0';
             }
 
             PORTD |= 0x0F;
@@ -2399,8 +2407,8 @@ void __attribute__((picinterrupt(("")))) IRS()
 
     if(RCIF)
     {
-        dato[i++] = RCREG;
-        dato[i] = '\0';
+        datoSeriale[iS++] = RCREG;
+        datoSeriale[iS] = '\0';
         recieved = 1;
         RCIF = 0;
     }

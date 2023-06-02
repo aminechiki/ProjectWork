@@ -24,6 +24,7 @@ parser.on("data", function(data) {
    var dataSplit = data.split('/');
    let building = `${dataSplit[0]}`;
    let numberRoom = Number(dataSplit[1])
+   
 
     var dataObject = {
         code : numberRoom,

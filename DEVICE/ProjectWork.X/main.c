@@ -56,9 +56,8 @@ int pow(char, char);                        // Funzione per l'elevamento a poten
 void ConvertToString(long, char*);          // Funzione che converte un intero in una stringa
 void ConcatToPacket(char*, char*, char);    // Funzione che concatena una stringa al pacchetto da inviare in seriale
 int strcat(char*, char*);                   // Funzione che concatena due stringhe
-/*void init_rand(void);                       // Funzione per l'inizializzazione del random
-unsigned int rand(void);                    // Funzione che genera un numero random 
-uint32_t rotl(const uint32_t x, int k);     // ??? */
+int Length(char*);                          // funzione che calcola la lunghezza di una stringa
+char CompareStrings(char*, char*);          // funzione per il confronto tra 2 stringhe
 
 // array che contiene i valori che fanno sì che tu possa leggere in sequenza le colonne A,B e C
 const unsigned char colMask[3]=
@@ -78,7 +77,7 @@ const unsigned char rowMask[4]=
 };
 
 // array che contiene i valori del tastierino numerico letti colonna per colonna dal basso verso l'alto
-const unsigned char keys[] = {'*', 7, 4, 1, 0, 8, 5, 2, '#', 9, 6 , 3};
+const unsigned char keys[] = {'*', '7', '4', '1', '0', '8', '5', '2', '#', '9', '6' , '3'};
 // variabile che funge da indice per scansionare le colonne e sapere che colonna hai premuto
 unsigned char colScan=0;
 // variabile che funge da indice per scansionare le righe e sapere che riga hai premuto
@@ -88,9 +87,16 @@ unsigned char keypressed = 99;
 // flag che indica se è stato premuto un tasto o no
 char keyf = 0;
 
-char dato[50];                                  // vettore che conterrà il dato ricevuto
-char i = 0;                                     // indice del vettore "dato"
+char datoSeriale[16];                           // vettore che conterrà il dato ricevuto in seriale
+char datoTastierino[16];                        // vettore che conterrà il valore inserito da tastierino
+char iS = 0;                                    // indice del vettore "datoSeriale"
+char iT = 0;                                    // indice del vettore "datoTastierino"
+char old_iT = 0;                                // variabile che serve per fare in modo che stampi il codice da tastierino quando cambia
 char recieved = 0;                              // flag che indica se è arrivato un dato
+char compare = 0;                               // flag che indica se il programma è arrivato nella fase "confronta dato tastierino e seriale"
+char success = 0;                               // flag che indica se è il caso di sbloccare la porta
+char fail = 0;                                  // flag che indica se è hai sbagliato a scrivere il codice (serve perchè non entri all'infinito nell'ultimo ciclo)
+char maxFail = 3;                               // variabile che indica il numero di tentativi concessi per inserire il codice arrivato da cloud
 
 unsigned long milliseconds = 0;
 
@@ -130,10 +136,55 @@ void main(void)
         {
             // lo stampo a display
             lcdSend(L_CLR, COMMAND);
-            lcdPrint(dato);
+            lcdPrint("Inserisci code\0");
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("Tentativi: \0");
+            lcdSend(maxFail + '0', DATA);
             recieved = 0;
-            i = 0;
+            iS = 0;
         }
+        
+        if(success)
+        {
+            // lo stampo a display
+            lcdSend(L_CLR, COMMAND);
+            lcdPrint("Benvenuto!\0");
+            iT = old_iT = 0;
+            success = 0;
+            compare = 0;
+            maxFail = 3;
+        }
+        else if (maxFail > 0 && maxFail < 3 && fail)
+        {
+            // lo stampo a display
+            lcdSend(L_CLR, COMMAND);
+            lcdPrint("Codice errato\0");
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("Tentativi: \0");
+            lcdSend(maxFail + '0', DATA);
+            iT = old_iT = 0;
+            fail = 0;
+        }
+        else if (maxFail == 0)
+        {
+            // lo stampo a display
+            lcdSend(L_CLR, COMMAND);
+            lcdPrint("Tent. esauriti\0");
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("Rigenerare code\0");
+            maxFail = 3;
+            iT = old_iT = 0;
+            compare = 0;
+        }
+        
+        // se hai cliccato un numero sul tastierino e sei nella fase "compara tastierino e seriale" lo stampo
+        if(iT != old_iT && compare)
+        {
+            // pulisco il display
+            lcdSend(L_CLR, COMMAND);
+            lcdPrint(datoTastierino);
+        }
+        old_iT = iT;
     }
     
     return;
@@ -287,34 +338,34 @@ int strcat(char* str1, char* str2)
     return length_str1;
 }
 
-/*void init_rand()
+int Length(char *str)
 {
-    uint32_t now = time(0);
-    s[0] = 0;
-    s[1] = now;
-    //s[1] = 0xA3;
+    int len = 0;
     
-    // il primo numero generato sarà sempre 0, perciò lo "spreco" qui
-    rand();
+    while(str[len++] != '\0') {}
+
+    return len;
 }
 
-uint32_t rotl(const uint32_t x, int k) 
+char CompareStrings(char *str1, char *str2)
 {
-    return (x << k) | (x >> (32 - k));
+    if(Length(str1) != Length(str2))
+        return 0;
+    else
+    {
+        char i = 0;
+        
+        while(str1[i] != '\0')
+        {
+            if(str1[i] != str2[i])
+                return 0;
+            
+            i++;
+        }
+        
+        return 1;
+    }
 }
-
-unsigned int rand()
-{  
-    uint32_t s0 = s[0];
-    uint32_t s1 = s[1];
-    uint32_t result = rotl(s0 * 0x9E3779BB, 5) * 5;
-
-    s1 ^= s0;
-    s[0] = rotl(s0, 26) ^ s1 ^ (s1 << 9);
-    s[1] = rotl(s1, 13);
-
-    return result;
-}*/
 
 void init_NumPad(void)
 {
@@ -360,10 +411,29 @@ void read_NumPad(void)
             // se hai cliccato '#':
             if(keypressed == 8)
             {
-                // genero un numero casuale a 4 cifre (tra min = 1000 e MAX = 9999)
-                srand(milliseconds);
-                // se vuoi ottenre un numero random tra 2 valori --> (rand()%(MAX-min)) + min
-                num_rand = ((rand()%8999)+1000);
+                // Se non è ancora arrivato nessun dato da seriale
+                if(!compare)
+                {
+                    // genero un numero casuale a 4 cifre (tra min = 1000 e MAX = 9999)
+                    srand(TMR0);
+                    // se vuoi ottenre un numero random tra 2 valori --> (rand()%(MAX-min)) + min
+                    num_rand = ((rand()%8999)+1000);
+                }
+                else if(CompareStrings(datoSeriale, datoTastierino))
+                {
+                    success = 1;
+                }
+                else
+                {
+                    maxFail--;
+                    fail = 1;
+                }
+            }
+            // se non hai cliccato ne' '#', ne '*' e sei nella fase "comapara seriale e tastierino"
+            else if(keypressed != 0 && compare)
+            {
+                datoTastierino[iT++] = keys[keypressed];
+                datoTastierino[iT] = '\0';
             }
 
             PORTD |= 0x0F;
@@ -422,9 +492,10 @@ void __interrupt() IRS()
     // se scatta l'interrupt della seriale prelevo il dato
     if(RCIF)
     {
-        dato[i++] = RCREG;
-        dato[i] = '\0';
+        datoSeriale[iS++] = RCREG;
+        datoSeriale[iS] = '\0';
         recieved = 1;
+        compare = 1;
         RCIF = 0;
     }
     // se scatta l'interrupt del timer

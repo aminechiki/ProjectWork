@@ -6,14 +6,11 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
-
-
 namespace CloudManagementData
 {
     public class FunctionApp
     {
         private readonly IStorageRoomData _StorageRoomData;
-
         public FunctionApp(IStorageRoomData storageRoomData)
         {
             this._StorageRoomData = storageRoomData;

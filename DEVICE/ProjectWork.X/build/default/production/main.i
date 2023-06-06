@@ -2062,9 +2062,8 @@ int pow(char, char);
 void ConvertToString(long, char*);
 void ConcatToPacket(char*, char*, char);
 int strcat(char*, char*);
-
-
-
+int Length(char*);
+char CompareStrings(char*, char*);
 
 
 const unsigned char colMask[3]=
@@ -2084,7 +2083,7 @@ const unsigned char rowMask[4]=
 };
 
 
-const unsigned char keys[] = {'*', 7, 4, 1, 0, 8, 5, 2, '#', 9, 6 , 3};
+const unsigned char keys[] = {'*', '7', '4', '1', '0', '8', '5', '2', '#', '9', '6' , '3'};
 
 unsigned char colScan=0;
 
@@ -2094,9 +2093,16 @@ unsigned char keypressed = 99;
 
 char keyf = 0;
 
-char dato[50];
-char i = 0;
+char datoSeriale[16];
+char datoTastierino[16];
+char iS = 0;
+char iT = 0;
+char old_iT = 0;
 char recieved = 0;
+char compare = 0;
+char success = 0;
+char fail = 0;
+char maxFail = 3;
 
 unsigned long milliseconds = 0;
 
@@ -2136,10 +2142,55 @@ void main(void)
         {
 
             lcdSend(0x01, 0);
-            lcdPrint(dato);
+            lcdPrint("Inserisci code\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("Tentativi: \0");
+            lcdSend(maxFail + '0', 1);
             recieved = 0;
-            i = 0;
+            iS = 0;
         }
+
+        if(success)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("Benvenuto!\0");
+            iT = old_iT = 0;
+            success = 0;
+            compare = 0;
+            maxFail = 3;
+        }
+        else if (maxFail > 0 && maxFail < 3 && fail)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("Codice errato\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("Tentativi: \0");
+            lcdSend(maxFail + '0', 1);
+            iT = old_iT = 0;
+            fail = 0;
+        }
+        else if (maxFail == 0)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("Tent. esauriti\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("Rigenerare code\0");
+            maxFail = 3;
+            iT = old_iT = 0;
+            compare = 0;
+        }
+
+
+        if(iT != old_iT && compare)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint(datoTastierino);
+        }
+        old_iT = iT;
     }
 
     return;
@@ -2292,7 +2343,36 @@ int strcat(char* str1, char* str2)
 
     return length_str1;
 }
-# 319 "main.c"
+
+int Length(char *str)
+{
+    int len = 0;
+
+    while(str[len++] != '\0') {}
+
+    return len;
+}
+
+char CompareStrings(char *str1, char *str2)
+{
+    if(Length(str1) != Length(str2))
+        return 0;
+    else
+    {
+        char i = 0;
+
+        while(str1[i] != '\0')
+        {
+            if(str1[i] != str2[i])
+                return 0;
+
+            i++;
+        }
+
+        return 1;
+    }
+}
+
 void init_NumPad(void)
 {
     TRISD |= 0x0F;
@@ -2338,9 +2418,28 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
 
-                srand(milliseconds);
+                if(!compare)
+                {
 
-                num_rand = ((rand()%8999)+1000);
+                    srand(TMR0);
+
+                    num_rand = ((rand()%8999)+1000);
+                }
+                else if(CompareStrings(datoSeriale, datoTastierino))
+                {
+                    success = 1;
+                }
+                else
+                {
+                    maxFail--;
+                    fail = 1;
+                }
+            }
+
+            else if(keypressed != 0 && compare)
+            {
+                datoTastierino[iT++] = keys[keypressed];
+                datoTastierino[iT] = '\0';
             }
 
             PORTD |= 0x0F;
@@ -2399,9 +2498,10 @@ void __attribute__((picinterrupt(("")))) IRS()
 
     if(RCIF)
     {
-        dato[i++] = RCREG;
-        dato[i] = '\0';
+        datoSeriale[iS++] = RCREG;
+        datoSeriale[iS] = '\0';
         recieved = 1;
+        compare = 1;
         RCIF = 0;
     }
 

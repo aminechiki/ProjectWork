@@ -1,0 +1,23 @@
+﻿@page
+@model ManagementRoomApp.Pages.TokenModel
+@{
+    ViewData["Title"] = "Inserisci il codice";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Code" class="form-control" aria-required="true"/>
+                    <label asp-for="Input.Code" class="form-label">Code</label>
+                </div>
+                <div>
+                    <button id="code-submit" type="submit" class="w-100 btn btn-lg btn-primary">GENERA TOKEN</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

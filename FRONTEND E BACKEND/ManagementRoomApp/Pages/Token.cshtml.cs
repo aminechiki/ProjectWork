@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-//Package for send message to device
-using Microsoft.Azure.Devices;
+
 using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -22,26 +21,18 @@ namespace ManagementRoomApp.Pages
         private readonly UserManager<IdentityUser> _userManager;
 
         private readonly ILogger<TokenModel> _logger;
-        //for send message to device
-        static ServiceClient ServiceClient;
         private readonly string _ConnectionString;
-        public string Iothubowner;
+
         public TokenModel(SignInManager<IdentityUser> signInManager, ILogger<TokenModel> logger, IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
-            //for send message to device
             this._ConnectionString = configuration.GetConnectionString("DefaultConnection");
-            this.Iothubowner = configuration.GetConnectionString("iothubowner");
-            ServiceClient = ServiceClient.CreateFromConnectionString(this.Iothubowner);
-
             _userManager = userManager;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
-
-
         public class InputModel
         {
             public int Code { get; set; }
@@ -70,22 +61,16 @@ namespace ManagementRoomApp.Pages
 
             //DOPO CHE SI SARANNO VERIFICATI I VALORI QUI SOPRA ALORA L'UTENTE VERR REDIRETTO NELLA PAGINA MANAGMENTTOKEN
 
-           //QUESTA PARTE DI CODCICE DOVRA SU MANAMANAGEMNT CODE 
-            int token = 2244; 
-
-            //create a object Message with inside billboardSerialize object serialize
-            using var message = new Message(Encoding.ASCII.GetBytes(token.ToString()))
-            {
-                ContentType = "application/json",
-                ContentEncoding = "utf-8",
-            };
-       
-            //send a message to device 
-            await ServiceClient.SendAsync("DeviceCampus", message);
-
             //RedirectToPage("./ManagementToken", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
             return RedirectToPage("./ManagementToken");
             //return Page();
+
+            
+
+            //QUESTA PARTE DI CODCICE DOVRA SU MANAMANAGEMNT CODE 
+
+
+
         }
         public async Task<int> GetIdPermissions(int idDoorsToken, string idUser)
         {

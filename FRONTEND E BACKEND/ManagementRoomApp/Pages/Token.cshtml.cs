@@ -59,18 +59,17 @@ namespace ManagementRoomApp.Pages
             //una volta che ho tutti i dati necessari per effettuare la query su permission 
             int idPermissions = await GetIdPermissions(idDoorsToken, userId);
 
-            //DOPO CHE SI SARANNO VERIFICATI I VALORI QUI SOPRA ALORA L'UTENTE VERR REDIRETTO NELLA PAGINA MANAGMENTTOKEN
+            //Se la persona che tenta di accedere alla porta non ha i permessi per poterlo fare 
+            if (idPermissions == 0)
+            {
+                return RedirectToPage("./Error/ErrorPagePermissionDoor");
+            }
 
             //RedirectToPage("./ManagementToken", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
             return RedirectToPage("./ManagementToken");
             //return Page();
 
-            
-
             //QUESTA PARTE DI CODCICE DOVRA SU MANAMANAGEMNT CODE 
-
-
-
         }
         public async Task<int> GetIdPermissions(int idDoorsToken, string idUser)
         {

@@ -4,12 +4,15 @@
     ViewData["Title"] = "Inserisci il codice";
 }
 
+<body style="margin: 0; padding: 0;" >
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="formGenerateCode" method="post">
+    <div style="margin-top : 140px">
+        <h1 style="text-align: center;">INSRISCI IL CODICE PER GENERARE IL TOKEN</h1>
+    </div>
+    
+    <div class="mx-auto" style="width: 400px; margin-top : 50px">
+
+        <form id="formGenerateCode" method="post" style="margin-top : 40px">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Code" class="form-control" aria-required="true"/>
@@ -17,11 +20,17 @@
                 </div>
                 <div>
                     <button id="code-submit" type="submit" class="w-100 btn btn-lg btn-primary">OTTIENI TOKEN</button>
-                </div>
+
+            </div>
             </form>
-        </section>
+            <div style="margin-top: 5px">
+        <a href="https://localhost:7219/">
+            <button type="submit" class="w-100 btn btn-lg btn-primary" style="background-color:red">CANCEL</button>
+        </a>
+        </div>
     </div>
-</div>
+
+</body>
 
 <!--<p class="pippo">freeCodeCamp</p>-->
 <!--<button onclick="changeColor('blue')" class="blue">Blue</button>-->

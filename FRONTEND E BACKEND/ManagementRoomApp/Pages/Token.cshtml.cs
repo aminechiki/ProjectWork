@@ -48,28 +48,26 @@ namespace ManagementRoomApp.Pages
         {
             int code = Input.Code;
 
-            //FARE IL CHECK DI TUTTI QUESTI CAMPI
-
             //una volta che l'utente inseriece nella form il codeice viene trovo l'id della doors che lo ha genrato
             int idDoorsToken = await GetIdDoorsToken(code);
             //certo lìid della persona loggata
-            //fc583297-23c3-4f5b-b839-3882fce11b96
             //var user = await _userManager.GetUserAsync(User);
             var userId = _userManager.GetUserId(User);
             //una volta che ho tutti i dati necessari per effettuare la query su permission 
             int idPermissions = await GetIdPermissions(idDoorsToken, userId);
-
-            //Se la persona che tenta di accedere alla porta non ha i permessi per poterlo fare 
+            //Se la persona che tenta di accedere alla porta non ha i permessi per poterlo fare viene indirizzato nella pagina di errore
+            //viceversa viene indirizzato nella pagina che mostra il token
             if (idPermissions == 0)
             {
                 return RedirectToPage("./Error/ErrorPagePermissionDoor");
             }
-
-            //RedirectToPage("./ManagementToken", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-            return RedirectToPage("./ManagementToken");
-            //return Page();
-
-            //QUESTA PARTE DI CODCICE DOVRA SU MANAMANAGEMNT CODE 
+            else
+            {
+                DeleteToken(code);
+                return RedirectToPage("./ManagementToken");
+                //RedirectToPage("./ManagementToken", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                //return Page();
+            }
         }
         public async Task<int> GetIdPermissions(int idDoorsToken, string idUser)
         {
@@ -85,5 +83,15 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
         }
+
+        public async Task<int> DeleteToken(int code)
+        {
+            const string query = @"DELETE FROM [dbo].[Tokens] WHERE [Code] = @code";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            //return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
+            return await connection.ExecuteAsync(query,new { code });
+        }
+
     }
 }

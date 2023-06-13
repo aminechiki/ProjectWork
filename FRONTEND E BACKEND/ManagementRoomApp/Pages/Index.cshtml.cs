@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ManagementRoomApp.Pages
 {
-   // [Authorize(Roles ="Admins")]
+    // [Authorize(Roles ="Admins")]
     [Authorize]
     public class IndexModel : PageModel
     {
@@ -21,7 +20,7 @@ namespace ManagementRoomApp.Pages
         {
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
-            
+
 
         }
     }

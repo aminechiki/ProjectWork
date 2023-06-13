@@ -1,11 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Text;
 //Package for send message to device
 using Microsoft.Azure.Devices;
-using System.Configuration;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 
 namespace ManagementRoomApp.Pages
@@ -25,7 +22,7 @@ namespace ManagementRoomApp.Pages
 
         public void OnGet()
         {
-            
+
         }
         public async Task<IActionResult> SendToken()
         {

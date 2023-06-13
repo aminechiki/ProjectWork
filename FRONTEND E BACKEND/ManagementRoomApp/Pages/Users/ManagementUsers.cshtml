@@ -1,0 +1,40 @@
+﻿@page
+@model ManagementRoomApp.Pages.ManagementUsersModel
+@{
+}
+
+<div>
+    <h1 style="text-align: center;">LISTA UTENTI</h1>
+</div>
+<table class="table table-striped">
+    <thead>
+  <tr>
+    <th>EMAIL</th>
+    <th>NUMERO DI TELEFONO</th>
+    <th>AZIONE</th>
+  </tr>
+    </thead>
+    <tbody>
+       
+@foreach(var user in Model.Users)
+{               
+    <tr>
+                <td>@user.Email</td>
+                <!--Se il numero è non è presente si visualizza il campo null e non 0-->
+                @if (user.PhoneNumber == 0)
+                {
+                    <td></td>
+                }else
+                {
+                    <td>@user.PhoneNumber</td>
+                }
+                <td>
+                    <a class="btn btn-primary btn-sm" >Edit</a>
+                    <a class="btn btn-primary btn-sm" href="/Users/Accesses/ManagementAccesses?Id=@user.Id">View Accesses</a>
+                    <!--FUNZIONANTI-->
+                    <a class="btn btn-danger btn-sm" href="/Users/DeleteUser?Id=@user.Id">Delete</a>
+                </td>
+    </tr>
+}
+    </tbody>
+</table>

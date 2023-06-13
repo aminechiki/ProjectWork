@@ -3,15 +3,12 @@
 #nullable disable
 
 using Dapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using Microsoft.Data.SqlClient;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace ManagementRoomApp.Pages
 {
@@ -25,10 +22,10 @@ namespace ManagementRoomApp.Pages
 
         public TokenModel(SignInManager<IdentityUser> signInManager, ILogger<TokenModel> logger, IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
-            _signInManager = signInManager;
-            _logger = logger;
+            this._signInManager = signInManager;
+            this._logger = logger;
             this._ConnectionString = configuration.GetConnectionString("DefaultConnection");
-            _userManager = userManager;
+            this._userManager = userManager;
         }
 
         [BindProperty]
@@ -83,15 +80,13 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
         }
-
-        public async Task<int> DeleteToken(int code)
+        public async Task DeleteToken(int code)
         {
             const string query = @"DELETE FROM [dbo].[Tokens] WHERE [Code] = @code";
             using var connection = new SqlConnection(this._ConnectionString);
             await connection.OpenAsync();
             //return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
-            return await connection.ExecuteAsync(query,new { code });
+            await connection.ExecuteAsync(query, new { code });
         }
-
     }
 }

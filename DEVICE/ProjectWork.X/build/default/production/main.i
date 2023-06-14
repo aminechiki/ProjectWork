@@ -2047,7 +2047,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 # 20 "main.c" 2
-# 45 "main.c"
+# 48 "main.c"
 void init_PIC(void);
 void init_Timer0(void);
 void UART_init(long int);
@@ -2064,9 +2064,8 @@ void ConcatToPacket(char*, char*, char);
 int strcat(char*, char*);
 int Length(char*);
 char CompareStrings(char*, char*);
-
-
-
+void SplitPacket(char*);
+void strcopy(char*, char*);
 
 
 const unsigned char colMask[3]=
@@ -2096,8 +2095,12 @@ unsigned char keypressed = 99;
 
 char keyf = 0;
 
-char datoSeriale[16];
-char datoTastierino[16];
+char dato[50];
+char source;
+char id_dest[4];
+char type;
+char datoSeriale[17];
+char datoTastierino[17];
 char iS = 0;
 char iT = 0;
 char old_iT = 0;
@@ -2113,10 +2116,12 @@ int num_rand = 0, old_num_rand = 0;
 
 void main(void)
 {
+
     init_PIC();
 
     while(1)
     {
+
         read_NumPad();
 
 
@@ -2129,29 +2134,49 @@ void main(void)
             char num_rand_s[16];
             ConvertToString(num_rand, num_rand_s);
             lcdPrint(num_rand_s);
+# 144 "main.c"
+            char packet[14];
 
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
 
-            char packet[50];
-            packet[0] = '\0';
-            ConcatToPacket(packet, "PIC_0001\0", '/');
+            ConcatToPacket(packet, "001\0", '/');
+
+            packet[6] = '0';
+            packet[7] = '/';
+            packet[8] = '\0';
+
             ConcatToPacket(packet, num_rand_s, ' ');
 
             UART_TxString(packet);
         }
+
         old_num_rand = num_rand;
 
 
         if(recieved)
         {
+            SplitPacket(dato);
 
-            lcdSend(0x01, 0);
-            lcdPrint("Inserisci code\0");
-            lcdSend(0xC0, 0);
-            lcdPrint("Tentativi: \0");
-            lcdSend(maxFail + '0', 1);
+            if(source == '1' && CompareStrings(id_dest, "001\0") && type == '0')
+            {
+
+                compare = 1;
+
+                maxFail = 3;
+
+                lcdSend(0x01, 0);
+                lcdPrint("Inserisci codice\0");
+                lcdSend(0xC0, 0);
+                lcdPrint("Tentativi: \0");
+                lcdSend(maxFail + '0', 1);
+            }
             recieved = 0;
             iS = 0;
         }
+
+
 
         if(success)
         {
@@ -2160,9 +2185,19 @@ void main(void)
             lcdPrint("Benvenuto!\0");
             iT = old_iT = 0;
             success = 0;
+
             compare = 0;
             maxFail = 3;
+
+            char packet[14];
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
+            ConcatToPacket(packet, "001\0", '/');
+            ConcatToPacket(packet, "1/1", ' ');
+            UART_TxString(packet);
         }
+
         else if (maxFail > 0 && maxFail < 3 && fail)
         {
 
@@ -2174,6 +2209,7 @@ void main(void)
             iT = old_iT = 0;
             fail = 0;
         }
+
         else if (maxFail == 0)
         {
 
@@ -2181,9 +2217,18 @@ void main(void)
             lcdPrint("Tent. esauriti\0");
             lcdSend(0xC0, 0);
             lcdPrint("Rigenerare code\0");
+
             maxFail = 3;
             iT = old_iT = 0;
             compare = 0;
+
+            char packet[14];
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
+            ConcatToPacket(packet, "001\0", '/');
+            ConcatToPacket(packet, "1/0", ' ');
+            UART_TxString(packet);
         }
 
 
@@ -2193,6 +2238,7 @@ void main(void)
             lcdSend(0x01, 0);
             lcdPrint(datoTastierino);
         }
+
         old_iT = iT;
     }
 
@@ -2201,10 +2247,10 @@ void main(void)
 
 void init_PIC(void)
 {
+
     UART_init(115200);
     init_LCD();
     init_NumPad();
-
     init_Timer0();
 }
 
@@ -2214,6 +2260,7 @@ void init_Timer0()
     INTCON |= 0xA0;
     OPTION_REG = 0x06;
     TMR0 = 131;
+
     milliseconds = 0;
 }
 
@@ -2311,58 +2358,126 @@ void ConvertToString(long n, char* str)
 
 void ConcatToPacket(char* pkt, char* str, char delim)
 {
+
     int packet_length = strcat(pkt, str);
+
     if(delim != ' ')
     {
+
         pkt[packet_length] = delim;
         packet_length++;
     }
+
     else
     {
+
         pkt[packet_length] = '\r';
         packet_length++;
         pkt[packet_length] = '\n';
         packet_length++;
     }
+
     pkt[packet_length] = '\0';
-}
-
-int strcat(char* str1, char* str2)
-{
-    int n = 0, length_str1 = 0;
-
-
-    while(str1[length_str1] != '\0')
-        length_str1++;
-
-
-    while(str2[n] != '\0')
-    {
-        str1[length_str1] = str2[n];
-        n++;
-        length_str1++;
-    }
-
-
-    return length_str1;
 }
 
 int Length(char *str)
 {
     int len = 0;
 
-    while(str[len++] != '\0') {}
+    while(str[len] != '\0') { len++; }
 
     return len;
 }
 
+int strcat(char* dest, char* source)
+{
+
+    int n = 0, length_dest = Length(dest);
+
+
+    while(source[n] != '\0')
+    {
+        dest[length_dest] = source[n];
+        n++;
+        length_dest++;
+    }
+
+
+    return length_dest;
+}
+
+void SplitPacket(char* pkt)
+{
+
+    char part[5];
+
+
+    int i_part = 0, section = 0, len = Length(pkt);
+
+
+    for(int i = 0; i < len + 1; i++)
+    {
+
+        if(pkt[i] != '/' && pkt[i] != '\0')
+        {
+
+            part[i_part] = pkt[i];
+            i_part++;
+            part[i_part] = '\0';
+        }
+
+        else
+        {
+
+            switch(section)
+            {
+                case 0:
+                    source = part[0];
+                    break;
+                case 1:
+                    strcopy(id_dest, part);
+                    break;
+                case 2:
+                    type = part[0];
+                    break;
+                case 3:
+                    strcopy(datoSeriale, part);
+                    break;
+                default:
+                    break;
+            }
+
+            section++;
+
+            i_part = 0;
+        }
+    }
+}
+
+void strcopy(char* dest, char* source)
+{
+    int n = 0;
+
+
+    while(source[n] != '\0')
+    {
+        dest[n] = source[n];
+        n++;
+    }
+
+
+    dest[n] = '\0';
+}
+
 char CompareStrings(char *str1, char *str2)
 {
+
     if(Length(str1) != Length(str2))
         return 0;
     else
     {
         char i = 0;
+
 
         while(str1[i] != '\0')
         {
@@ -2378,6 +2493,7 @@ char CompareStrings(char *str1, char *str2)
 
 void init_NumPad(void)
 {
+
     TRISD |= 0x0F;
     TRISB &= 0xF0;
 }
@@ -2428,10 +2544,12 @@ void read_NumPad(void)
 
                     num_rand = ((rand()%8999)+1000);
                 }
+
                 else if(CompareStrings(datoSeriale, datoTastierino))
                 {
                     success = 1;
                 }
+
                 else
                 {
                     maxFail--;
@@ -2441,11 +2559,13 @@ void read_NumPad(void)
 
             else if(keypressed != 0 && compare)
             {
+
                 datoTastierino[iT++] = keys[keypressed];
                 datoTastierino[iT] = '\0';
             }
 
             PORTD |= 0x0F;
+
 
             while(((PORTD & 0x0F) != 0x0F))
             {
@@ -2501,10 +2621,9 @@ void __attribute__((picinterrupt(("")))) IRS()
 
     if(RCIF)
     {
-        datoSeriale[iS++] = RCREG;
-        datoSeriale[iS] = '\0';
+        dato[iS++] = RCREG;
+        dato[iS] = '\0';
         recieved = 1;
-        compare = 1;
         RCIF = 0;
     }
 

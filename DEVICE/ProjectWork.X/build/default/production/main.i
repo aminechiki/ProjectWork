@@ -2064,8 +2064,11 @@ void ConcatToPacket(char*, char*, char);
 int strcat(char*, char*);
 int Length(char*);
 char CompareStrings(char*, char*);
+<<<<<<< HEAD
 void SplitPacket(char*);
 void strcopy(char*, char*);
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
 
 
 const unsigned char colMask[3]=
@@ -2095,12 +2098,17 @@ unsigned char keypressed = 99;
 
 char keyf = 0;
 
+<<<<<<< HEAD
 char dato[50];
 char source;
 char id_dest[4];
 char type;
 char datoSeriale[17];
 char datoTastierino[17];
+=======
+char datoSeriale[16];
+char datoTastierino[16];
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
 char iS = 0;
 char iT = 0;
 char old_iT = 0;
@@ -2182,6 +2190,7 @@ void main(void)
         {
 
             lcdSend(0x01, 0);
+<<<<<<< HEAD
             lcdPrint("Benvenuto!\0");
             iT = old_iT = 0;
             success = 0;
@@ -2198,6 +2207,26 @@ void main(void)
             UART_TxString(packet);
         }
 
+=======
+            lcdPrint("Inserisci code\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("Tentativi: \0");
+            lcdSend(maxFail + '0', 1);
+            recieved = 0;
+            iS = 0;
+        }
+
+        if(success)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("Benvenuto!\0");
+            iT = old_iT = 0;
+            success = 0;
+            compare = 0;
+            maxFail = 3;
+        }
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         else if (maxFail > 0 && maxFail < 3 && fail)
         {
 
@@ -2209,7 +2238,10 @@ void main(void)
             iT = old_iT = 0;
             fail = 0;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         else if (maxFail == 0)
         {
 
@@ -2217,6 +2249,7 @@ void main(void)
             lcdPrint("Tent. esauriti\0");
             lcdSend(0xC0, 0);
             lcdPrint("Rigenerare code\0");
+<<<<<<< HEAD
 
             maxFail = 3;
             iT = old_iT = 0;
@@ -2229,6 +2262,11 @@ void main(void)
             ConcatToPacket(packet, "001\0", '/');
             ConcatToPacket(packet, "1/0", ' ');
             UART_TxString(packet);
+=======
+            maxFail = 3;
+            iT = old_iT = 0;
+            compare = 0;
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         }
 
 
@@ -2238,7 +2276,10 @@ void main(void)
             lcdSend(0x01, 0);
             lcdPrint(datoTastierino);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         old_iT = iT;
     }
 
@@ -2406,6 +2447,7 @@ int strcat(char* dest, char* source)
     return length_dest;
 }
 
+<<<<<<< HEAD
 void SplitPacket(char* pkt)
 {
 
@@ -2467,18 +2509,33 @@ void strcopy(char* dest, char* source)
 
 
     dest[n] = '\0';
+=======
+int Length(char *str)
+{
+    int len = 0;
+
+    while(str[len++] != '\0') {}
+
+    return len;
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
 }
 
 char CompareStrings(char *str1, char *str2)
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
     if(Length(str1) != Length(str2))
         return 0;
     else
     {
         char i = 0;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         while(str1[i] != '\0')
         {
             if(str1[i] != str2[i])
@@ -2544,12 +2601,18 @@ void read_NumPad(void)
 
                     num_rand = ((rand()%8999)+1000);
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
                 else if(CompareStrings(datoSeriale, datoTastierino))
                 {
                     success = 1;
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
                 else
                 {
                     maxFail--;
@@ -2559,7 +2622,10 @@ void read_NumPad(void)
 
             else if(keypressed != 0 && compare)
             {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
                 datoTastierino[iT++] = keys[keypressed];
                 datoTastierino[iT] = '\0';
             }
@@ -2621,9 +2687,15 @@ void __attribute__((picinterrupt(("")))) IRS()
 
     if(RCIF)
     {
+<<<<<<< HEAD
         dato[iS++] = RCREG;
         dato[iS] = '\0';
+=======
+        datoSeriale[iS++] = RCREG;
+        datoSeriale[iS] = '\0';
+>>>>>>> 3a57110d1f293752815db26117833d3a3decfeff
         recieved = 1;
+        compare = 1;
         RCIF = 0;
     }
 

@@ -1,0 +1,30 @@
+version: "3.5"
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1880:1880"
+    networks:
+      - soc
+    volumes:
+    - ./docker/node-red:/data
+  mosquitto:
+    image: eclipse-mosquitto:2
+    volumes:
+      - ./docker/mosquitto/config/:/mosquitto/config/:ro
+      - ./docker/mosquitto/log/:/mosquitto/log/
+      - ./docker/mosquitto/data:/mosquitto/data/
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - soc
+networks:
+  soc:
+    ipam:
+      config:
+        - subnet: 192.168.34.0/24

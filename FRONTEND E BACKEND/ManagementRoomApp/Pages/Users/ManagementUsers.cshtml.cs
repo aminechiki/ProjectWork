@@ -8,6 +8,8 @@ namespace ManagementRoomApp.Pages
     public class ManagementUsersModel : PageModel
     {
         public List<User> Users { get; set; }
+        public List<Doors> Doors { get; set; }
+
         private readonly ILogger<TokenModel> _Logger;
         private readonly string _ConnectionString;
 
@@ -20,6 +22,7 @@ namespace ManagementRoomApp.Pages
         public async Task OnGetAsync()
         {
             Users = (List<User>)await GetUsers();
+            Doors = (List<Doors>)await GetDoors();
 
         }
 
@@ -35,5 +38,40 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryAsync<User>(query);
         }
+
+        public async Task<IEnumerable<Doors>> GetDoors()
+        {
+            const string query = @"
+                                    SELECT [Doors].[Id] as IdDoor,
+                                           [Doors].[IdBoard],
+                                           [Doors].[Name] NameDoor,
+                                           [Doors].[IdBuilding],
+                                           [Buildings].Name as NameBuilding
+                                      FROM [dbo].[Doors] 
+                                      INNER JOIN [Buildings] ON Doors.IdBuilding = Buildings.Id;";
+
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            return await connection.QueryAsync<Doors>(query);
+        }
+        public async Task<IEnumerable<UsersPermissionsDoors>> GetUsersPermissionsDoors()
+        {
+            const string query = @"  SELECT [Doors].[Id] as IdDoor,
+                                           [Doors].[IdBoard],
+                                           [Doors].[Name] NameDoor,
+                                           [Doors].[IdBuilding],
+                                           [Buildings].Name as NameBuilding
+                                      FROM [dbo].[Doors] 
+                                      INNER JOIN [Buildings] ON Doors.IdBuilding = Buildings.Id
+                                      INNER JOIN [Permissions] ON Permissions.IdDoor = Doors.Id
+                                      WHERE [Doors].[Id] = 1;";
+
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            return await connection.QueryAsync<UsersPermissionsDoors>(query);
+        }
+
+
+
     }
 }

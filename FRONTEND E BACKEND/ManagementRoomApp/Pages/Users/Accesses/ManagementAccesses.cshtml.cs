@@ -10,8 +10,6 @@ namespace ManagementRoomApp.Pages.Accesses
         public List<AccessesUser> Accesses { get; set; }
         private readonly ILogger<TokenModel> _Logger;
         private readonly string _ConnectionString;
-
-
         public ManagementAccessesModel(ILogger<TokenModel> logger, IConfiguration configuration)
         {
             this.Accesses = new List<AccessesUser>();

@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Dapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 
 namespace ManagementRoomApp.Pages.Users
@@ -24,7 +23,6 @@ namespace ManagementRoomApp.Pages.Users
             const string query = @"DELETE FROM [dbo].[AspNetUsers] WHERE [Id] = @IdUser";
             using var connection = new SqlConnection(this._ConnectionString);
             await connection.OpenAsync();
-            //return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
             await connection.ExecuteAsync(query, new { IdUser });
             RedirectToPage("/ManagementUsers");
         }

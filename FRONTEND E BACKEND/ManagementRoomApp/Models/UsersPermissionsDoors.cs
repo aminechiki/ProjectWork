@@ -2,8 +2,9 @@
 {
     public class UsersPermissionsDoors
     {
-        public string NameDoors { get; set; }
+        public string IdUser { get; set; }
+        public int IdDoor { get; set; }
+        public string NameDoor { get; set; }
         public string NameBuilding { get; set; }
-
     }
 }

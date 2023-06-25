@@ -1,0 +1,32 @@
+﻿@page
+@model ManagementRoomApp.Pages.TokenModel
+@{
+}
+
+<style>
+    body {
+        background-image: url(/images/immagine_campus_modificata.jpg);
+    }
+</style>
+
+<body style="margin: 0; padding: 0;">
+    <div style="margin-top : 140px">
+        <h1 style="text-align: center;">INSRISCI IL CODICE PER GENERARE IL TOKEN</h1>
+    </div>
+    <div class="mx-auto" style="width: 400px; margin-top : 50px">
+
+        <form asp-page-handler="CompareCode" id="formGenerateCode" method="post" style="margin-top : 40px">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Code" class="form-control" aria-required="true" name="code" />
+                <label asp-for="Input.Code" class="form-label">Code</label>
+            </div>
+            <div>
+                <button id="code-submit" type="submit" class="w-100 btn btn-lg btn-primary">OTTIENI TOKEN</button>
+            </div>
+        </form>
+        <div style="margin-top: 5px">
+                <button href="/Index"  type="submit" class="w-100 btn btn-lg btn-primary" style="background-color:red">CANCEL</button>
+        </div>
+    </div>
+</body>

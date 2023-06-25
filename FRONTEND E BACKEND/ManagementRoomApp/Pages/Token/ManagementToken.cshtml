@@ -2,6 +2,8 @@
 @model ManagementRoomApp.Pages.ManagementTokenModel
 @{
     ViewData["Title"] = "Inserisci il codice";
+
+    string token = Request.Query["token"];
 }
 
 
@@ -12,10 +14,6 @@
     </div>
 
     <div class="mx-auto" style="width: 400px;">
-        <label class="form-label" style="font-weight: bold;font-size: 140px;">@Model.Code</label>
-
+        <label class="form-label" style="font-weight: bold;font-size: 140px;">@token</label>
     </div>
-
 </body>
-
-<!--<label class="form-label" style="font-weight: bold;font-size: 140px;">@Html.DisplayFor(model => model.Code)</label>-->

@@ -23,13 +23,32 @@ namespace ManagementRoomApp.Pages
         {
             Users = (List<User>)await GetUsers();
             Doors = (List<Doors>)await GetDoors();
-
         }
 
+        public async Task OnPostDeleteUser()
+        {
+            string IdUser = Request.Form["IdUser"];
+            await DeleteUserPermissions(IdUser);
+            await DeleteUser(IdUser);
+            Response.Redirect("/Users/ManagementUsers");
+        }
+        public async Task DeleteUser(string IdUser)
+        {
+            const string query = @"DELETE FROM [dbo].[AspNetUsers] WHERE [Id] = @IdUser";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            await connection.ExecuteAsync(query, new { IdUser });
+        }
+        public async Task DeleteUserPermissions(string IdUser)
+        {
+            const string query = @"DELETE FROM [dbo].[Permissions] WHERE [IdUser] = @IdUser";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            await connection.ExecuteAsync(query, new { IdUser });
+        }
         public async Task<IEnumerable<User>> GetUsers()
         {
-            const string query = @"
-                                    SELECT [Id],
+            const string query = @"SELECT [Id],
                                            [Email],
                                            [PhoneNumber]
                                       FROM [dbo].[AspNetUsers]";
@@ -38,7 +57,6 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryAsync<User>(query);
         }
-
         public async Task<IEnumerable<Doors>> GetDoors()
         {
             const string query = @"
@@ -70,8 +88,5 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryAsync<UsersPermissionsDoors>(query);
         }
-
-
-
     }
 }

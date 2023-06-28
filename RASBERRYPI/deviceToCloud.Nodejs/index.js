@@ -3,11 +3,12 @@ let dotenv = require('dotenv');
 dotenv.config();
 
 //SERIAL PORT
-const SerialPort = require('serialport')
-const Readline = require('@serialport/parser-readline')
-const port = new SerialPort('COM4')
-const parser = new Readline(new Readline({ delimiter: '\r\n' }))
-port.pipe(parser)
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+const port = new SerialPort('COM7');
+const parser = new Readline(new Readline({ delimiter: '\r\n' }));
+port.pipe(parser);
+let timerObjs = [];
 
 //AZURE IOT HUB
 const Protocol = require('azure-iot-device-mqtt').Mqtt;
@@ -21,33 +22,72 @@ client.on('message', sendDataToControllerRoom);
 
 //SEND DATA
 parser.on("data", function (data) {
-
-    sendDataToCloud(data)
+    sendDataToCloud(data);
 });
 
 function sendDataToCloud(data) {
 
     //Split a message 
     var dataSplit = data.split('/');
-    let building = `${dataSplit[0]}`;
-    let numberRoom = Number(dataSplit[1])
-    //Create a JSON
-    var dataObject = {
-        code: numberRoom,
-        date: (new Date()).toLocaleString(),
-        numberRoom: building
+    if(dataSplit[0] == '0' && dataSplit[2] == '0')
+    {
+        //Create a JSON
+        var dataObject = {
+            building: Number(process.env.RASP_ID),
+            numberRoom: Number(dataSplit[1]),
+            code: Number(dataSplit[3]),
+            date: (new Date()).toLocaleString()
+        }
+        //Serialize a JSON
+        dataSerialize = JSON.stringify(dataObject);
+        //Create a object messagge and send to cloud
+        const message = new Message(dataSerialize);
+        client.sendEvent(message);
+        console.log("SEND MESSAGE TO CLOUD: " + dataSerialize);
+        sendAck(dataSplit[1]);
     }
-    //Serialize a JSON
-    dataSerialize = JSON.stringify(dataObject);
-    //Create a object messagge and send to cloud
-    const message = new Message(dataSerialize);
-    client.sendEvent(message);
-    console.log("SEND MESSAGE TO CLOUD: " + dataSerialize);
+    else if(dataSplit[0] == '0' && dataSplit[2] == '2')
+    {
+        for(let i = 0; i < timerObjs.length; i++)
+        {
+            if(timerObjs[i].id == dataSplit[1])
+            {
+                clearTimeout(t.timer);
+                timerObjs.splice(i, 1);
+            }
+        };
+    }
 }
 
-function sendDataToControllerRoom(messaggio) {
+function sendAck(pic_id)
+{
+    let packet = "1/" + pic_id + "/2";
+    port.write(packet);
+    console.log("SEND ACK TO PIC: " + packet);
+}
 
-    let code = messaggio.data.toString();
-    port.write(code);
-    console.log("SEND MESSAGE TO PIC: " + code);
+function sendDataToControllerRoom(messaggio) 
+{
+    let jsonStr = messaggio.data.toString();
+    let json = JSON.parse(jsonStr);
+    
+    let pic_id = json.IdDoor.toString();
+    switch(pic_id.length)
+    {
+        case 1:
+            pic_id = '0' + '0' + pic_id;
+            break;
+        case 2:
+            pic_id = '0' + pic_id;
+            break;
+        default:
+            break;
+    }
+    let code = json.Code.toString();
+    let packet = "1/" + pic_id + "/0/" + code;
+    port.write(packet);
+    console.log("SEND MESSAGE TO PIC: " + packet);
+
+    let time = ((Math.random() % 4) + 6) * 1000; 
+    timerObjs.push({id: pic_id, timer: setTimeout(sendDataToControllerRoom, time, messaggio)});
 }

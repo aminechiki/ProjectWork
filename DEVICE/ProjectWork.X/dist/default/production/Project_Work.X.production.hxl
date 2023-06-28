@@ -11,15 +11,13 @@
   0h - 5h		(dist/default/production\Project_Work.X.production.hex)
   8h - FFDh		(dist/default/production\Project_Work.X.production.hex)
   1000h - 1FFFh		(dist/default/production\Project_Work.X.production.hex)
-  2C22h - 2FFFh		(dist/default/production\Project_Work.X.production.hex)
-  4000h - 4007h		(dist/default/production\Project_Work.X.production.hex)
+  2C1Ah - 2FFFh		(dist/default/production\Project_Work.X.production.hex)
   400Eh - 400Fh		(dist/default/production\Project_Work.X.production.hex)
  Unused ranges:
   6h - 7h
   FFEh - FFFh
-  2000h - 2C21h
-  3000h - 3FFFh
-  4008h - 400Dh
+  2000h - 2C19h
+  3000h - 400Dh
 
 ### Hex Memory Map ###
  Legend:
@@ -541,7 +539,8 @@
 00001FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
-00002C20 | -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002C10 | -- -- -- -- -- -- -- -- -- -- H1 H1 H1 H1 H1 H1
+00002C20 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002C30 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002C40 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002C50 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
@@ -604,4 +603,4 @@
 00002FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
-00004000 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- H1 H1
+00004000 | -- -- -- -- -- -- -- -- -- -- -- -- -- -- H1 H1

@@ -347,6 +347,7 @@ void init_PIC(void)
         ConvertToString(id, PIC_ID);
         Fill(PIC_ID);
         initialize = 0;
+        pr_start = 1;
     }
 }
 

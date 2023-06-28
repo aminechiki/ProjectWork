@@ -17,9 +17,15 @@ namespace CloudManagementData
         }
 
         [FunctionName("Function1")]
-        public async Task insertRoomData([ServiceBusTrigger("tech-geek-queue", Connection = "cs")] RoomData roomData, ILogger log)  //connectionstring del servicebus
+        public async Task insertRoomData([ServiceBusTrigger("tech-geek-queue", Connection = "cs")] DoorsData roomData, ILogger log)
         {
-            await this._StorageRoomData.InsertRoomData(roomData);
+            //roomData ha il parametro TypeOfMessage, può avere tre tipi di value quest'ultimo
+            //se è uguale a 0 la board davanti alla porta ha genrato il token e di conseguenza
+            //deve essere inserito nella tabella Tokens
+            if (roomData.TypeOfMessage == 0) await this._StorageRoomData.InsertToken(roomData);
+            //se è uguale a 1 la board davanti alla porta ha spedito un messaggio per aggiornare lo 
+            //stato di accesso alla porta (conferma/fallita apertura porta)
+            if (roomData.TypeOfMessage == 1) await this._StorageRoomData.InsertAccesses(roomData);
         }
     }
 }

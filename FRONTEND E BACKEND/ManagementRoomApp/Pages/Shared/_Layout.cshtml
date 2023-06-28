@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ManagementRoomApp.styles.css" asp-append-version="true" />
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script defer src="~/js/site.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -20,22 +31,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/HomePage">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index"> <font face="Arial"><b>HOME PAGE</b></font></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/ManagementUsers">Management Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/ManagementUsers"> <font face="Arial"><b>MANAGEMENT USERS</b></font></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Buildings/ManagementBuildings">Management Buildings</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Buildings/ManagementBuildings"><font face="Arial"><b>MANAGEMENT BUILDINGS</b></font></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Token">Token</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Token/Token"><font face="Arial"><b>OPEN DOOR</b></font></a>
                         </li>
                     </ul>
 

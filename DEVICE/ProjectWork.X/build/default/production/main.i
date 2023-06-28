@@ -2340,7 +2340,10 @@ void init_PIC(void)
         ConvertToString(id, PIC_ID);
         Fill(PIC_ID);
         initialize = 0;
+<<<<<<< HEAD
         pr_start = 1;
+=======
+>>>>>>> bff08c9ffd1310e4670118c44638d647ad9e1f3c
     }
 }
 

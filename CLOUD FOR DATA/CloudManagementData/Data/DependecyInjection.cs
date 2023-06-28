@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ApplicationCore.Interfaces;
 using Data.Repository;
 
-
 namespace Data
 {
     public static class DependecyInjection

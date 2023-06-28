@@ -10,6 +10,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IStorageRoomData
     {
-        public Task<IEnumerable<RoomData>> InsertRoomData(RoomData roomData);
+        public Task<IEnumerable<DoorsData>> InsertToken(DoorsData roomData);
+        public Task<IEnumerable<DoorsData>> InsertAccesses(DoorsData roomData);
     }
 }

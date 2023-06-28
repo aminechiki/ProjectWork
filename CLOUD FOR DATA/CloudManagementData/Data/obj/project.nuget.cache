@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "m3ViUwkIEgk0rtuqGMHsNXXeHaQaM0rFM03VlpJ9Sn00HiEohsWHLVdou5IEIwwEQ6KpqQpqLk9y0TZwL3gelw==",
+  "dgSpecHash": "4TpQ12TX8zP13AwlQ2YD6P1pxZ6xrLXcecFfP/bqJVbqDkmzbHZadalYDe8RM4dKl6fRyc0neuGhHj3qW0RQ0A==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Documents\\_ANNO 2022-23\\PROJECT WORK\\CLOUD FOR DATA\\CloudManagementData\\Data\\Data.csproj",
   "expectedPackageFiles": [
@@ -81,7 +81,10 @@
     "C:\\Users\\User\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.threading.tasks.dataflow\\4.8.0\\system.threading.tasks.dataflow.4.8.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\User\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.18\\microsoft.windowsdesktop.app.ref.6.0.18.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.18\\microsoft.netcore.app.ref.6.0.18.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.18\\microsoft.aspnetcore.app.ref.6.0.18.nupkg.sha512"
   ],
   "logs": []
 }

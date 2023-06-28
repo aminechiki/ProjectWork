@@ -2,12 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 using Dapper;
+using ManagementRoomApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Azure.Devices;
 using Microsoft.Data.SqlClient;
 using System.Text;
+using System.Text.Json;
 
 namespace ManagementRoomApp.Pages
 {
@@ -63,20 +65,25 @@ namespace ManagementRoomApp.Pages
             else
             {
                 DeleteToken(code);
-                int token = GenerateToken();
-                await SendDataToDevice(building, token);
-                Response.Redirect($"./ManagementToken?token={token}");
+                int codetoken = GenerateToken();
+                MessageToken message = new MessageToken(codetoken, idDoorsToken);
+                string messageSerialize = JsonSerializer.Serialize(message);
+
+                //aggiungere id che corrisponde all nome del device
+
+                await SendDataToDevice(building, messageSerialize);
+                Response.Redirect($"./ManagementToken?token={codetoken}");
             }
         }
-        public async Task SendDataToDevice(string device, int token)
+        public async Task SendDataToDevice(string device, string message)
         {
-            using var message = new Message(Encoding.ASCII.GetBytes(token.ToString()))
+            using var messageDevice = new Message(Encoding.ASCII.GetBytes(message))
             {
                 ContentType = "application/json",
                 ContentEncoding = "utf-8",
             };
 
-            await ServiceClient.SendAsync(device, message);
+            await ServiceClient.SendAsync(device, messageDevice);
         }
         public async Task<int> GetIdPermissions(int idDoorsToken, string idUser)
         {

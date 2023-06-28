@@ -64,10 +64,13 @@ namespace ManagementRoomApp.Pages.Users.DoorsPermissiones
 
         public async Task<IEnumerable<Doors>> GetDoors()
         {
-            const string query = @"SELECT [Id] as [IdDoor]
-                                         ,[Name] as NameDoor, [IdBoard], 
-                                          [IdBuilding] 
-                                          FROM [Doors]";
+            const string query = @"SELECT [Doors].[Id] as [IdDoor]
+                                        ,[Doors].[Name] as NameDoor, 
+                                        [Doors].[IdBoard], 
+                                        [Doors].[IdBuilding],
+                                        [Buildings].[Name] as NameBuilding
+                                        FROM [Doors]
+                                        INNER JOIN [Buildings] ON [IdBuilding] = [Buildings].[Id]";
             using var connection = new SqlConnection(this._ConnectionString);
             await connection.OpenAsync();
             return await connection.QueryAsync<Doors>(query);

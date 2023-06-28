@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-    public class RoomData
+    public class DoorsData
     {
-        public string numberRoom { get; set; }
-        public int code { get; set; }
-        public DateTime date { get; set; }
+        public int Device { get; set; }
+        public int Board { get; set; }
+        public int Code { get; set; }
+        public int TypeOfMessage { get; set; }
+        public DateTime Date { get; set; }
     }
 }

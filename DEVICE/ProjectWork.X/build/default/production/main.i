@@ -2047,12 +2047,12 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 # 20 "main.c" 2
-# 45 "main.c"
+# 48 "main.c"
 void init_PIC(void);
 void init_Timer0(void);
 void UART_init(long int);
 void UART_TxChar(char);
-void UART_TxString(const char*);
+void UART_TxString(const char*, char);
 void init_NumPad(void);
 void read_NumPad(void);
 void init_LCD(void);
@@ -2064,6 +2064,9 @@ void ConcatToPacket(char*, char*, char);
 int strcat(char*, char*);
 int Length(char*);
 char CompareStrings(char*, char*);
+void SplitPacket(char*);
+void strcopy(char*, char*);
+void Fill(char*);
 
 
 const unsigned char colMask[3]=
@@ -2093,8 +2096,17 @@ unsigned char keypressed = 99;
 
 char keyf = 0;
 
-char datoSeriale[16];
-char datoTastierino[16];
+char PIC_ID[4] = "\0";
+int i_id = 0;
+int old_i_id = 0;
+char initialize = 1;
+char packet[15];
+char dato[50];
+char source;
+char id_dest[4];
+char type;
+char datoSeriale[17];
+char datoTastierino[17];
 char iS = 0;
 char iT = 0;
 char old_iT = 0;
@@ -2103,18 +2115,72 @@ char compare = 0;
 char success = 0;
 char fail = 0;
 char maxFail = 3;
+char pr_start = 0;
+char pr_err_len = 0;
+char pr_err_max = 0;
+char pr_succ = 0;
 
 unsigned long milliseconds = 0;
+unsigned long seconds = 0;
 
 int num_rand = 0, old_num_rand = 0;
 
 void main(void)
 {
+
     init_PIC();
 
     while(1)
     {
+        if(pr_start)
+        {
+            lcdSend(0x01, 0);
+            lcdPrint("Premi '#'\0");
+            pr_start = 0;
+        }
+        if(pr_err_len)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("ERRORE\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("ID = 3 chars\0");
+            pr_err_len = 0;
+        }
+        if(pr_err_max)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("ERRORE\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("ID > 250\0");
+            pr_err_max = 0;
+        }
+        if(pr_succ)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("ID Salvato\0");
+
+            milliseconds = 0;
+            seconds = 1000;
+            pr_succ = 0;
+        }
+
+
         read_NumPad();
+
+
+        if(i_id != old_i_id && initialize)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("#=conf. *=canc.\0");
+            lcdSend(0xC0, 0);
+            lcdPrint(PIC_ID);
+        }
+
+        old_i_id = i_id;
 
 
 
@@ -2126,29 +2192,68 @@ void main(void)
             char num_rand_s[16];
             ConvertToString(num_rand, num_rand_s);
             lcdPrint(num_rand_s);
+# 203 "main.c"
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
 
+            ConcatToPacket(packet, PIC_ID, '/');
 
-            char packet[50];
-            packet[0] = '\0';
-            ConcatToPacket(packet, "PIC_0001\0", '/');
+            packet[6] = '0';
+            packet[7] = '/';
+            packet[8] = '\0';
+
             ConcatToPacket(packet, num_rand_s, ' ');
 
-            UART_TxString(packet);
+            UART_TxString(packet, 0);
         }
+
         old_num_rand = num_rand;
 
 
         if(recieved)
         {
+            SplitPacket(dato);
 
-            lcdSend(0x01, 0);
-            lcdPrint("Inserisci code\0");
-            lcdSend(0xC0, 0);
-            lcdPrint("Tentativi: \0");
-            lcdSend(maxFail + '0', 1);
+            if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '0')
+            {
+
+                packet[0] = '0';
+                packet[1] = '/';
+                packet[2] = '\0';
+                ConcatToPacket(packet, PIC_ID, '/');
+                ConcatToPacket(packet, "2", ' ');
+                UART_TxString(packet, 1);
+
+                compare = 1;
+                old_num_rand = num_rand = 0;
+
+                maxFail = 3;
+
+                lcdSend(0x01, 0);
+                lcdPrint("Inserisci codice\0");
+                lcdSend(0xC0, 0);
+                lcdPrint("Tentativi: \0");
+                lcdSend(maxFail + '0', 1);
+            }
+
+            if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '2')
+            {
+
+                if(num_rand != 0)
+                    seconds = 0;
+
+                else
+                {
+                    milliseconds = 0;
+                    seconds = 1000;
+                }
+            }
             recieved = 0;
             iS = 0;
         }
+
+
 
         if(success)
         {
@@ -2157,9 +2262,18 @@ void main(void)
             lcdPrint("Benvenuto!\0");
             iT = old_iT = 0;
             success = 0;
+
             compare = 0;
             maxFail = 3;
+
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
+            ConcatToPacket(packet, PIC_ID, '/');
+            ConcatToPacket(packet, "1/1", ' ');
+            UART_TxString(packet, 0);
         }
+
         else if (maxFail > 0 && maxFail < 3 && fail)
         {
 
@@ -2171,16 +2285,23 @@ void main(void)
             iT = old_iT = 0;
             fail = 0;
         }
+
         else if (maxFail == 0)
         {
 
             lcdSend(0x01, 0);
             lcdPrint("Tent. esauriti\0");
-            lcdSend(0xC0, 0);
-            lcdPrint("Rigenerare code\0");
+
             maxFail = 3;
             iT = old_iT = 0;
             compare = 0;
+
+            packet[0] = '0';
+            packet[1] = '/';
+            packet[2] = '\0';
+            ConcatToPacket(packet, PIC_ID, '/');
+            ConcatToPacket(packet, "1/0", ' ');
+            UART_TxString(packet, 0);
         }
 
 
@@ -2188,8 +2309,11 @@ void main(void)
         {
 
             lcdSend(0x01, 0);
+            lcdPrint("#=conf. *=canc.\0\0"),
+            lcdSend(0xC0, 0);
             lcdPrint(datoTastierino);
         }
+
         old_iT = iT;
     }
 
@@ -2198,11 +2322,25 @@ void main(void)
 
 void init_PIC(void)
 {
+
     UART_init(115200);
     init_LCD();
     init_NumPad();
-
     init_Timer0();
+
+    int id = (int)eeprom_read(0);
+    if(id == 255)
+    {
+        lcdPrint("Inser. ID PIC:\0");
+        lcdSend(0xC0, 0);
+        lcdPrint("MIN=000,MAX=250\0");
+    }
+    else
+    {
+        ConvertToString(id, PIC_ID);
+        Fill(PIC_ID);
+        initialize = 0;
+    }
 }
 
 void init_Timer0()
@@ -2211,6 +2349,7 @@ void init_Timer0()
     INTCON |= 0xA0;
     OPTION_REG = 0x06;
     TMR0 = 131;
+
     milliseconds = 0;
 }
 
@@ -2308,58 +2447,126 @@ void ConvertToString(long n, char* str)
 
 void ConcatToPacket(char* pkt, char* str, char delim)
 {
+
     int packet_length = strcat(pkt, str);
+
     if(delim != ' ')
     {
+
         pkt[packet_length] = delim;
         packet_length++;
     }
+
     else
     {
+
         pkt[packet_length] = '\r';
         packet_length++;
         pkt[packet_length] = '\n';
         packet_length++;
     }
+
     pkt[packet_length] = '\0';
-}
-
-int strcat(char* str1, char* str2)
-{
-    int n = 0, length_str1 = 0;
-
-
-    while(str1[length_str1] != '\0')
-        length_str1++;
-
-
-    while(str2[n] != '\0')
-    {
-        str1[length_str1] = str2[n];
-        n++;
-        length_str1++;
-    }
-
-
-    return length_str1;
 }
 
 int Length(char *str)
 {
     int len = 0;
 
-    while(str[len++] != '\0') {}
+    while(str[len] != '\0') { len++; }
 
     return len;
 }
 
+int strcat(char* dest, char* source)
+{
+
+    int n = 0, length_dest = Length(dest);
+
+
+    while(source[n] != '\0')
+    {
+        dest[length_dest] = source[n];
+        n++;
+        length_dest++;
+    }
+
+
+    return length_dest;
+}
+
+void SplitPacket(char* pkt)
+{
+
+    char part[5];
+
+
+    int i_part = 0, section = 0, len = Length(pkt);
+
+
+    for(int i = 0; i < len + 1; i++)
+    {
+
+        if(pkt[i] != '/' && pkt[i] != '\0')
+        {
+
+            part[i_part] = pkt[i];
+            i_part++;
+            part[i_part] = '\0';
+        }
+
+        else
+        {
+
+            switch(section)
+            {
+                case 0:
+                    source = part[0];
+                    break;
+                case 1:
+                    strcopy(id_dest, part);
+                    break;
+                case 2:
+                    type = part[0];
+                    break;
+                case 3:
+                    strcopy(datoSeriale, part);
+                    break;
+                default:
+                    break;
+            }
+
+            section++;
+
+            i_part = 0;
+        }
+    }
+}
+
+void strcopy(char* dest, char* source)
+{
+    int n = 0;
+
+
+    while(source[n] != '\0')
+    {
+        dest[n] = source[n];
+        n++;
+    }
+
+
+    dest[n] = '\0';
+}
+
 char CompareStrings(char *str1, char *str2)
 {
+
     if(Length(str1) != Length(str2))
         return 0;
     else
     {
         char i = 0;
+
 
         while(str1[i] != '\0')
         {
@@ -2373,8 +2580,36 @@ char CompareStrings(char *str1, char *str2)
     }
 }
 
+void Fill(char* id)
+{
+    int length = Length(id);
+
+    if(length < 3)
+    {
+        switch(length)
+        {
+            case 1:
+                id[3] = '\0';
+                id[2] = id[0];
+                id[1] = '0';
+                id[0] = '0';
+                break;
+            case 2:
+                id[3] = '\0';
+                id[2] = id[1];
+                id[1] = id[0];
+                id[0] = '0';
+                break;
+            default:
+                break;
+
+        }
+    }
+}
+
 void init_NumPad(void)
 {
+
     TRISD |= 0x0F;
     TRISB &= 0xF0;
 }
@@ -2418,31 +2653,91 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
 
-                if(!compare)
+                if(initialize && i_id == 3)
                 {
 
-                    srand(TMR0);
+                    int id = (PIC_ID[0] - '0') * 100 + (PIC_ID[1] - '0') * 10 + (PIC_ID[2] - '0');
+
+                    if(id <= 250)
+                    {
+
+                        eeprom_write(0, id);
+                        pr_succ = 1;
+
+                        initialize = 0;
+                    }
+
+                    else
+                    {
+                        pr_err_max = 1;
+
+                        PIC_ID[0] = '\0';
+                        i_id = old_i_id = 0;
+                    }
+                }
+
+                else if (initialize && i_id < 3)
+                {
+                    pr_err_len = 1;
+
+                    PIC_ID[0] = '\0';
+                    i_id = old_i_id = 0;
+                }
+
+                else if(!compare)
+                {
+
+                    srand(milliseconds);
 
                     num_rand = ((rand()%8999)+1000);
                 }
-                else if(CompareStrings(datoSeriale, datoTastierino))
+
+                else if(compare && CompareStrings(datoSeriale, datoTastierino))
                 {
                     success = 1;
                 }
-                else
+
+                else if (compare)
                 {
                     maxFail--;
                     fail = 1;
                 }
             }
 
-            else if(keypressed != 0 && compare)
+            else if(keypressed == 0)
             {
+
+                if(compare && iT > 0)
+                {
+
+                    iT--;
+                    datoTastierino[iT] = '\0';
+                }
+
+                else if (initialize && i_id > 0)
+                {
+
+                    i_id--;
+                    PIC_ID[i_id] = '\0';
+                }
+            }
+
+            else if(compare)
+            {
+
                 datoTastierino[iT++] = keys[keypressed];
                 datoTastierino[iT] = '\0';
             }
 
+            else if(initialize && i_id < 3)
+            {
+
+                PIC_ID[i_id++] = keys[keypressed];
+                PIC_ID[i_id] = '\0';
+            }
+
             PORTD |= 0x0F;
+
 
             while(((PORTD & 0x0F) != 0x0F))
             {
@@ -2482,7 +2777,7 @@ void UART_TxChar(char ch)
     TXREG = ch;
 }
 
-void UART_TxString(const char *str)
+void UART_TxString(const char *str, char is_ACK)
 {
     unsigned int n = 0;
 
@@ -2491,6 +2786,16 @@ void UART_TxString(const char *str)
         UART_TxChar(str[n]);
         n++;
     }
+
+    if(is_ACK == 0)
+    {
+
+
+        srand(milliseconds);
+        milliseconds = 0;
+
+        seconds = ((rand()%10)+5) * 250;
+    }
 }
 
 void __attribute__((picinterrupt(("")))) IRS()
@@ -2498,10 +2803,9 @@ void __attribute__((picinterrupt(("")))) IRS()
 
     if(RCIF)
     {
-        datoSeriale[iS++] = RCREG;
-        datoSeriale[iS] = '\0';
+        dato[iS++] = RCREG;
+        dato[iS] = '\0';
         recieved = 1;
-        compare = 1;
         RCIF = 0;
     }
 
@@ -2509,6 +2813,21 @@ void __attribute__((picinterrupt(("")))) IRS()
     {
         TMR0 = 131;
         milliseconds++;
+        if(seconds != 0 && milliseconds > seconds)
+        {
+
+            if(seconds == 1000)
+            {
+                pr_start = 1;
+                seconds = 0;
+            }
+
+            else
+            {
+                seconds = 0;
+                UART_TxString(packet, 0);
+            }
+        }
         T0IF = 0;
     }
 }

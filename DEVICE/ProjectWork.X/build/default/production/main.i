@@ -2097,8 +2097,8 @@ unsigned char keypressed = 99;
 char keyf = 0;
 
 char PIC_ID[4] = "\0";
-int i_id = 0;
-int old_i_id = 0;
+char i_id = 0;
+char old_i_id = 0;
 char initialize = 1;
 char packet[15];
 char dato[50];
@@ -2118,9 +2118,11 @@ char maxFail = 3;
 char pr_start = 0;
 char pr_err_max = 0;
 char pr_succ = 0;
+char pr_countdown = 0;
 
 unsigned long milliseconds = 0;
 unsigned long seconds = 0;
+unsigned int countSeconds = 0;
 
 int num_rand = 0, old_num_rand = 0;
 
@@ -2156,6 +2158,18 @@ void main(void)
             seconds = 1000;
             pr_succ = 0;
         }
+        if(pr_countdown)
+        {
+            lcdSend(0x01, 0);
+
+            char num_rand_s[16];
+            ConvertToString(num_rand, num_rand_s);
+            lcdPrint("Codice: \0");
+            lcdPrint(num_rand_s);
+            lcdSend(0xC0, 0);
+            lcdPrint("# per altro cod.\0");
+            pr_countdown = 0;
+        }
 
 
         read_NumPad();
@@ -2181,8 +2195,11 @@ void main(void)
 
             char num_rand_s[16];
             ConvertToString(num_rand, num_rand_s);
+            lcdPrint("Codice: \0");
             lcdPrint(num_rand_s);
-# 193 "main.c"
+            lcdSend(0xC0, 0);
+            lcdPrint("Attendi 30s...\0");
+# 210 "main.c"
             packet[0] = '0';
             packet[1] = '/';
             packet[2] = '\0';
@@ -2216,6 +2233,7 @@ void main(void)
                 UART_TxString(packet, 1);
 
                 compare = 1;
+
                 old_num_rand = num_rand = 0;
 
                 maxFail = 3;
@@ -2230,8 +2248,9 @@ void main(void)
             if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '2')
             {
 
+
                 if(num_rand != 0)
-                    seconds = 0;
+                    seconds = 7500;
 
                 else
                 {
@@ -2318,13 +2337,16 @@ void init_PIC(void)
     init_NumPad();
     init_Timer0();
 
+
     int id = (int)eeprom_read(0);
+
     if(id == 255)
     {
         lcdPrint("Inser. ID PIC:\0");
         lcdSend(0xC0, 0);
         lcdPrint("MIN=0,MAX=250\0");
     }
+
     else
     {
         ConvertToString(id, PIC_ID);
@@ -2673,14 +2695,14 @@ void read_NumPad(void)
                     }
                 }
 
-                else if(!compare)
+                else if(!compare && seconds != 7500)
                 {
-
-                    seconds = 0;
 
                     srand(milliseconds);
 
                     num_rand = ((rand()%8999)+1000);
+
+                    seconds = 0;
                 }
 
                 else if(compare && CompareStrings(datoSeriale, datoTastierino))
@@ -2804,6 +2826,7 @@ void __attribute__((picinterrupt(("")))) IRS()
     {
         TMR0 = 131;
         milliseconds++;
+
         if(seconds != 0 && milliseconds > seconds)
         {
 
@@ -2811,19 +2834,19 @@ void __attribute__((picinterrupt(("")))) IRS()
             {
                 pr_start = 1;
                 seconds = 0;
+                countSeconds = 0;
+            }
+
+            else if (seconds == 7500)
+            {
+                pr_countdown = 1;
+                seconds = 0;
+                countSeconds = 0;
             }
 
             else
             {
 
-                if(num_rand != 0)
-                    seconds = 0;
-
-                else
-                {
-                    seconds = 1000;
-                    milliseconds = 0;
-                }
                 UART_TxString(packet, 0);
             }
         }

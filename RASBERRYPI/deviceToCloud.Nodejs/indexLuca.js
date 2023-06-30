@@ -116,7 +116,7 @@ function sendAck(pic_id)
     console.log("SEND ACK TO PIC: " + packet);
 }
 
-function sendDataToControllerRoom(messaggio) 
+function sendDataToControllerRoom(messaggio)
 {
     // parso il messaggio che mi arriva da cloud da stringa a JSON
     let jsonStr = messaggio.data.toString();

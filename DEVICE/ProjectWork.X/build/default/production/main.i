@@ -2116,7 +2116,6 @@ char success = 0;
 char fail = 0;
 char maxFail = 3;
 char pr_start = 0;
-char pr_err_len = 0;
 char pr_err_max = 0;
 char pr_succ = 0;
 
@@ -2137,15 +2136,6 @@ void main(void)
             lcdSend(0x01, 0);
             lcdPrint("Premi '#'\0");
             pr_start = 0;
-        }
-        if(pr_err_len)
-        {
-
-            lcdSend(0x01, 0);
-            lcdPrint("ERRORE\0");
-            lcdSend(0xC0, 0);
-            lcdPrint("ID = 3 chars\0");
-            pr_err_len = 0;
         }
         if(pr_err_max)
         {
@@ -2192,7 +2182,7 @@ void main(void)
             char num_rand_s[16];
             ConvertToString(num_rand, num_rand_s);
             lcdPrint(num_rand_s);
-# 203 "main.c"
+# 193 "main.c"
             packet[0] = '0';
             packet[1] = '/';
             packet[2] = '\0';
@@ -2333,17 +2323,14 @@ void init_PIC(void)
     {
         lcdPrint("Inser. ID PIC:\0");
         lcdSend(0xC0, 0);
-        lcdPrint("MIN=000,MAX=250\0");
+        lcdPrint("MIN=0,MAX=250\0");
     }
     else
     {
         ConvertToString(id, PIC_ID);
         Fill(PIC_ID);
         initialize = 0;
-<<<<<<< HEAD
         pr_start = 1;
-=======
->>>>>>> bff08c9ffd1310e4670118c44638d647ad9e1f3c
     }
 }
 
@@ -2657,8 +2644,14 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
 
-                if(initialize && i_id == 3)
+                if(initialize)
                 {
+
+                    if(i_id < 3)
+                    {
+
+                        Fill(PIC_ID);
+                    }
 
                     int id = (PIC_ID[0] - '0') * 100 + (PIC_ID[1] - '0') * 10 + (PIC_ID[2] - '0');
 
@@ -2680,16 +2673,10 @@ void read_NumPad(void)
                     }
                 }
 
-                else if (initialize && i_id < 3)
-                {
-                    pr_err_len = 1;
-
-                    PIC_ID[0] = '\0';
-                    i_id = old_i_id = 0;
-                }
-
                 else if(!compare)
                 {
+
+                    seconds = 0;
 
                     srand(milliseconds);
 
@@ -2828,7 +2815,15 @@ void __attribute__((picinterrupt(("")))) IRS()
 
             else
             {
-                seconds = 0;
+
+                if(num_rand != 0)
+                    seconds = 0;
+
+                else
+                {
+                    seconds = 1000;
+                    milliseconds = 0;
+                }
                 UART_TxString(packet, 0);
             }
         }

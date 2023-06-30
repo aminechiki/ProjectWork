@@ -34,53 +34,53 @@
 [v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
 "6 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\pic\__eewrite.c
 [v _eeprom_write eeprom_write `(v  1 e 1 0 ]
-"125 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"124 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"330
+"320
 [v _init_PIC init_PIC `(v  1 e 1 0 ]
-"354
+"344
 [v _init_Timer0 init_Timer0 `(v  1 e 1 0 ]
-"364
+"354
 [v _init_LCD init_LCD `(v  1 e 1 0 ]
-"385
+"375
 [v _lcdSend lcdSend `(v  1 e 1 0 ]
-"402
+"392
 [v _lcdPrint lcdPrint `(v  1 e 1 0 ]
-"413
+"403
 [v _pow pow `(i  1 e 2 0 ]
-"424
+"414
 [v _ConvertToString ConvertToString `(v  1 e 1 0 ]
-"456
+"446
 [v _ConcatToPacket ConcatToPacket `(v  1 e 1 0 ]
-"480
+"470
 [v _Length Length `(i  1 e 2 0 ]
-"489
+"479
 [v _strcat strcat `(i  1 e 2 0 ]
-"506
+"496
 [v _SplitPacket SplitPacket `(v  1 e 1 0 ]
-"554
+"544
 [v _strcopy strcopy `(v  1 e 1 0 ]
-"569
+"559
 [v _CompareStrings CompareStrings `(uc  1 e 1 0 ]
-"591
+"581
 [v _Fill Fill `(v  1 e 1 0 ]
-"618
+"608
 [v _init_NumPad init_NumPad `(v  1 e 1 0 ]
-"625
+"615
 [v _read_NumPad read_NumPad `(v  1 e 1 0 ]
-"758
+"748
 [v _UART_init UART_init `(v  1 e 1 0 ]
-"778
+"768
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 [v i1_UART_TxChar UART_TxChar `(v  1 e 1 0 ]
-"788
+"778
 [v _UART_TxString UART_TxString `(v  1 e 1 0 ]
 [v i1_UART_TxString UART_TxString `(v  1 e 1 0 ]
-"809
+"799
 [v _IRS IRS `II(v  1 e 1 0 ]
 "60 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f877a.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
-[s S342 . 1 `uc 1 C 1 0 :1:0 
+[s S339 . 1 `uc 1 C 1 0 :1:0 
 `uc 1 DC 1 0 :1:1 
 `uc 1 Z 1 0 :1:2 
 `uc 1 nPD 1 0 :1:3 
@@ -89,16 +89,16 @@
 `uc 1 IRP 1 0 :1:7 
 ]
 "100
-[s S350 . 1 `uc 1 . 1 0 :5:0 
+[s S347 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RP0 1 0 :1:5 
 `uc 1 RP1 1 0 :1:6 
 ]
-[s S354 . 1 `uc 1 CARRY 1 0 :1:0 
+[s S351 . 1 `uc 1 CARRY 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 ZERO 1 0 :1:2 
 ]
-[u S358 . 1 `S342 1 . 1 0 `S350 1 . 1 0 `S354 1 . 1 0 ]
-[v _STATUSbits STATUSbits `VES358  1 e 1 @3 ]
+[u S355 . 1 `S339 1 . 1 0 `S347 1 . 1 0 `S351 1 . 1 0 ]
+[v _STATUSbits STATUSbits `VES355  1 e 1 @3 ]
 "217
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "341
@@ -112,7 +112,7 @@
 [v _PORTEbits PORTEbits `VES105  1 e 1 @9 ]
 "455
 [v _INTCON INTCON `VEuc  1 e 1 @11 ]
-[s S379 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S376 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -122,13 +122,13 @@
 `uc 1 GIE 1 0 :1:7 
 ]
 "478
-[s S388 . 1 `uc 1 . 1 0 :2:0 
+[s S385 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 T0IE 1 0 :1:5 
 ]
-[u S393 . 1 `S379 1 . 1 0 `S388 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES393  1 e 1 @11 ]
+[u S390 . 1 `S376 1 . 1 0 `S385 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES390  1 e 1 @11 ]
 "533
 [v _PIR1 PIR1 `VEuc  1 e 1 @12 ]
 "965
@@ -169,7 +169,7 @@
 [v _EEADR EEADR `VEuc  1 e 1 @269 ]
 "2317
 [v _EECON1 EECON1 `VEuc  1 e 1 @396 ]
-[s S322 . 1 `uc 1 RD 1 0 :1:0 
+[s S319 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -177,8 +177,8 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "2332
-[u S329 . 1 `S322 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES329  1 e 1 @396 ]
+[u S326 . 1 `S319 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES326  1 e 1 @396 ]
 "2362
 [v _EECON2 EECON2 `VEuc  1 e 1 @397 ]
 "2748
@@ -242,31 +242,29 @@
 "115
 [v _pr_start pr_start `uc  1 e 1 0 ]
 "116
-[v _pr_err_len pr_err_len `uc  1 e 1 0 ]
-"117
 [v _pr_err_max pr_err_max `uc  1 e 1 0 ]
-"118
+"117
 [v _pr_succ pr_succ `uc  1 e 1 0 ]
-"120
+"119
 [v _milliseconds milliseconds `ul  1 e 4 0 ]
-"121
+"120
 [v _seconds seconds `ul  1 e 4 0 ]
-"123
+"122
 [v _num_rand num_rand `i  1 e 2 0 ]
 [v _old_num_rand old_num_rand `i  1 e 2 0 ]
-"125
+"124
 [v _main main `(v  1 e 1 0 ]
 {
-"189
+"179
 [v main@num_rand_s num_rand_s `[16]uc  1 a 16 11 ]
-"328
+"318
 } 0
-"625
+"615
 [v _read_NumPad read_NumPad `(v  1 e 1 0 ]
 {
-"667
+"663
 [v read_NumPad@id id `i  1 a 2 43 ]
-"756
+"746
 } 0
 "6 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\pic\__eewrite.c
 [v _eeprom_write eeprom_write `(v  1 e 1 0 ]
@@ -277,59 +275,59 @@
 [v eeprom_write@addr addr `uc  1 a 1 2 ]
 "9
 } 0
-"569 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"559 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v _CompareStrings CompareStrings `(uc  1 e 1 0 ]
 {
 [v CompareStrings@str1 str1 `*.5uc  1 a 1 wreg ]
-"576
+"566
 [v CompareStrings@i i `uc  1 a 1 13 ]
-"569
+"559
 [v CompareStrings@str1 str1 `*.5uc  1 a 1 wreg ]
 [v CompareStrings@str2 str2 `*.39uc  1 p 2 7 ]
-"572
+"562
 [v CompareStrings@str1 str1 `*.5uc  1 a 1 14 ]
-"589
+"579
 } 0
-"330
+"320
 [v _init_PIC init_PIC `(v  1 e 1 0 ]
 {
-"338
+"328
 [v init_PIC@id id `i  1 a 2 9 ]
-"352
+"342
 } 0
-"402
+"392
 [v _lcdPrint lcdPrint `(v  1 e 1 0 ]
 {
-"404
+"394
 [v lcdPrint@n n `i  1 a 2 9 ]
-"402
+"392
 [v lcdPrint@str str `*.26uc  1 p 2 4 ]
-"411
+"401
 } 0
-"354
+"344
 [v _init_Timer0 init_Timer0 `(v  1 e 1 0 ]
 {
-"362
+"352
 } 0
-"618
+"608
 [v _init_NumPad init_NumPad `(v  1 e 1 0 ]
 {
-"623
+"613
 } 0
-"364
+"354
 [v _init_LCD init_LCD `(v  1 e 1 0 ]
 {
-"383
+"373
 } 0
-"385
+"375
 [v _lcdSend lcdSend `(v  1 e 1 0 ]
 {
 [v lcdSend@dato dato `uc  1 a 1 wreg ]
 [v lcdSend@dato dato `uc  1 a 1 wreg ]
 [v lcdSend@tipo tipo `uc  1 p 1 0 ]
-"389
+"379
 [v lcdSend@dato dato `uc  1 a 1 3 ]
-"400
+"390
 } 0
 "6 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\pic\__eeread.c
 [v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
@@ -340,53 +338,53 @@
 [v eeprom_read@addr addr `uc  1 a 1 1 ]
 "19
 } 0
-"758 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"748 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v _UART_init UART_init `(v  1 e 1 0 ]
 {
 [v UART_init@baudrate baudrate `l  1 p 4 57 ]
-"776
+"766
 } 0
-"591
+"581
 [v _Fill Fill `(v  1 e 1 0 ]
 {
 [v Fill@id id `*.4uc  1 a 1 wreg ]
-"593
+"583
 [v Fill@length length `i  1 a 2 8 ]
-"591
+"581
 [v Fill@id id `*.4uc  1 a 1 wreg ]
-"593
+"583
 [v Fill@id id `*.4uc  1 a 1 10 ]
-"616
+"606
 } 0
-"424
+"414
 [v _ConvertToString ConvertToString `(v  1 e 1 0 ]
 {
-"443
+"433
 [v ConvertToString@temp temp `i  1 a 2 0 ]
-"428
+"418
 [v ConvertToString@i i `i  1 a 2 4 ]
 [v ConvertToString@j j `i  1 a 2 2 ]
-"436
+"426
 [v ConvertToString@n_cifre n_cifre `uc  1 a 1 6 ]
-"424
+"414
 [v ConvertToString@n n `l  1 p 4 57 ]
 [v ConvertToString@str str `*.39uc  1 p 2 61 ]
-"453
+"443
 } 0
-"413
+"403
 [v _pow pow `(i  1 e 2 0 ]
 {
 [v pow@b b `uc  1 a 1 wreg ]
-"416
+"406
 [v pow@i i `i  1 a 2 38 ]
-"415
+"405
 [v pow@n n `i  1 a 2 40 ]
-"413
+"403
 [v pow@b b `uc  1 a 1 wreg ]
 [v pow@exp exp `uc  1 p 1 33 ]
-"415
+"405
 [v pow@b b `uc  1 a 1 37 ]
-"421
+"411
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\common\almod.c
 [v ___almod __almod `(l  1 e 4 0 ]
@@ -412,18 +410,18 @@
 [v ___aldiv@dividend dividend `l  1 p 4 46 ]
 "41
 } 0
-"788 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"778 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v _UART_TxString UART_TxString `(v  1 e 1 0 ]
 {
 [v UART_TxString@str str `*.5DCuc  1 a 1 wreg ]
-"790
+"780
 [v UART_TxString@n n `ui  1 a 2 35 ]
-"788
+"778
 [v UART_TxString@str str `*.5DCuc  1 a 1 wreg ]
 [v UART_TxString@is_ACK is_ACK `uc  1 p 1 33 ]
-"790
+"780
 [v UART_TxString@str str `*.5DCuc  1 a 1 37 ]
-"807
+"797
 } 0
 "6 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\common\rand.c
 [v _srand srand `(v  1 e 1 0 ]
@@ -467,99 +465,99 @@
 [v ___awmod@dividend dividend `i  1 p 2 22 ]
 "34
 } 0
-"778 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"768 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 1 ]
-"786
+"776
 } 0
-"506
+"496
 [v _SplitPacket SplitPacket `(v  1 e 1 0 ]
 {
 [v SplitPacket@pkt pkt `*.5uc  1 a 1 wreg ]
-"515
+"505
 [v SplitPacket@i i `i  1 a 2 22 ]
-"509
+"499
 [v SplitPacket@part part `[5]uc  1 a 5 12 ]
-"512
+"502
 [v SplitPacket@i_part i_part `i  1 a 2 19 ]
 [v SplitPacket@section section `i  1 a 2 17 ]
 [v SplitPacket@len len `i  1 a 2 10 ]
-"506
+"496
 [v SplitPacket@pkt pkt `*.5uc  1 a 1 wreg ]
-"512
+"502
 [v SplitPacket@pkt pkt `*.5uc  1 a 1 21 ]
-"552
+"542
 } 0
-"554
+"544
 [v _strcopy strcopy `(v  1 e 1 0 ]
 {
 [v strcopy@dest dest `*.5uc  1 a 1 wreg ]
-"556
+"546
 [v strcopy@n n `i  1 a 2 5 ]
-"554
+"544
 [v strcopy@dest dest `*.5uc  1 a 1 wreg ]
 [v strcopy@source source `*.4uc  1 p 1 0 ]
-"556
+"546
 [v strcopy@dest dest `*.5uc  1 a 1 4 ]
-"567
+"557
 } 0
-"456
+"446
 [v _ConcatToPacket ConcatToPacket `(v  1 e 1 0 ]
 {
 [v ConcatToPacket@pkt pkt `*.5uc  1 a 1 wreg ]
-"459
+"449
 [v ConcatToPacket@packet_length packet_length `i  1 a 2 23 ]
-"456
+"446
 [v ConcatToPacket@pkt pkt `*.5uc  1 a 1 wreg ]
 [v ConcatToPacket@str str `*.26uc  1 p 2 19 ]
 [v ConcatToPacket@delim delim `uc  1 p 1 21 ]
-"459
+"449
 [v ConcatToPacket@pkt pkt `*.5uc  1 a 1 25 ]
-"478
+"468
 } 0
-"489
+"479
 [v _strcat strcat `(i  1 e 2 0 ]
 {
 [v strcat@dest dest `*.5uc  1 a 1 wreg ]
-"492
+"482
 [v strcat@length_dest length_dest `i  1 a 2 17 ]
 [v strcat@n n `i  1 a 2 15 ]
-"489
+"479
 [v strcat@dest dest `*.5uc  1 a 1 wreg ]
 [v strcat@source source `*.26uc  1 p 2 7 ]
-"492
+"482
 [v strcat@dest dest `*.5uc  1 a 1 14 ]
-"504
+"494
 } 0
-"480
+"470
 [v _Length Length `(i  1 e 2 0 ]
 {
-"482
+"472
 [v Length@len len `i  1 a 2 5 ]
-"480
+"470
 [v Length@str str `*.39uc  1 p 2 0 ]
-"487
+"477
 } 0
-"809
+"799
 [v _IRS IRS `II(v  1 e 1 0 ]
 {
-"841
+"839
 } 0
-"788
+"778
 [v i1_UART_TxString UART_TxString `(v  1 e 1 0 ]
 {
 [v i1UART_TxString@str str `*.5DCuc  1 a 1 wreg ]
-"790
+"780
 [v i1UART_TxString@n n `ui  1 a 2 22 ]
-"788
+"778
 [v i1UART_TxString@str str `*.5DCuc  1 a 1 wreg ]
 [v i1UART_TxString@is_ACK is_ACK `uc  1 p 1 19 ]
-"790
+"780
 [v i1UART_TxString@str str `*.5DCuc  1 a 1 21 ]
-"807
+"797
 } 0
 "6 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c90\common\rand.c
 [v i1_srand srand `(v  1 e 1 0 ]
@@ -603,11 +601,11 @@
 [v i1___awmod@dividend dividend `i  1 p 2 9 ]
 "34
 } 0
-"778 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
+"768 C:\Users\Administrator\Documents\Corso_ITS\Anno 2\Embedded\Test\Project_Work.X\main.c
 [v i1_UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v i1UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v i1UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v i1UART_TxChar@ch ch `uc  1 a 1 1 ]
-"786
+"776
 } 0

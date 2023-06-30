@@ -47,7 +47,7 @@ namespace ManagementRoomApp.Pages
             //int code = Input.Code;
             //una volta che l'utente inseriece nella form il codeice viene trovo l'id della doors che lo ha genrato
             int idDoorsToken = await GetIdDoorsToken(code);
-            //certo lìid della persona loggata
+            //certo lï¿½id della persona loggata
             //var user = await _userManager.GetUserAsync(User);
             var userId = _userManager.GetUserId(User);
             //commento

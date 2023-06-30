@@ -2,7 +2,7 @@
  * File:   main.c
  * Author: Administrator
  *
- * Created on 3 maggio 2023, 14.42
+ * Created on 3 maggio 2023, 14:42
  */
 
 // CONFIG
@@ -94,8 +94,8 @@ unsigned char keypressed = 99;
 char keyf = 0;
 
 char PIC_ID[4] = "\0";                          // vettore che conterrà l'id del PIC           
-int i_id = 0;                                   // indice del vettore "PIC_ID"
-int old_i_id = 0;                               // variabile che serve per fare in modo che stampi l'id inserito quando cambia 
+char i_id = 0;                                  // indice del vettore "PIC_ID"
+char old_i_id = 0;                              // variabile che serve per fare in modo che stampi l'id inserito quando cambia 
 char initialize = 1;                            // flag che indica se serve di inserire un ID al PIC
 char packet[15];                                // vettore che conterrà il pacchetto da inviare in seriale
 char dato[50];                                  // vettore che conterrà il pacchetto ricevuto in seriale
@@ -113,7 +113,6 @@ char success = 0;                               // flag che indica se è il caso 
 char fail = 0;                                  // flag che indica se hai sbagliato a scrivere il codice (serve perchè non entri all'infinito nel secondo ciclo di controllo)
 char maxFail = 3;                               // variabile che indica il numero di tentativi concessi per inserire il codice arrivato da cloud
 char pr_start = 0;                              // flag che indica se stampare "Premi '#'
-char pr_err_len = 0;                            // flag che indica se stampare l'errore che hai inserito un id con meno di 3 caratteri
 char pr_err_max = 0;                            // flag che indica se stampare l'errore che hai inserito un id > di 250
 char pr_succ = 0;                               // flag che indica se stampare il fatto che hai inserito un id corretto
 
@@ -135,15 +134,6 @@ void main(void)
             lcdPrint("Premi '#'\0");
             pr_start = 0;
         }
-        if(pr_err_len)
-        {
-            // stampo l'Errore
-            lcdSend(L_CLR, COMMAND);
-            lcdPrint("ERRORE\0");
-            lcdSend(L_L2, COMMAND);
-            lcdPrint("ID = 3 chars\0");
-            pr_err_len = 0;
-        } 
         if(pr_err_max)
         {
             // Stampo l'errore
@@ -167,7 +157,7 @@ void main(void)
         // leggo se è premuto un pulsante del tastierino
         read_NumPad();
         
-        // se hai cliccato un numero sul tastierino e sei nella fase "compara tastierino e seriale" lo stampo
+        // se hai cliccato un numero sul tastierino e sei nella fase "inizializzazione" lo stampo
         if(i_id != old_i_id && initialize)
         {
             // Stampo il valore
@@ -233,6 +223,7 @@ void main(void)
                 UART_TxString(packet, 1);
                 // inizio la modalità 'confronto tra tastierino e seriale'
                 compare = 1;
+                // resetto il numero rand (questo serve per cancellare le scritte nell'interrupt del timer)
                 old_num_rand = num_rand = 0;
                 // setto i tentativi a 3 (serve se arriva un altro codice da seriale mentre sto inserendo un vecchio codice)
                 maxFail = 3;
@@ -335,22 +326,22 @@ void init_PIC(void)
     init_NumPad();
     init_Timer0();
     
+    // cerco l'id nella eeprom
     int id = (int)eeprom_read(0);
+    // se non esiste, inizio la fase di inserimento ID
     if(id == 255)
     {
         lcdPrint("Inser. ID PIC:\0");
         lcdSend(L_L2, COMMAND);
-        lcdPrint("MIN=000,MAX=250\0");
+        lcdPrint("MIN=0,MAX=250\0");
     }
+    // altimenti, se esiste, lo salvo
     else
     {
         ConvertToString(id, PIC_ID);
         Fill(PIC_ID);
         initialize = 0;
-<<<<<<< HEAD
         pr_start = 1;
-=======
->>>>>>> bff08c9ffd1310e4670118c44638d647ad9e1f3c
     }
 }
 
@@ -664,8 +655,14 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
                 // se sei nella fase di inserimento ID e hai inserito un id valido (di 3 caratteri)
-                if(initialize && i_id == 3)
+                if(initialize)
                 {
+                    // se l'id ha meno di 3 caratteri
+                    if(i_id < 3)
+                    {
+                      // aggiungo gli 0 davanti
+                        Fill(PIC_ID); 
+                    }
                     // Converto l'id in intero (per salvarlo nella eeprom)
                     int id = (PIC_ID[0] - '0') * 100 + (PIC_ID[1] - '0') * 10 + (PIC_ID[2] - '0');
                     // Se l'id è valido
@@ -686,17 +683,11 @@ void read_NumPad(void)
                         i_id = old_i_id = 0;
                     }
                 }
-                // altrimenti se non hai inserito un ID di 3 caratteri
-                else if (initialize && i_id < 3)
-                {
-                    pr_err_len = 1;
-                    // resetto l'ID
-                    PIC_ID[0] = '\0';
-                    i_id = old_i_id = 0;
-                }
                 // altrimenti, se non è ancora arrivato nessun dato da seriale e non sei nella fase di inserimento id
                 else if(!compare)
                 {
+                    // fermo il conteggio dei secondi entro cui pulirebbe lo schermo (serve se hai inserito un id del PIC o sei entrato nella stanza)
+                    seconds = 0;
                     // genero un numero casuale a 4 cifre (tra min = 1000 e MAX = 9999)
                     srand(milliseconds);
                     // se vuoi ottenre un numero random tra 2 valori --> (rand()%(MAX-min)) + min
@@ -835,7 +826,15 @@ void __interrupt() IRS()
             // altrimenti vuol dire che il timer è scattato perchè non ha ricevuto un ACK dal Raspberry
             else
             {
-                seconds = 0;
+                // se il messaggio da rinviare è un codice, resetto il timer
+                if(num_rand != 0)
+                    seconds = 0;
+                // se il messaggio da rinviare è un messaggio di successo/fallita entrata, setto il timer di 4 secondi per cancellare la scritta
+                else
+                {                    
+                    seconds = 1000;
+                    milliseconds = 0;
+                }
                 UART_TxString(packet, 0);
             }
         }

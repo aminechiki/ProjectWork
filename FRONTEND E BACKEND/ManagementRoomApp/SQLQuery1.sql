@@ -2,4 +2,4 @@
 
 select * from Permissions;
 
-User"
+select * from AspNetUsers

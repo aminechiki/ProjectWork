@@ -29,7 +29,8 @@ namespace ManagementRoomApp.Pages.Buildings
             const string query = @"
                                     SELECT [Id],
                                            [Name] as NameBuilding,
-                                           [IdDevice]
+                                           [IdDevice],
+                                           [Description]     
                                       FROM [dbo].[Buildings]";
 
             using var connection = new SqlConnection(this._ConnectionString);
@@ -40,29 +41,43 @@ namespace ManagementRoomApp.Pages.Buildings
         {
             int IdDevice = Int16.Parse(Request.Form["IdDevice"]);
             string NameDevice = Request.Form["NameBuilding"];
-            await InsertBuilding(IdDevice, NameDevice);
+            string IdDeviceCloud = Request.Form["IdDeviceCloud"];
+            await InsertBuilding(IdDevice, NameDevice, IdDeviceCloud);
             RedirectToPage("/ManagementBuildings");
         }
-        public async Task InsertBuilding(int IdDevice, string NameBuilding)
+        public async Task InsertBuilding(int IdDevice, string NameBuilding, string IdDeviceCloud)
         {
             const string query = @"INSERT INTO [dbo].[Buildings]
                                                          ([Name]
-                                                        ,[IdDevice])
+                                                        ,[IdDevice]
+                                                        ,[Description])
                                                    VALUES
                                                          (@NameBuilding
-                                                         ,@IdDevice)";
+                                                         ,@IdDevice
+                                                         ,@IdDeviceCloud)";
             using var connection = new SqlConnection(this._ConnectionString);
             await connection.OpenAsync();
             //return await connection.QueryFirstOrDefaultAsync<int>(query, new { code });
-            await connection.ExecuteAsync(query, new { NameBuilding, IdDevice });
+            await connection.ExecuteAsync(query, new { NameBuilding, IdDevice, IdDeviceCloud });
             //RedirectToPage("/ManagementBuildings");
             Response.Redirect("/Buildings/ManagementBuildings");
         }
         public async Task OnPostDeleteBuilding()
         {
             int idBuilding = Int16.Parse(Request.Form["idBuilding"]);
+            await DeleteDoorBuilding(idBuilding);
             await DeleteBuilding(idBuilding);
             Response.Redirect("/Buildings/ManagementBuildings");
+        }
+
+        public async Task DeleteDoorBuilding(int idBuilding)
+        {
+            const string query = @"DELETE FROM [Doors]
+                                         WHERE [IdBuilding] = @idBuilding";
+
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            await connection.QueryAsync<int>(query, new { idBuilding });
         }
 
         public async Task DeleteBuilding(int IdBuilding)

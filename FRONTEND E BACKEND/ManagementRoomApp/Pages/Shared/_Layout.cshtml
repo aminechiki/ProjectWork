@@ -18,6 +18,13 @@
 
     <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
 
+    <!--CHART JS-->
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </head>
 <body>
     <header>
@@ -34,21 +41,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index"> <font face="Arial"><b>HOME PAGE</b></font></a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav flex-grow-1">
+                    @if (User.IsInRole("Amministratori"))
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Users/ManagementUsers"> <font face="Arial"><b>GESTIONE UTENTI</b></font></a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Buildings/ManagementBuildings"><font face="Arial"><b>GESTIONE EDIFICI</b></font></a>
+                            </li>
+                        </ul>
+                    }
+                    @if (User.IsInRole("Amministratori") || User.IsInRole("Utenti"))
+                    {
+                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/ManagementUsers"> <font face="Arial"><b>MANAGEMENT USERS</b></font></a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Token/Token"><font face="Arial"><b>APRI PORTA</b></font></a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Buildings/ManagementBuildings"><font face="Arial"><b>MANAGEMENT BUILDINGS</b></font></a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Token/Token"><font face="Arial"><b>OPEN DOOR</b></font></a>
-                        </li>
-                    </ul>
+                    }
 
                     <partial name="_LoginPartial" />
                 </div>
@@ -60,6 +73,8 @@
             @RenderBody()
         </main>
     </div>
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -71,6 +71,7 @@ namespace ManagementRoomApp.Pages.Buildings.ManagementDoors
             await connection.OpenAsync();
             await connection.QueryAsync<int>(query, new { idDoor });
         }
+
         public async Task DeletePermissions(int IdDoor)
         {
             const string query = @"DELETE FROM [dbo].[Permissions] WHERE [IdDoor] = @IdDoor";

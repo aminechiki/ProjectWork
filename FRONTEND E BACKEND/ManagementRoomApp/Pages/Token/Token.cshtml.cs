@@ -3,6 +3,7 @@
 #nullable disable
 using Dapper;
 using ManagementRoomApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +14,8 @@ using System.Text.Json;
 
 namespace ManagementRoomApp.Pages
 {
+    [Authorize(Roles = "Amministratori, Utenti")]
+
     public class TokenModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -56,6 +59,8 @@ namespace ManagementRoomApp.Pages
             int idPermissions = await GetIdPermissions(idDoorsToken, userId);
             //Se la persona che tenta di accedere alla porta non ha i permessi per poterlo fare viene indirizzato nella pagina di errore
             //viceversa viene indirizzato nella pagina che mostra il token
+
+            int idBoard = await GetIdBoard(idDoorsToken);
             if (idPermissions == 0)
             {
                 //DA SISTEMARE
@@ -66,11 +71,11 @@ namespace ManagementRoomApp.Pages
             {
                 DeleteToken(code);
                 int codetoken = GenerateToken();
-                MessageToken message = new MessageToken(codetoken, idDoorsToken);
+                MessageToken message = new MessageToken(codetoken, idBoard, userId);
                 string messageSerialize = JsonSerializer.Serialize(message);
 
                 //aggiungere id che corrisponde all nome del device
-
+                Console.WriteLine(userId);
                 await SendDataToDevice(building, messageSerialize);
                 Response.Redirect($"./ManagementToken?token={codetoken}");
             }
@@ -85,6 +90,15 @@ namespace ManagementRoomApp.Pages
 
             await ServiceClient.SendAsync(device, messageDevice);
         }
+
+        public async Task<int> GetIdBoard(int idDoorsToken)
+        {
+            const string query = @"SELECT [IdBoard] FROM [dbo].[Doors] WHERE [Id] = @idDoorsToken";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            return await connection.QueryFirstOrDefaultAsync<int>(query, new { idDoorsToken });
+        }
+
         public async Task<int> GetIdPermissions(int idDoorsToken, string idUser)
         {
             const string query = @"SELECT [Id] FROM [dbo].[Permissions] WHERE [IdDoor] = @idDoorsToken AND [IdUser] = @idUser";

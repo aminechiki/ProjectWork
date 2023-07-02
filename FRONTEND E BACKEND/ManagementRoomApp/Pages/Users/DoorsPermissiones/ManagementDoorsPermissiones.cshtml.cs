@@ -12,6 +12,7 @@ namespace ManagementRoomApp.Pages.Users.DoorsPermissiones
         public List<UsersPermissionsDoors> UsersPermissionsDoors;
         private readonly ILogger<TokenModel> _Logger;
         private readonly string _ConnectionString;
+
         public ManagementDoorsPermissionesModel(ILogger<TokenModel> logger, IConfiguration configuration)
         {
             Doors = new List<Doors>();
@@ -98,5 +99,6 @@ namespace ManagementRoomApp.Pages.Users.DoorsPermissiones
             await connection.OpenAsync();
             return await connection.QueryAsync<UsersPermissionsDoors>(query, new { idUser });
         }
+
     }
 }

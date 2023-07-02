@@ -13,9 +13,7 @@
     </script>
 }
 
-<div>
-    <h1 style="text-align: center;">LISTA PERMESSI PORTE UTENTE</h1>
-</div>
+
 
 <section class="intro">
     <div class="container">
@@ -24,12 +22,11 @@
             <div class="card-body p-0">
 
                 <div data-mdb-perfect-scrollbar="true" style="position: relative">
-
-                    <button class="btn btn-secondary" onclick="openModal('')" style="margin-bottom:15px"><b>ADD DOORS PERMISSIONS</b></button>
                     <a class="btn btn-secondary" href="/Users/ManagementUsers" style="margin-bottom:15px"><b>TORNA ALLA LISTA UTENTI</b></a>
-
+                    <button class="btn btn-secondary" onclick="openModal('')" style="margin-bottom:15px"><b>AGGIUNGI PERMESSI PORTE</b></button>
+                    
                     <table id="tableUser" class="table table-striped table-bordered mb-0">
-                        <thead style="background-color: #4D4B4B ;">
+                        <thead>
                             <tr>
                                 <th scope="col"><b>PORTA</b></th>
                                 <th scope="col"><b>EDIFICIO</b></th>
@@ -53,7 +50,7 @@
                                                 <input hidden type="text" class="form-control" name="IdUser" value="@Request.Query["Id"]">
                                                 <button class="btn btn-danger btn-sm">
                                                     <input type="hidden" name="IdDoor" value="@usersPermissionsDoors.IdDoor" />
-                                                    <b>DELETE </b>
+                                                    <b>ELIMINA </b>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -111,11 +108,10 @@
                                                     </select>
                                                 </div>
                                                 <div style="display: flex; justify-content: flex-end">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button href="/" type="submit" style="margin-left: 3px;" class="btn btn-secondary" data-bs-dismiss="modal">ADD PERMISSIONS</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CHIUDI</button>
+                                                    <button href="/" type="submit" style="margin-left: 3px;" class="btn btn-secondary" data-bs-dismiss="modal">AGGIUNGI PERMESSO</button>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </div>
                                 </div>

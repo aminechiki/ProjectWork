@@ -9,5 +9,6 @@
         public string NameBuilding { get; set; }
         public string EmailUser { get; set; }
         public DateTime Date { get; set; }
+        public bool Success { get; set; }
     }
 }

@@ -16,6 +16,7 @@
 #pragma config CP = OFF  
 
 #include <xc.h>
+// librerie per generare un numero random
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -99,7 +100,7 @@ char old_i_id = 0;                              // variabile che serve per fare 
 char initialize = 1;                            // flag che indica se serve di inserire un ID al PIC
 char packet[15];                                // vettore che conterrà il pacchetto da inviare in seriale
 char dato[50];                                  // vettore che conterrà il pacchetto ricevuto in seriale
-char source;                                    // variabile che conterrà il tipo di dispositivo che ha inviato il pacchetto ricevuto (1 = PIC, 0 = RASP)
+char source;                                    // variabile che conterrà il tipo di dispositivo che ha inviato il pacchetto ricevuto (0 = PIC, 1 = RASP)
 char id_dest[4];                                // variabile che conterrà l'id del destinatario del pacchetto ricevuto
 char type;                                      // variabile che conterrà il tipo di dato ricevuto (0 = codice, 2 = ACK)
 char datoSeriale[17];                           // vettore che conterrà il dato ricevuto in seriale da comparare col dato tastierino
@@ -119,7 +120,6 @@ char pr_countdown = 0;                          // flag che indica quando stampa
 
 unsigned long milliseconds = 0;                 // variabile che conta i millisecondi passati dall'avvio del programma (serve per usarlo come seed del random)
 unsigned long seconds = 0;                      // variabile che serve per scandire i secondi all'interno del timer
-unsigned int countSeconds = 0;                 // variabile che conta i secondi per stamparli
 
 int num_rand = 0, old_num_rand = 0;             // variabili che conterrano il numero generato (old_num_rand serve per fare la stampa solo ogni volta che viene generato un nuovo valore)
 
@@ -134,6 +134,8 @@ void main(void)
         {
             lcdSend(L_CLR, COMMAND);
             lcdPrint("Premi '#'\0");
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("per gen. codice\0");
             pr_start = 0;
         }
         if(pr_err_max)
@@ -250,6 +252,8 @@ void main(void)
                 lcdSend(L_L2, COMMAND);
                 lcdPrint("Tentativi: \0");
                 lcdSend(maxFail + '0', DATA);
+                // stoppo il timer dei 30 secondi
+                seconds = 0;
             }
             // se ricevo un ACK
             if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '2')
@@ -281,7 +285,7 @@ void main(void)
             // esco dalla modalità "confronto tastierino e seriale"
             compare = 0;
             maxFail = 3;
-            // invio al Cloud il fatto che l'utente è riuscita ad entrare (pkt: "1/PIC_ID/1/1\r\n")
+            // invio al Cloud il fatto che l'utente è riuscito ad entrare (pkt: "1/PIC_ID/1/1\r\n")
             packet[0] = '0';
             packet[1] = '/';
             packet[2] = '\0';
@@ -357,6 +361,7 @@ void init_PIC(void)
     else
     {
         ConvertToString(id, PIC_ID);
+        // aggiunge gli zeri davanti se ha meno di 3 caratteri
         Fill(PIC_ID);
         initialize = 0;
         pr_start = 1;
@@ -841,14 +846,12 @@ void __interrupt() IRS()
             {
                 pr_start = 1;
                 seconds = 0;
-                countSeconds = 0;
             }
             // se è scattato il timer dei 30 secondi, stampo il fatto che puoi generare un altro codice
             else if (seconds == 7500)
             {
                 pr_countdown = 1;
                 seconds = 0;
-                countSeconds = 0;
             }
             // altrimenti vuol dire che il timer è scattato perchè non ha ricevuto un ACK dal Raspberry
             else

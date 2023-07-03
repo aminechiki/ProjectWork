@@ -1873,6 +1873,7 @@ extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 2 3
 # 18 "main.c" 2
 
+
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c90\\stdlib.h" 1 3
 
 
@@ -1964,7 +1965,7 @@ extern char * ltoa(char * buf, long val, int base);
 extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
-# 19 "main.c" 2
+# 20 "main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c90\\stdio.h" 1 3
 # 11 "C:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c90\\stdio.h" 3
@@ -2046,8 +2047,8 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 20 "main.c" 2
-# 48 "main.c"
+# 21 "main.c" 2
+# 49 "main.c"
 void init_PIC(void);
 void init_Timer0(void);
 void UART_init(long int);
@@ -2122,7 +2123,6 @@ char pr_countdown = 0;
 
 unsigned long milliseconds = 0;
 unsigned long seconds = 0;
-unsigned int countSeconds = 0;
 
 int num_rand = 0, old_num_rand = 0;
 
@@ -2137,6 +2137,8 @@ void main(void)
         {
             lcdSend(0x01, 0);
             lcdPrint("Premi '#'\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("per gen. codice\0");
             pr_start = 0;
         }
         if(pr_err_max)
@@ -2199,7 +2201,7 @@ void main(void)
             lcdPrint(num_rand_s);
             lcdSend(0xC0, 0);
             lcdPrint("Attendi 30s...\0");
-# 210 "main.c"
+# 212 "main.c"
             packet[0] = '0';
             packet[1] = '/';
             packet[2] = '\0';
@@ -2243,6 +2245,8 @@ void main(void)
                 lcdSend(0xC0, 0);
                 lcdPrint("Tentativi: \0");
                 lcdSend(maxFail + '0', 1);
+
+                seconds = 0;
             }
 
             if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '2')
@@ -2350,6 +2354,7 @@ void init_PIC(void)
     else
     {
         ConvertToString(id, PIC_ID);
+
         Fill(PIC_ID);
         initialize = 0;
         pr_start = 1;
@@ -2834,14 +2839,12 @@ void __attribute__((picinterrupt(("")))) IRS()
             {
                 pr_start = 1;
                 seconds = 0;
-                countSeconds = 0;
             }
 
             else if (seconds == 7500)
             {
                 pr_countdown = 1;
                 seconds = 0;
-                countSeconds = 0;
             }
 
             else

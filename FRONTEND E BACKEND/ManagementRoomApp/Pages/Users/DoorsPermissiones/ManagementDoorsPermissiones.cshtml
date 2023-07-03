@@ -42,7 +42,7 @@
                                     </td>
 
                                     <td>
-                                        @usersPermissionsDoors.NameBuilding
+                                        @usersPermissionsDoors.Description
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-start">
@@ -103,7 +103,7 @@
                                                     <select id="" class="form-select" name="idDoor">
                                                         @foreach (var door in Model.Doors)
                                                         {
-                                                            <option value="@door.IdDoor">@door.NameDoor - @door.NameBuilding</option>
+                                                            <option value="@door.IdDoor">@door.NameDoor - @door.Description</option>
                                                         }
                                                     </select>
                                                 </div>

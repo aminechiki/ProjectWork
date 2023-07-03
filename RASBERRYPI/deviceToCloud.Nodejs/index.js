@@ -43,9 +43,6 @@ parser.on("data", function (data) {
 
 function sendDataToCloud(data) {
 
-
-    console.log(data)
-
     /*
     //Split a message 
     var dataSplit = data.split('/');

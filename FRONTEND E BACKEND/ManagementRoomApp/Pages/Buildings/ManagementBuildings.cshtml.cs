@@ -65,6 +65,7 @@ namespace ManagementRoomApp.Pages.Buildings
         public async Task OnPostDeleteBuilding()
         {
             int idBuilding = Int16.Parse(Request.Form["idBuilding"]);
+
             await DeleteDoorBuilding(idBuilding);
             await DeleteBuilding(idBuilding);
             Response.Redirect("/Buildings/ManagementBuildings");

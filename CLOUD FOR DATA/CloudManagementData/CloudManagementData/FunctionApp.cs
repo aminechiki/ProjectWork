@@ -1,10 +1,8 @@
-using System;
-using System.Threading.Tasks;
 using ApplicationCore.Interfaces;
 using Domain.Entities;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace CloudManagementData
 {
@@ -25,7 +23,7 @@ namespace CloudManagementData
             if (roomData.TypeOfMessage == 0) await this._StorageRoomData.InsertToken(roomData);
             //se è uguale a 1 la board davanti alla porta ha spedito un messaggio per aggiornare lo 
             //stato di accesso alla porta (conferma/fallita apertura porta)
-            if (roomData.TypeOfMessage == 1) await this._StorageRoomData.InsertAccesses(roomData);
+            if (roomData.TypeOfMessage == 1) await this._StorageRoomData.InsertAccessesUser(roomData);
         }
     }
 }

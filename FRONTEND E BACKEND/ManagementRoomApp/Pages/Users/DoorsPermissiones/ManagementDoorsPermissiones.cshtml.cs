@@ -69,6 +69,7 @@ namespace ManagementRoomApp.Pages.Users.DoorsPermissiones
                                         ,[Doors].[Name] as NameDoor, 
                                         [Doors].[IdBoard], 
                                         [Doors].[IdBuilding],
+                                        [Buildings].Description,
                                         [Buildings].[Name] as NameBuilding
                                         FROM [Doors]
                                         INNER JOIN [Buildings] ON [IdBuilding] = [Buildings].[Id]";
@@ -89,7 +90,8 @@ namespace ManagementRoomApp.Pages.Users.DoorsPermissiones
                                      SELECT [IdUser],
 		                                    [IdDoor],
 		                                    [Doors].Name as NameDoor,
-		                                    [Buildings].Name as NameBuilding
+		                                    [Buildings].Name as NameBuilding,
+                                            [Buildings].[Description]
 		                                    FROM [Permissions]
 		                                    INNER JOIN Doors ON [Doors].Id = [Permissions].IdDoor
 		                                    INNER JOIN Buildings ON [Doors].IdBuilding = [Buildings].[Id]

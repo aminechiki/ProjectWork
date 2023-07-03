@@ -71,7 +71,7 @@ namespace ManagementRoomApp.Pages.Accesses
         public async Task<IEnumerable<AccessesUser>> GetAccesses(string idUser)
         {
             const string query = @"
-                                    SELECT [Id]
+                                      SELECT [Accesses].[Id]
                                           ,[IdDoor]
                                           ,[IdUser]
                                           ,[NameDoor]
@@ -79,7 +79,10 @@ namespace ManagementRoomApp.Pages.Accesses
                                           ,[EmailUser]
                                           ,[Date]
                                           ,[Success]
+										  ,[Buildings].[Description]
                                       FROM [dbo].[Accesses]
+									  INNER JOIN [Doors] ON [Doors].[Id] = [Accesses].[IdDoor]
+									  INNER JOIN Buildings ON Buildings.[Id] = [Doors].[IdBuilding]
                                       WHERE [IdUser] = @idUser
                                       ORDER BY Date DESC";
 

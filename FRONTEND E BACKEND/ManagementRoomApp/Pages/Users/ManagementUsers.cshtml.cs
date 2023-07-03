@@ -156,21 +156,5 @@ namespace ManagementRoomApp.Pages
             await connection.OpenAsync();
             return await connection.QueryAsync<Doors>(query);
         }
-        public async Task<IEnumerable<UsersPermissionsDoors>> GetUsersPermissionsDoors()
-        {
-            const string query = @"  SELECT [Doors].[Id] as IdDoor,
-                                           [Doors].[IdBoard],
-                                           [Doors].[Name] NameDoor,
-                                           [Doors].[IdBuilding],
-                                           [Buildings].Name as NameBuilding
-                                      FROM [dbo].[Doors] 
-                                      INNER JOIN [Buildings] ON Doors.IdBuilding = Buildings.Id
-                                      INNER JOIN [Permissions] ON Permissions.IdDoor = Doors.Id
-                                      WHERE [Doors].[Id] = 1;";
-
-            using var connection = new SqlConnection(this._ConnectionString);
-            await connection.OpenAsync();
-            return await connection.QueryAsync<UsersPermissionsDoors>(query);
-        }
     }
 }

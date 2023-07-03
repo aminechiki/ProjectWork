@@ -2,7 +2,7 @@
  * File:   main.c
  * Author: Administrator
  *
- * Created on 3 maggio 2023, 14.42
+ * Created on 3 maggio 2023, 14:42
  */
 
 // CONFIG
@@ -94,8 +94,8 @@ unsigned char keypressed = 99;
 char keyf = 0;
 
 char PIC_ID[4] = "\0";                          // vettore che conterrà l'id del PIC           
-int i_id = 0;                                   // indice del vettore "PIC_ID"
-int old_i_id = 0;                               // variabile che serve per fare in modo che stampi l'id inserito quando cambia 
+char i_id = 0;                                  // indice del vettore "PIC_ID"
+char old_i_id = 0;                              // variabile che serve per fare in modo che stampi l'id inserito quando cambia 
 char initialize = 1;                            // flag che indica se serve di inserire un ID al PIC
 char packet[15];                                // vettore che conterrà il pacchetto da inviare in seriale
 char dato[50];                                  // vettore che conterrà il pacchetto ricevuto in seriale
@@ -113,12 +113,13 @@ char success = 0;                               // flag che indica se è il caso 
 char fail = 0;                                  // flag che indica se hai sbagliato a scrivere il codice (serve perchè non entri all'infinito nel secondo ciclo di controllo)
 char maxFail = 3;                               // variabile che indica il numero di tentativi concessi per inserire il codice arrivato da cloud
 char pr_start = 0;                              // flag che indica se stampare "Premi '#'
-char pr_err_len = 0;                            // flag che indica se stampare l'errore che hai inserito un id con meno di 3 caratteri
 char pr_err_max = 0;                            // flag che indica se stampare l'errore che hai inserito un id > di 250
 char pr_succ = 0;                               // flag che indica se stampare il fatto che hai inserito un id corretto
+char pr_countdown = 0;                          // flag che indica quando stampare il fatto che il countdown dei 30 secondi è finito
 
 unsigned long milliseconds = 0;                 // variabile che conta i millisecondi passati dall'avvio del programma (serve per usarlo come seed del random)
 unsigned long seconds = 0;                      // variabile che serve per scandire i secondi all'interno del timer
+unsigned int countSeconds = 0;                 // variabile che conta i secondi per stamparli
 
 int num_rand = 0, old_num_rand = 0;             // variabili che conterrano il numero generato (old_num_rand serve per fare la stampa solo ogni volta che viene generato un nuovo valore)
 
@@ -135,15 +136,6 @@ void main(void)
             lcdPrint("Premi '#'\0");
             pr_start = 0;
         }
-        if(pr_err_len)
-        {
-            // stampo l'Errore
-            lcdSend(L_CLR, COMMAND);
-            lcdPrint("ERRORE\0");
-            lcdSend(L_L2, COMMAND);
-            lcdPrint("ID = 3 chars\0");
-            pr_err_len = 0;
-        } 
         if(pr_err_max)
         {
             // Stampo l'errore
@@ -163,11 +155,23 @@ void main(void)
             seconds = 1000;
             pr_succ = 0;
         }
+        if(pr_countdown)
+        {
+            lcdSend(L_CLR, COMMAND);
+            // stampo il numero random
+            char num_rand_s[16];
+            ConvertToString(num_rand, num_rand_s);
+            lcdPrint("Codice: \0");
+            lcdPrint(num_rand_s);
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("# per altro cod.\0");
+            pr_countdown = 0;
+        }
         
         // leggo se è premuto un pulsante del tastierino
         read_NumPad();
         
-        // se hai cliccato un numero sul tastierino e sei nella fase "compara tastierino e seriale" lo stampo
+        // se hai cliccato un numero sul tastierino e sei nella fase "inizializzazione" lo stampo
         if(i_id != old_i_id && initialize)
         {
             // Stampo il valore
@@ -188,7 +192,10 @@ void main(void)
             // stampo il numero random
             char num_rand_s[16];
             ConvertToString(num_rand, num_rand_s);
+            lcdPrint("Codice: \0");
             lcdPrint(num_rand_s);
+            lcdSend(L_L2, COMMAND);
+            lcdPrint("Attendi 30s...\0");
             
             /*char digits[4];
             digits[3] = (char) (num_rand / 1000);
@@ -233,6 +240,7 @@ void main(void)
                 UART_TxString(packet, 1);
                 // inizio la modalità 'confronto tra tastierino e seriale'
                 compare = 1;
+                // resetto il numero rand (questo serve per cancellare le scritte nell'interrupt del timer)
                 old_num_rand = num_rand = 0;
                 // setto i tentativi a 3 (serve se arriva un altro codice da seriale mentre sto inserendo un vecchio codice)
                 maxFail = 3;
@@ -247,8 +255,9 @@ void main(void)
             if(source == '1' && CompareStrings(id_dest, PIC_ID) && type == '2')
             {
                 // fermo il conteggio dei 5 secondi per il rinvio del messaggio...
+                // ... facendone partire un altro da 30 secondi (serve in modo che non puoi spammare '#' per generare codici)...
                 if(num_rand != 0)
-                    seconds = 0;
+                    seconds = 7500;
                 // ... rimpiazzandolo con il conteggio per pulire il display (se non c'è un codice a display)
                 else
                 {
@@ -335,18 +344,22 @@ void init_PIC(void)
     init_NumPad();
     init_Timer0();
     
+    // cerco l'id nella eeprom
     int id = (int)eeprom_read(0);
+    // se non esiste, inizio la fase di inserimento ID
     if(id == 255)
     {
         lcdPrint("Inser. ID PIC:\0");
         lcdSend(L_L2, COMMAND);
-        lcdPrint("MIN=000,MAX=250\0");
+        lcdPrint("MIN=0,MAX=250\0");
     }
+    // altimenti, se esiste, lo salvo
     else
     {
         ConvertToString(id, PIC_ID);
         Fill(PIC_ID);
         initialize = 0;
+        pr_start = 1;
     }
 }
 
@@ -660,8 +673,14 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
                 // se sei nella fase di inserimento ID e hai inserito un id valido (di 3 caratteri)
-                if(initialize && i_id == 3)
+                if(initialize)
                 {
+                    // se l'id ha meno di 3 caratteri
+                    if(i_id < 3)
+                    {
+                      // aggiungo gli 0 davanti
+                        Fill(PIC_ID); 
+                    }
                     // Converto l'id in intero (per salvarlo nella eeprom)
                     int id = (PIC_ID[0] - '0') * 100 + (PIC_ID[1] - '0') * 10 + (PIC_ID[2] - '0');
                     // Se l'id è valido
@@ -682,21 +701,15 @@ void read_NumPad(void)
                         i_id = old_i_id = 0;
                     }
                 }
-                // altrimenti se non hai inserito un ID di 3 caratteri
-                else if (initialize && i_id < 3)
-                {
-                    pr_err_len = 1;
-                    // resetto l'ID
-                    PIC_ID[0] = '\0';
-                    i_id = old_i_id = 0;
-                }
-                // altrimenti, se non è ancora arrivato nessun dato da seriale e non sei nella fase di inserimento id
-                else if(!compare)
+                // altrimenti, se non è ancora arrivato nessun dato da seriale e non sei nella fase di inserimento id e non è attivo il timer da 30 secondi (in modo che tu non possa spammare per generare codici)
+                else if(!compare && seconds != 7500)
                 {
                     // genero un numero casuale a 4 cifre (tra min = 1000 e MAX = 9999)
                     srand(milliseconds);
                     // se vuoi ottenre un numero random tra 2 valori --> (rand()%(MAX-min)) + min
                     num_rand = ((rand()%8999)+1000);
+                    // fermo il timer dei 4 secondi per pulire lo schermo
+                    seconds = 0;
                 }
                 // altrimenti, se il dato inserito da tastierino e quello arrivato da seriale sono uguali, setto il flag che "apre la porta" a 1
                 else if(compare && CompareStrings(datoSeriale, datoTastierino))
@@ -820,18 +833,27 @@ void __interrupt() IRS()
     {
         TMR0 = 131;
         milliseconds++;
+        // se è scattato un  timer
         if(seconds != 0 && milliseconds > seconds)
         {
-            // se è scattato il timer dei 4 secondi, faccio in modo che "ID salvato" venga cancellato e stampi "Premi '#'"
+            // se è scattato il timer dei 4 secondi, faccio in modo che pulisca lo schermo e stampi "Premi '#'"
             if(seconds == 1000)
             {
                 pr_start = 1;
                 seconds = 0;
+                countSeconds = 0;
+            }
+            // se è scattato il timer dei 30 secondi, stampo il fatto che puoi generare un altro codice
+            else if (seconds == 7500)
+            {
+                pr_countdown = 1;
+                seconds = 0;
+                countSeconds = 0;
             }
             // altrimenti vuol dire che il timer è scattato perchè non ha ricevuto un ACK dal Raspberry
             else
             {
-                seconds = 0;
+                // reinvio il pacchetto
                 UART_TxString(packet, 0);
             }
         }

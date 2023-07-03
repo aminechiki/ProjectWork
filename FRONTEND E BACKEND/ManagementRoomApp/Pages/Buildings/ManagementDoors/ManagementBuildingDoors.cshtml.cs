@@ -29,9 +29,20 @@ namespace ManagementRoomApp.Pages.Buildings.ManagementDoors
             //idBuilding è inutile
             int IdDoor = Int16.Parse(Request.Form["IdDoor"]);
             int idBuilding = id;
+            await DeleteAccesses(IdDoor);
             await DeletePermissions(IdDoor);
+
+            await DeleteToken(IdDoor);
             await DeleteDoor(IdDoor);
             return RedirectToPage("/Buildings/ManagementDoors/ManagementBuildingDoors", new { id });
+        }
+
+        public async Task DeleteToken(int IdDoor)
+        {
+            const string query = @"DELETE FROM [dbo].[Tokens] WHERE [IdDoor] = @IdDoor";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            await connection.ExecuteAsync(query, new { IdDoor });
         }
 
         public async Task<IActionResult> OnPostInsertDoor(int id)
@@ -75,6 +86,16 @@ namespace ManagementRoomApp.Pages.Buildings.ManagementDoors
         public async Task DeletePermissions(int IdDoor)
         {
             const string query = @"DELETE FROM [dbo].[Permissions] WHERE [IdDoor] = @IdDoor";
+            using var connection = new SqlConnection(this._ConnectionString);
+            await connection.OpenAsync();
+            await connection.ExecuteAsync(query, new { IdDoor });
+        }
+
+
+
+        public async Task DeleteAccesses(int IdDoor)
+        {
+            const string query = @"DELETE from[Accesses] WHERE IdDoor = @IdDoor";
             using var connection = new SqlConnection(this._ConnectionString);
             await connection.OpenAsync();
             await connection.ExecuteAsync(query, new { IdDoor });

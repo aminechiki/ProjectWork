@@ -56,4 +56,47 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Modificarne i permessi di accesso
 - Modificarne i privilegi
 #### Procedura di sblocco
+1.Viene visualizzato il messaggio “Premi #”
+1.L’utente preme “#”
+1.Il Pic rileva la pressione e genera un codice randomico di 4 cifre, che
+stampa sul display
+converte in stringa
+Viene creato un pacchetto (modello illustrato presso DEVICE/Protocol/Protocol.png del branch “feature/Embedded”)
+Invio alla porta seriale
+Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)
+Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto
+Se viene ricevuto viene generato un timer di 30 secondi per impedire la generazione di un nuovo codice da parte di un utente
+Il messaggio raggiunge la Raspberry (che riconosce il delimitatore di pacchetti “/r/n”)
+Viene verificato che il pacchetto non sia un messaggio ACK
+Conversione da pacchetto a JSON
+Viene deserializzato a partire dai separatori “/”
+Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
+ {
+                TypeOfMessage
+                Device
+                Board
+                Code
+                Date: moment().format()
+   }
+Invio del messaggio all’indirizzo del service bus queue
+Invio dell’ACK al Pic
+Service bus queue
+Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
+Se 0, viene inserito un nuovo record nella tabella Tokens
+Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
+Autenticazione dell’utente sull’app
+Convalidazione del token
+Non corrispondenza
+Messaggio di errore
+Corrispondenza
+Inserimento nuovo record in Accesses con Success a 0
+Visualizzazione secondo codice
+Invio codice al Raspberry
+Ricezione sul gateway del messaggio col secondo codice
+{ 
+IdDoor
+IdBoard
+ Code
+ IdUser
+ }
 

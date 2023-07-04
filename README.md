@@ -86,12 +86,12 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      - Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
-  - Non corrispondenza
-    - Messaggio di errore
-  - Corrispondenza
-    - Inserimento nuovo record in Accesses con Success a 0
-    - Visualizzazione secondo codice
-    - Invio codice al Raspberry
+   - Non corrispondenza
+     - Messaggio di errore
+   - Corrispondenza
+     - Inserimento nuovo record in Accesses con Success a 0
+     - Visualizzazione secondo codice
+     - Invio codice al Raspberry
 1. Ricezione sul gateway del messaggio col secondo codice
   { 
     IdDoor

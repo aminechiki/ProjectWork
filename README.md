@@ -71,12 +71,19 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   1. Conversione da pacchetto a JSON
     2. Viene deserializzato a partire dai separatori “/”
     1. Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
+     
              {
+     
                 TypeOfMessage
+     
                 Device
+     
                 Board
+     
                 Code
+     
                 Date: moment().format()
+     
               }
   1. Invio del messaggio all’indirizzo del service bus queue
   1. Invio dell’ACK al Pic
@@ -93,10 +100,16 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Visualizzazione secondo codice
      3. Invio codice al Raspberry
 1. Ricezione sul gateway del messaggio col secondo codice
-  { 
-    IdDoor
-    IdBoard
-    Code
-    IdUser
-  }
+   
+               {
+   
+                 IdDoor
+   
+                 IdBoard
+   
+                 Code
+   
+                 IdUser
+   
+               }
 

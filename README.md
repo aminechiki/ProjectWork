@@ -87,11 +87,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
    - Non corrispondenza
-     - Messaggio di errore
+     1. Messaggio di errore
    - Corrispondenza
-     - Inserimento nuovo record in Accesses con Success a 0
-     - Visualizzazione secondo codice
-     - Invio codice al Raspberry
+     1. Inserimento nuovo record in Accesses con Success a 0
+     2. Visualizzazione secondo codice
+     3. Invio codice al Raspberry
 1. Ricezione sul gateway del messaggio col secondo codice
   { 
     IdDoor

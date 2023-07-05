@@ -137,7 +137,25 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Ricezione messaggio di sblocco sul Raspberry
    2. Invio ACK
    3. Associazione del messaggio al mittente confrontando le associazioni memorizzate
-   1. Invio messaggio di sblocco sul service bus
+   1. Composizione messaggio di sblocco
+      
+             {
+      
+                TypeOfMessage
+      
+                Device: (RASP_ID)
+      
+                Board:(DOOR_ID)
+      
+                Success
+      
+                Date: moment().format()
+      
+                IdUser
+      
+             }
+      
+   3. Indirizzamento alla queue
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di accesso, portando Success a 1
 

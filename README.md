@@ -40,7 +40,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
   - Uno o più simulatori del gateway istanziati su sistema operativo Windows attraverso applicazioni Node.js riconfigurate
     - RASBERRYPI/deviceToCloud.Nodejs
   - In alternativa
-    - Uno o più dispositivi fisici con os Ubuntu e cablati con USB al pc su cui vengono istanziati i simulatori dei PIC
+    - Uno o più dispositivi fisici con os Ubuntu e connessi serialmente al pc su cui vengono istanziati i simulatori dei PIC
       - 
 - Visual Studio per eseguire il progetto dell'Azure Function
   - CLOUD FOR DATA/CloudManagementData

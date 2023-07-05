@@ -30,14 +30,14 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
  - Gli utenti standard devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione
 ### Requisiti tecnici
-Per mettere in funzione l'architettura implementata e testarne il comportamento sono necessari:
+Per mettere in funzione il sistema implementata e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - [main.c](PIC/Code)
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
-     - [Folder progetto Node per Ubuntu](RASBERRYPI)
-  - In alternativa, uno o più app simulatrici Node.js, istanziati su Windows
-     - [Folder progetto Node per Ubuntu](RASBERRYPI)
+     - [Folder progetto Node per Ubuntu](RASPBERRYPI)
+  - In alternativa, uno o più app simulatrici Node.js istanziate su Windows
+     - [Folder progetto Node per Ubuntu](RASPBERRYPI)
      - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione delle porte sul codice
         - Una interfaccia seriale virtuale per il PIC
         - Una interfaccia seriale virtuale per il gateway di riferimento

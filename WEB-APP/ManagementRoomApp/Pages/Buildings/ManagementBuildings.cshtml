@@ -96,7 +96,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;"><b>ADD BUILDING</b></h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;"><b>AGGIUNGI EDIFICIO</b></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -112,8 +112,7 @@
                                 <div data-mdb-perfect-scrollbar="true" style="position: relative">
 
                                     <div id="myDIV" style="margin-bottom:30px; border-style: solid; border-radius: 25px;">
-
-                                        <p style="text-align:center; padding-top:3px"><b> INSERISCI IL NOME DELL'EDIFICO E L'ID DEL DEVICE A CUI VUOI ASSOCIARLO</b></p>
+        
                                         <div style="padding: 2px 10px 10px 10px;">
 
                                             <form asp-page-handler="Building" method="post">
@@ -148,77 +147,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modale Add Ports-->
-<div class="modal" id="modalAddPort" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;"><b>ADD DOORS</b></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <section class="intro">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="card-body p-0">
-                                <div data-mdb-perfect-scrollbar="true" style="position: relative">
-                                    <div id="myDIV" style="margin-bottom:30px; border-style: solid; border-radius: 25px;">
-                                        <p style="text-align:center; padding-top:3px"><b> INSERISCI IL NOME DELL'EDIFICO E L'ID DEL DEVICE A CUI VUOI ASSOCIARLO</b></p>
-                                        <div style="padding: 2px 10px 10px 10px;">
-                                            <form asp-page-handler="Door" method="post">
-                                                <input hidden id="IdBuilding" type="number" class="form-control" name="IdBuilding">
-                                                <div class="mb-3">
-                                                    <label class="form-label">ID PORTA</label>
-                                                    <input type="number" class="form-control" name="IdBoard">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">NOME PORTA</label>
-                                                    <input type="text" class="form-control" name="NameDoor">
-                                                </div>
-                                                <div style="display: flex; justify-content: flex-end">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button href="/" type="submit" style="margin-left: 3px;" class="btn btn-secondary" data-bs-dismiss="modal">ADD EDIFICIO</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;"><b>LIST DOORS</b></h5>
-                                    <table id="tableUser" class="table table-striped table-bordered mb-0">
-                                        <thead style="background-color: #4D4B4B ;">
-                                            <tr>
-                                                <th scope="col"><b>PORTA</b></th>
-                                                <th scope="col"><b>AZIONE</b></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                </td>
-
-                                                <td>
-                                                    <a class="btn btn-danger btn-sm" href="/Users/DeleteUser?Id=">
-                                                        <b>DELETE </b>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                                                        </svg>
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>

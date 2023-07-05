@@ -75,6 +75,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Viene creato un pacchetto
    
    Modello protocollo
+   
      ![Modello protocollo](PIC/Protocol/Protocol.png)
 1. Il pacchetto viene inviato alla porta seriale
 1. Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)

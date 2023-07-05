@@ -121,7 +121,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                }
    
-    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del successivo messaggio di sblocco
+    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente genratore
     1. Generazione e invio del pacchetto al Pic
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
@@ -136,13 +136,14 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
         1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
    2. Invio ACK
-   3. Associazione del messaggio al mittente secondo le associazioni memorizzate
+   3. Associazione del messaggio al mittente confrontando le associazioni memorizzate
    1. Invio messaggio di sblocco sul service bus
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di accesso, portando Success a 1
 
 ##### Precisazioni
-- Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice!
+- Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice sulla porta!
 - Solo un utente per volta può effetturare il tentativo di accesso a una specifica porta!
-  - Ogni nuovo secondo codice per la specifica porta che viene ricevuto dal Raspberry sovrascrive l'eventuale precedente indirizzato alla medesima
-    - Ogni codice ricevuto dal Pic sovrascrive quello attualmente in attesa di convalidazione 
+  - Ogni nuovo messaggio di secondo codice ricevuto dal Raspberry per la specifica porta sovrascrive l'eventuale precedente messaggio indirizzato alla medesima
+    - Ogni codice ricevuto dal PIC sovrascrive, se presente, quello attualmente in attesa di convalidazione
+  - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!

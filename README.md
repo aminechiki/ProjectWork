@@ -93,6 +93,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
                 Date: moment().format()
      
               }
+        
    1. Invio del messaggio all’indirizzo del service bus queue
    1. Invio dell’ACK al Pic
 1. Service bus queue
@@ -120,6 +121,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
                  IdUser
    
                }
+   
     1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del successivo messaggio di sblocco
     1. Generazione e invio del pacchetto al Pic
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 

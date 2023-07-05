@@ -13,7 +13,6 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
    - Service bus
    - Web App
    - SQL Azure
-   - Azure Function
  - Browser web
 ### Requisiti funzionali minimi
  - Lo sblocco deve avvenire a seguito di una verifica in due passaggi

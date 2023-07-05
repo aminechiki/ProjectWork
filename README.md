@@ -74,7 +74,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Il Pic rileva la pressione e genera un codice randomico di 4 cifre, che
    1. stampa sul display
    1. converte in stringa
-1. Viene creato un pacchetto
+1. Viene creato un pacchetto RS485 col codice
+  2. "0/0/Code"
    
    Modello protocollo
    
@@ -108,6 +109,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
         3. Attesa scodamento
    1. Invio dell’ACK al Pic
+     2. "1/Board/2"
 1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens

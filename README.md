@@ -173,7 +173,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
    3. Indirizzamento al device dell'hub e accodamento
    4. Invio ACK al PIC
-       3. "1/IdBoard/2"
+      3. "1/IdBoard/2"
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 

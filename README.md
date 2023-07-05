@@ -75,7 +75,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    1. stampa sul display
    1. converte in stringa
 1. Viene creato un pacchetto RS485 col codice
-  - "0/0/Code"
+   - "0/0/Code"
    
    Modello protocollo
    
@@ -109,7 +109,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
         3. Attesa scodamento
    1. Invio dell’ACK al Pic
-       2. "1/Board/2"
+       - "1/Board/2"
 1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens
@@ -135,20 +135,20 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
     1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore del secondo codice
     1. Generazione e invio del pacchetto al Pic
-        1. "0/IdDoor/1/Code"
+       - "0/IdDoor/1/Code"
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
    2. Invio ACK al Raspberry
-       3. "0/2"
+      - "0/2"
    1. Tre tentativi di immissione del codice dall’utente e sua convalidazione 
       - In caso di riuscita
         1. Generazione pacchetto con la conferma dello sblocco
-           1. "0/1/1"
+           - "0/1/1"
         1. Messaggio di sblocco sul display
         1. Attesa ACK e eventuale rinvio
       - In caso di fallimento
         1. Generazione pacchetto di fallimento procedura
-           1. "0/1/0"
+           - "0/1/0"
         1. Messaggio di rifiuto sul display
         1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
@@ -173,7 +173,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
    3. Indirizzamento al device dell'hub e accodamento
    4. Invio ACK al PIC
-      3. "1/IdBoard/2"
+      - "1/IdBoard/2"
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 

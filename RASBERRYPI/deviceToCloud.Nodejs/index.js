@@ -148,6 +148,7 @@ function sendDataToControllerRoom(messaggio)
     {
         if(timerObjs[i].pic_id == pic_id)
         {
+            clearTimeout(timerObjs[i].timer);
             timerObjs.splice(i, 1);
             break;
         }
@@ -158,9 +159,8 @@ function sendDataToControllerRoom(messaggio)
     // ciclo l'array degli utenti per rimuovere il vecchio utente (serve se scatta il timer dell'ACK che ri-richiama la funzione, altrimenti avre 2 utenti uguali che provano ad accedere allo stesso PIC)
     for(let i = 0; i < userObjs.length; i++)
     {
-        if(userObjs[i].user == json.IdUser.toString())
+        if(userObjs[i].pic_id == pic_id)
         {
-            clearTimeout(timerObjs[i].timer);
             userObjs.splice(i, 1);
             break;
         }

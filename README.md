@@ -32,13 +32,13 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici
 Per mettere in funzione l'architettura implementata e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - [Progetto MPLAB](PIC/Code)
+  - [main.c](PIC/Code)
 - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice
   - Una interfaccia seriale virtuale per il PIC
   - Una interfaccia seriale virtuale per il gateway di riferimento
 - Dispositivi Raspberry Pi
-  - Uno o più simulatori del gateway istanziati su sistema operativo Windows attraverso applicazioni Node.js riconfigurate
-    - RASBERRYPI/deviceToCloud.Nodejs
+  - Uno o più simulatori del gateway istanziati su sistema operativo Windows attraverso applicazioni Node.js da configurare (porte e indirizzi queue)
+    - [folder](RASBERRYPI)
   - In alternativa
     - Uno o più dispositivi fisici con os Ubuntu e connessi serialmente al pc su cui vengono istanziati i simulatori dei PIC
       - branch "feature/Embedded"

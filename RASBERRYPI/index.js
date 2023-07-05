@@ -8,7 +8,19 @@ const moment = require('moment/moment');
 //SERIAL PORT
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
-const port = new SerialPort('COM7');
+
+/* Comunicazione con COM0COM:
+*  const port = new SerialPort('COM7'); */
+
+// Comunicazione in seriale:
+const port = new SerialPort('/dev/ttyUSB0',
+{   baudRate: 115200,
+    dataBits: 8,
+    parity: 'none',
+    stopBits: 1,
+   // flowControl: false
+});
+
 const parser = new Readline(new Readline({ delimiter: '\r\n' }));
 port.pipe(parser);
 let timerObjs = [];

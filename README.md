@@ -42,7 +42,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
         - Una interfaccia seriale virtuale per il PIC
         - Una interfaccia seriale virtuale per il gateway di riferimento
 - Visual Studio per eseguire il progetto dell'Azure Function
-  - [Progetto Azure Function](AZURE_FUNCTION)
+  - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
   - [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web

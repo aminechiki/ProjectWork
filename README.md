@@ -49,7 +49,9 @@ Per mettere in funzione il sistema implementata e testarne il comportamento sono
   - Verificare l'URL della home del portale
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
+
 ![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](DB/Definitive.png)
+
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
@@ -77,6 +79,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    Modello protocollo
    
      ![Modello protocollo](PIC/Protocol/RS485.png)
+   
 1. Il pacchetto viene inviato alla porta seriale
 1. Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)
    - Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto
@@ -105,7 +108,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
        3. Attesa scodamento
    1. Invio dell’ACK al Pic
-1. Service bus queue
+1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
       - Se 0, viene inserito un nuovo record nella tabella Tokens
       - Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
@@ -114,9 +117,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Non corrispondenza
      1. Messaggio di errore
    - Corrispondenza
-     1. Inserimento nuovo record in Accesses con Success a 0
-     2. Visualizzazione secondo codice
-     3. Invio codice al Raspberry
+     1. Inserimento nuovo record nella tabella Accesses con campo Success a 0
+     2. Visualizzazione dell'utente del secondo codice
+     3. Invio codice all'indirizzo dell'IoT Hub del device di provenienza del primo codice
 1. Ricezione sul gateway del messaggio col secondo codice
    
                {
@@ -129,21 +132,24 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                }
    
-    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente genratore
+    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore
     1. Generazione e invio del pacchetto al Pic
+      2. 0/IdDoor/1/Code
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
-   1. Tre tentativi di immissione e convalidazione del codice immesso dall’utente 
+   1. Tre tentativi di immissione del codice dall’utente e sua convalidazione 
       - In caso di riuscita
-        1. Generazione pacchetto con la conferma dello sblocco (Tipo 1)
+        1. Generazione pacchetto con la conferma dello sblocco
+          2. 1/1/1
         1. Messaggio di sblocco sul display
         1. Attesa ACK e eventuale rinvio
       - In caso di fallimento
-        1. Pacchetto fallimento
+        1. Generazione pacchetto fallimento procedura
+          2. 1/1/0
         1. Messaggio di rifiuto sul display
         1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
-   2. Invio ACK
+   2. Invio ACK al PIC
    3. Associazione del messaggio al mittente confrontando le associazioni memorizzate
    1. Composizione messaggio di sblocco
       
@@ -163,9 +169,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
              }
       
-   3. Indirizzamento alla queue
+   3. Indirizzamento al device dell'hub e accodamento
 1. Scodamento
-   - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di accesso, portando Success a 1
+   - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 
 ##### Precisazioni
 - Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice sulla porta!
@@ -173,3 +179,5 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Ogni nuovo messaggio di secondo codice ricevuto dal Raspberry per la specifica porta sovrascrive l'eventuale precedente messaggio indirizzato alla medesima
     - Ogni codice ricevuto dal PIC sovrascrive, se presente, quello attualmente in attesa di convalidazione
   - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!
+ ##### Suggerimenti post-presentazione
+ - Il protocollo potrebbe essere ottimizzato

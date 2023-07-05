@@ -62,11 +62,15 @@ namespace ManagementRoomApp.Pages
         {
             string IdUser = Request.Form["IdUser"];
             var user = await _userManager.FindByIdAsync(IdUser);
+
             // Remove the user from their current role(s)
             var currentRoles = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, currentRoles);
             // Add the user to the new role
             await _userManager.AddToRoleAsync(user, "Amministratori");
+
+
+
             Response.Redirect("/Users/ManagementUsers");
         }
         public async Task OnPostSetNormalUser()

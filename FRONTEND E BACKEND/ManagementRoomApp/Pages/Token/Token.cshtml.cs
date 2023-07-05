@@ -50,6 +50,8 @@ namespace ManagementRoomApp.Pages
             //int code = Input.Code;
             //una volta che l'utente inseriece nella form il codeice viene trovo l'id della doors che lo ha genrato
             int idDoorsToken = await GetIdDoorsToken(code);
+
+
             //certo lìid della persona loggata
             //var user = await _userManager.GetUserAsync(User);
             var userId = _userManager.GetUserId(User);
@@ -61,13 +63,20 @@ namespace ManagementRoomApp.Pages
             //viceversa viene indirizzato nella pagina che mostra il token
 
             int idBoard = await GetIdBoard(idDoorsToken);
-            if (idPermissions == 0)
+
+            if (idDoorsToken == 0)
+            {
+                Response.Redirect($"../Error/ErrorPageCode");
+            }
+            else if (idPermissions == 0)
             {
                 //DA SISTEMARE
-                RedirectToPage("../Error/ErrorPagePermissionDoor");
+                //RedirectToPage("../Error/ErrorPagePermissionDoor");
                 Response.Redirect($"../Error/ErrorPagePermissionDoor");
             }
-            else
+
+
+            if (idDoorsToken != 0 && idPermissions != 0)
             {
                 DeleteToken(code);
                 int codetoken = GenerateToken();
@@ -79,6 +88,7 @@ namespace ManagementRoomApp.Pages
                 await SendDataToDevice(building, messageSerialize);
                 Response.Redirect($"./ManagementToken?token={codetoken}");
             }
+
         }
         public async Task SendDataToDevice(string device, string message)
         {

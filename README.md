@@ -111,9 +111,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                {
    
-                 IdDoor
-   
-                 IdBoard
+                 IdBoard: (DOOR_ID)
    
                  Code
    

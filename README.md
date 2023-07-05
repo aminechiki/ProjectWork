@@ -36,6 +36,7 @@ Per mettere in funzione l'architettura implementata e osservarne il comportament
 - Una nterfaccia seriale virtuale per ogni simulatore del PIC istanziato
 - Una interfaccia seriale virtuale per il simulatore del Raspberry
 - Uno o più simulatori del gateway Raspberry Pi, istanziati attraverso applicazioni Node.js su sistema operativo Windows
+  - RASBERRYPI/deviceToCloud.Nodejs
 - Un dispositivo in grado di visualizzare pagine web
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer

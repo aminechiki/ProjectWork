@@ -34,7 +34,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 Per mettere in funzione l'architettura implementata e osservarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
 - Una nterfaccia seriale virtuale per ogni simulatore del PIC istanziato
-- Una interfaccia seriale virtuale per il simulatore del Raspberry
+- Una interfaccia seriale virtuale per il simulatore del Raspberry per ogni simulatore del PIC istanziato
 - Uno o più simulatori del gateway Raspberry Pi, istanziati attraverso applicazioni Node.js su sistema operativo Windows
   - RASBERRYPI/deviceToCloud.Nodejs
 - Visual Studio o istanza Azure Web App

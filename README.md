@@ -73,6 +73,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    1. stampa sul display
    1. converte in stringa
 1. Viene creato un pacchetto
+   
    Modello protocollo
      ![Modello protocollo](PIC/Protocol/Protocol.png)
 1. Il pacchetto viene inviato alla porta seriale

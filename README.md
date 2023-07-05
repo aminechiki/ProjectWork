@@ -99,7 +99,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      
               }
         
-   1. Invio del messaggio all’indirizzo del service bus queue
+   1. Invio del messaggio all’indirizzo del relativo device istanziato sull'istanza dell'IoT Hub
+     2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
+       3. Attesa scodamento
    1. Invio dell’ACK al Pic
 1. Service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage

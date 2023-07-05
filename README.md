@@ -44,6 +44,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
   - FRONTEND E BACKEND/ManagementRoomApp
 - Un dispositivo in grado di visualizzare pagine web
+  - Verificare l'URL della home del portale
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 #### Configurazione centralina della porta
@@ -140,7 +141,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di accesso, portando Success a 1
 
 ##### Precisazioni
-Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice!
-
-
-
+- Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice!
+- Solo un utente per volta può effetturare il tentativo di accesso a una specifica porta!
+  - Ogni nuovo secondo codice per la specifica porta che viene ricevuto dal Raspberry sovrascrive l'eventuale precedente indirizzato alla medesima
+    - Ogni codice ricevuto dal Pic sovrascrive quello attualmente in attesa di convalidazione 

@@ -2118,6 +2118,7 @@ char fail = 0;
 char maxFail = 3;
 char pr_start = 0;
 char pr_err_max = 0;
+char pr_empty = 0;
 char pr_succ = 0;
 char pr_countdown = 0;
 
@@ -2149,6 +2150,15 @@ void main(void)
             lcdSend(0xC0, 0);
             lcdPrint("ID > 250\0");
             pr_err_max = 0;
+        }
+        if(pr_empty)
+        {
+
+            lcdSend(0x01, 0);
+            lcdPrint("ERRORE\0");
+            lcdSend(0xC0, 0);
+            lcdPrint("ID VUOTO\0");
+            pr_empty = 0;
         }
         if(pr_succ)
         {
@@ -2201,7 +2211,7 @@ void main(void)
             lcdPrint(num_rand_s);
             lcdSend(0xC0, 0);
             lcdPrint("Attendi 30s...\0");
-# 212 "main.c"
+# 222 "main.c"
             packet[0] = '0';
             packet[1] = '/';
             packet[2] = '\0';
@@ -2322,7 +2332,7 @@ void main(void)
         {
 
             lcdSend(0x01, 0);
-            lcdPrint("#=conf. *=canc.\0\0"),
+            lcdPrint("#=conf. *=canc.\0"),
             lcdSend(0xC0, 0);
             lcdPrint(datoTastierino);
         }
@@ -2671,7 +2681,7 @@ void read_NumPad(void)
             if(keypressed == 8)
             {
 
-                if(initialize)
+                if(initialize && i_id > 0)
                 {
 
                     if(i_id < 3)
@@ -2699,6 +2709,9 @@ void read_NumPad(void)
                         i_id = old_i_id = 0;
                     }
                 }
+
+                else if (initialize)
+                    pr_empty = 1;
 
                 else if(!compare && seconds != 7500)
                 {

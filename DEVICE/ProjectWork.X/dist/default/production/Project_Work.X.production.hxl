@@ -8,14 +8,14 @@
 
 ### Memory Usage ###
  Intel Hex-file ranges:
-  0h - 1041h		(dist/default/production\Project_Work.X.production.hex)
-  1046h - 1FFFh		(dist/default/production\Project_Work.X.production.hex)
-  2A8Ch - 2FFFh		(dist/default/production\Project_Work.X.production.hex)
+  0h - 1031h		(dist/default/production\Project_Work.X.production.hex)
+  1034h - 1FFFh		(dist/default/production\Project_Work.X.production.hex)
+  2A22h - 2FFFh		(dist/default/production\Project_Work.X.production.hex)
   4000h - 4007h		(dist/default/production\Project_Work.X.production.hex)
   400Eh - 400Fh		(dist/default/production\Project_Work.X.production.hex)
  Unused ranges:
-  1042h - 1045h
-  2000h - 2A8Bh
+  1032h - 1033h
+  2000h - 2A21h
   3000h - 3FFFh
   4008h - 400Dh
 
@@ -285,8 +285,8 @@
 00001000 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001010 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001020 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00001030 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00001040 | H1 H1 -- -- -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001030 | H1 H1 -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001040 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001050 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001060 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001070 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
@@ -539,7 +539,13 @@
 00001FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00001FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
-00002A80 | -- -- -- -- -- -- -- -- -- -- -- -- H1 H1 H1 H1
+00002A20 | -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A30 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A40 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A50 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A60 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A70 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002A80 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002A90 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002AA0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002AB0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1

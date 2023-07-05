@@ -86,18 +86,18 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto
    - Se viene ricevuto viene generato un timer di 30 secondi per impedire la generazione di un nuovo codice da parte di un utente
 1. Il messaggio raggiunge la Raspberry (che riconosce il delimitatore di pacchetti “/r/n”)
-   1.Viene verificato che il pacchetto non sia un messaggio ACK
-   1. Conversione da pacchetto a JSON
-     2. Viene deserializzato a partire dai separatori “/”
+   1. Viene verificato che il pacchetto non sia un messaggio ACK
+   1. Conversione del messaggio da RS485 a JSON
+     2. Deserializzazione a partire dai separatori “/”
      1. Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
      
              {
      
                 TypeOfMessage
      
-                Device
+                Device: (IdGateway)
      
-                Board
+                Board: (IdDoor)
      
                 Code
      
@@ -105,7 +105,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      
               }
         
-   1. Invio del messaggio all’indirizzo del relativo device istanziato sull'istanza dell'IoT Hub
+   1. Invio del messaggio all’indirizzo del relativo device dell'istanza dell'IoT Hub
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
         3. Attesa scodamento
    1. Invio dell’ACK al Pic
@@ -125,7 +125,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                {
    
-                 IdBoard: (DOOR_ID)
+                 IdBoard: (IdDoor)
    
                  Code
    
@@ -138,15 +138,17 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
        1. "0/IdDoor/1/Code"
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
+   2. Invio ACK al Raspberry
+      3. "0/2"
    1. Tre tentativi di immissione del codice dall’utente e sua convalidazione 
       - In caso di riuscita
         1. Generazione pacchetto con la conferma dello sblocco
-           1. "1/1/1"
+           1. "0/1/1"
         1. Messaggio di sblocco sul display
         1. Attesa ACK e eventuale rinvio
       - In caso di fallimento
-        1. Generazione pacchetto fallimento procedura
-           1. "1/1/0"
+        1. Generazione pacchetto di fallimento procedura
+           1. "0/1/0"
         1. Messaggio di rifiuto sul display
         1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
@@ -171,7 +173,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
    3. Indirizzamento al device dell'hub e accodamento
    4. Invio ACK al PIC
-     3. "1/IdBoard/2"
+      3. "1/IdBoard/2"
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 

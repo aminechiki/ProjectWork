@@ -35,9 +35,9 @@ Per mettere in funzione il sistema implementata e testarne il comportamento sono
   - [main.c](PIC/Code)
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
-     - [Folder progetto Node per Ubuntu](RASPBERRYPI)
+     - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
   - In alternativa, uno o più app simulatrici Node.js istanziate su Windows
-     - [Folder progetto Node per Ubuntu](RASPBERRYPI)
+     - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
      - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione delle porte sul codice
         - Una interfaccia seriale virtuale per il PIC
         - Una interfaccia seriale virtuale per il gateway di riferimento

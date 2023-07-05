@@ -53,7 +53,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
-  2. Se quello inserito è maggiore di 250 viene riavviata la procedura
+   - Se quello inserito è maggiore di 250 viene riavviata la procedura
 #### Portale web
 ##### Registrazione utente
 - Il servizio di autenticazione è gestito dal framework Razor Pages

@@ -50,7 +50,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
   - Verificare l'URL della home del portale
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
-![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](/FRONTEND E BACKEND/Definitive.png)
+![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](FRONTEND E BACKEND/Definitive.png)
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
@@ -73,7 +73,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Il Pic rileva la pressione e genera un codice randomico di 4 cifre, che
    1. stampa sul display
    1. converte in stringa
-1. Viene creato un pacchetto (modello illustrato presso DEVICE/Protocol/Protocol.png del branch “feature/Embedded”)
+1. Viene creato un pacchetto
+   - Modello protocollo
+     ![Modello protocollo](PIC/Protocol/Protocol.png)
 1. Il pacchetto viene inviato alla porta seriale
 1. Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)
    - Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto

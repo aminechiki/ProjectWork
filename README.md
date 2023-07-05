@@ -25,9 +25,9 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
    - Visualizzazione cronologia accessi
    - Espulsione utenti standard dalla piattaforma
    - Modifica dei privilegi degli utenti standard
-   - Inserimento e cancellazione di edifici e relative porte dalla piattaforma
-   - Modifica dei permessi di accesso alle porte degli utenti standard
- - Gli utenti standard devono autenticarsi per accedere alla piattaforma
+   - Aggiunta e rimozione di edifici e/o relative porte dalla piattaforma
+   - Modifica dei permessi di accesso alle porte degli utenti
+ - Gli utenti devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione
 ### Requisiti tecnici
 Per mettere in funzione il sistema implementata e testarne il comportamento sono necessari:
@@ -186,3 +186,5 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
  ##### Suggerimenti post-presentazione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
    - Infatti, essendo che un PIC comunica unicamente col proprio gateway, è sufficiente verificare la presenza del byte di id della porta per discriminare il tipo di sorgente
+- Se un utente viene espulso dalla piattaforma, stessa sorte tocca alla cronologia dei suoi accessi!
+  - Sarebbe opportuno implementare anche il servizio di attivazione e disattivazione temporanee delle utenze, così da renderne persistenti alcune informazioni correlate

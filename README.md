@@ -1,4 +1,4 @@
-# Project Work A2
+# Project Work A2 by TechGeeks
 ## Il problema
 ### Il contesto
 Viene commissionata la realizzazione di un sistema di sblocco delle porte delle stanze degli edifici di un campus universitario.

@@ -31,7 +31,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
  - Gli utenti standard devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione
 ### Requisiti tecnici
-Per mettere in funzione l'architettura implementata e osservarne il comportamento sono necessari:
+Per mettere in funzione l'architettura implementata e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - DEVICE/ProjectWork.X
 - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice

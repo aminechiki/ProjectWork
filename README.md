@@ -50,7 +50,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
   - Verificare l'URL della home del portale
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
-![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](FRONTEND E BACKEND/Definitive.png)
+![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](DB/Definitive.png)
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”

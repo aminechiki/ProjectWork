@@ -112,4 +112,28 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
                  IdUser
    
                }
+    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del messaggio di sblocco
+    1. Serializzazione del pacchetto da spedire al Pic
+    1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
+1. Ricezione secondo codice sul Pic
+  1. Tre tentativi di immissione e convalidazione del codice immesso dall’utente 
+    - In caso di riuscita
+      1. Generazione pacchetto con la conferma dello sblocco (Tipo 1)
+      1. Messaggio di sblocco sul display
+      1. Attesa ACK e eventuale rinvio
+    - In caso di fallimento
+      1. Pacchetto fallimento
+      1. Messaggio di rifiuto sul display
+      1. Attesa ACK e eventuale rinvio
+1. Ricezione messaggio di sblocco sul Raspberry
+  2. Invio ACK
+  3. Associazione del messaggio al mittente secondo le associazioni memorizzate
+  1. Invio messaggio di sblocco sul service bus
+1. Scodamento
+   - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di accesso
+
+##### Precisazioni
+Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice!
+
+
 

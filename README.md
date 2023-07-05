@@ -75,7 +75,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    1. stampa sul display
    1. converte in stringa
 1. Viene creato un pacchetto RS485 col codice
-  2. "0/0/Code"
+   2. "0/0/Code"
    
    Modello protocollo
    
@@ -109,7 +109,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
         3. Attesa scodamento
    1. Invio dell’ACK al Pic
-     2. "1/Board/2"
+      2. "1/Board/2"
 1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens
@@ -150,8 +150,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
         1. Messaggio di rifiuto sul display
         1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
-   2. Invio ACK al PIC
-   3. Associazione del messaggio al mittente confrontando le associazioni memorizzate
+   4. Associazione del messaggio al mittente confrontando le associazioni memorizzate
    1. Composizione messaggio di sblocco
       
              {
@@ -171,6 +170,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
              }
       
    3. Indirizzamento al device dell'hub e accodamento
+   4. Invio ACK al PIC
+     3. "1/IdBoard/2"
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 

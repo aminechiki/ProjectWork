@@ -147,7 +147,10 @@ function sendDataToControllerRoom(messaggio)
     for(let i = 0; i < timerObjs.length; i++)
     {
         if(timerObjs[i].pic_id == pic_id)
+        {
             timerObjs.splice(i, 1);
+            break;
+        }
     };
     // inserisco il timer nell'array e lo faccio partire
     timerObjs.push({pic_id, timer: setTimeout(sendDataToControllerRoom, time, messaggio)});
@@ -156,7 +159,11 @@ function sendDataToControllerRoom(messaggio)
     for(let i = 0; i < userObjs.length; i++)
     {
         if(userObjs[i].user == json.IdUser.toString())
+        {
+            clearTimeout(timerObjs[i].timer);
             userObjs.splice(i, 1);
+            break;
+        }
     };
     // aggiungo lo user all'array degli utenti che hanno provato a fare un accesso (serve per quando arriva un messaggio di successo/fallita entrata)
     userObjs.push({pic_id, user: json.IdUser.toString()});

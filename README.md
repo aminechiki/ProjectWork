@@ -45,7 +45,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
 - Visual Studio per eseguire il progetto dell'Azure Function
   - CLOUD FOR DATA/CloudManagementData
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
-  - FRONTEND E BACKEND/ManagementRoomApp
+  - [](WEB-APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - Verificare l'URL della home del portale
 ### Guida alle funzionalità

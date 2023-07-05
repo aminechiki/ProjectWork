@@ -106,12 +106,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
         
    1. Invio del messaggio all’indirizzo del relativo device istanziato sull'istanza dell'IoT Hub
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
-       3. Attesa scodamento
+        3. Attesa scodamento
    1. Invio dell’ACK al Pic
 1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
-      - Se 0, viene inserito un nuovo record nella tabella Tokens
-      - Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
+      - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
    - Non corrispondenza
@@ -132,7 +131,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                }
    
-    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore
+    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore del secondo codice
     1. Generazione e invio del pacchetto al Pic
       2. 0/IdDoor/1/Code
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 

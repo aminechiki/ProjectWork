@@ -32,7 +32,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici
 Per mettere in funzione l'architettura implementata e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - [](PIC/Code)
+  - [Progetto MPLAB](PIC/Code)
 - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice
   - Una interfaccia seriale virtuale per il PIC
   - Una interfaccia seriale virtuale per il gateway di riferimento

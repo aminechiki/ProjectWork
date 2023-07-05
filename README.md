@@ -38,9 +38,9 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
   - Una interfaccia seriale virtuale per il gateway di riferimento
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
-    - [Folder progetto Node per Ubuntu](RASBERRYPI)
+     - [Folder progetto Node per Ubuntu](RASBERRYPI)
   - In alternativa, uno o più simulatori Node.js da configurare, istanziati su Windows
-    - [Folder progetto Node per Ubuntu da riconfigurare per Windows](RASBERRYPI)
+     - [Folder progetto Node per Ubuntu da riconfigurare per Windows](RASBERRYPI)
 - Visual Studio per eseguire il progetto dell'Azure Function
   - [Progetto Azure Function](AZURE_FUNCTION)
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)

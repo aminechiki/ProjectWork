@@ -75,7 +75,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    1. stampa sul display
    1. converte in stringa
 1. Viene creato un pacchetto RS485 col codice
-   2. "0/0/Code"
+  - "0/0/Code"
    
    Modello protocollo
    

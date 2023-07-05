@@ -36,9 +36,9 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
      - [Folder progetto Node per Ubuntu](RASBERRYPI)
-  - In alternativa, uno o più simulatori Node.js da configurare, istanziati su Windows
-     - [Folder progetto Node per Ubuntu da riconfigurare per Windows](RASBERRYPI)
-     - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice
+  - In alternativa, uno o più app simulatrici Node.js, istanziati su Windows
+     - [Folder progetto Node per Ubuntu](RASBERRYPI)
+     - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione delle porte sul codice
         - Una interfaccia seriale virtuale per il PIC
         - Una interfaccia seriale virtuale per il gateway di riferimento
 - Visual Studio per eseguire il progetto dell'Azure Function

@@ -36,8 +36,12 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
 - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice
   - Una interfaccia seriale virtuale per il PIC
   - Una interfaccia seriale virtuale per il gateway di riferimento
-- Uno o più simulatori del gateway Raspberry Pi, istanziati attraverso applicazioni Node.js su sistema operativo Windows
-  - RASBERRYPI/deviceToCloud.Nodejs
+- Dispositivi Raspberry Pi
+  - Uno o più simulatori del gateway istanziati su sistema operativo Windows attraverso applicazioni Node.js riconfigurate
+    - RASBERRYPI/deviceToCloud.Nodejs
+  - In alternativa
+    - Uno o più dispositivi fisici con os Ubuntu e cablati con USB al pc su cui vengono istanziati i simulatori dei PIC
+      - 
 - Visual Studio per eseguire il progetto dell'Azure Function
   - CLOUD FOR DATA/CloudManagementData
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)

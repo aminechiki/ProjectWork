@@ -36,7 +36,7 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
   - DEVICE/ProjectWork.X
 - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione del codice
   - Una interfaccia seriale virtuale per il PIC
-  - Una interfaccia seriale virtuale per il simulatore del Raspberry
+  - Una interfaccia seriale virtuale per il gateway di riferimento
 - Uno o più simulatori del gateway Raspberry Pi, istanziati attraverso applicazioni Node.js su sistema operativo Windows
   - RASBERRYPI/deviceToCloud.Nodejs
 - Visual Studio per istanziare l'Azure Function

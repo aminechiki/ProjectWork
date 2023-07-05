@@ -109,7 +109,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
         3. Attesa scodamento
    1. Invio dell’ACK al Pic
-      2. "1/Board/2"
+       2. "1/Board/2"
 1. Dalla service bus queue
    1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens

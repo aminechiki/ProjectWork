@@ -135,11 +135,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
     1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore del secondo codice
     1. Generazione e invio del pacchetto al Pic
-       1. "0/IdDoor/1/Code"
+        1. "0/IdDoor/1/Code"
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
    2. Invio ACK al Raspberry
-      3. "0/2"
+       3. "0/2"
    1. Tre tentativi di immissione del codice dall’utente e sua convalidazione 
       - In caso di riuscita
         1. Generazione pacchetto con la conferma dello sblocco
@@ -173,7 +173,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
    3. Indirizzamento al device dell'hub e accodamento
    4. Invio ACK al PIC
-      3. "1/IdBoard/2"
+       3. "1/IdBoard/2"
 1. Scodamento
    - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
 

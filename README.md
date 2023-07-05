@@ -59,18 +59,18 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”
 1. Il Pic rileva la pressione e genera un codice randomico di 4 cifre, che
-  1.stampa sul display
-  1.converte in stringa
+   1. stampa sul display
+   1. converte in stringa
 1. Viene creato un pacchetto (modello illustrato presso DEVICE/Protocol/Protocol.png del branch “feature/Embedded”)
-1. Invio alla porta seriale
+1. Il pacchetto viene inviato alla porta seriale
 1. Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)
    - Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto
    - Se viene ricevuto viene generato un timer di 30 secondi per impedire la generazione di un nuovo codice da parte di un utente
 1. Il messaggio raggiunge la Raspberry (che riconosce il delimitatore di pacchetti “/r/n”)
-  1.Viene verificato che il pacchetto non sia un messaggio ACK
-  1. Conversione da pacchetto a JSON
-    2. Viene deserializzato a partire dai separatori “/”
-    1. Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
+   1.Viene verificato che il pacchetto non sia un messaggio ACK
+   1. Conversione da pacchetto a JSON
+     2. Viene deserializzato a partire dai separatori “/”
+     1. Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
      
              {
      
@@ -85,12 +85,12 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
                 Date: moment().format()
      
               }
-  1. Invio del messaggio all’indirizzo del service bus queue
-  1. Invio dell’ACK al Pic
+   1. Invio del messaggio all’indirizzo del service bus queue
+   1. Invio dell’ACK al Pic
 1. Service bus queue
-  1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
-     - Se 0, viene inserito un nuovo record nella tabella Tokens
-     - Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
+   1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
+      - Se 0, viene inserito un nuovo record nella tabella Tokens
+      - Se 1, viene impiegato, se di conferma dello sblocco, per aggiornare lo stato del relativo record della tabella Accesses
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
    - Non corrispondenza
@@ -113,7 +113,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                }
     1. Memorizzazione della coppia IdDoor - IdUser in memoria locale così da poter effettuare l’associazione del messaggio di sblocco
-    1. Serializzazione del pacchetto da spedire al Pic
+    1. Generazione e invio del pacchetto al Pic
     1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
    1. Tre tentativi di immissione e convalidazione del codice immesso dall’utente 

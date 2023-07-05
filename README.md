@@ -43,9 +43,9 @@ Per mettere in funzione l'architettura implementata e testarne il comportamento 
     - Uno o più dispositivi fisici con os Ubuntu e connessi serialmente al pc su cui vengono istanziati i simulatori dei PIC
       - 
 - Visual Studio per eseguire il progetto dell'Azure Function
-  - CLOUD FOR DATA/CloudManagementData
+  - [Progetto Azure Function](AZURE FUNCTION/CloudManagementData)
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
-  - [](WEB-APP/ManagementRoomApp)
+  - [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - Verificare l'URL della home del portale
 ### Guida alle funzionalità

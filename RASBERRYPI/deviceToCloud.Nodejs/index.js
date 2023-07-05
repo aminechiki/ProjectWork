@@ -146,7 +146,7 @@ function sendDataToControllerRoom(messaggio)
     // ciclo l'array dei timer per rimuovere il vecchio timer scaduto
     for(let i = 0; i < timerObjs.length; i++)
     {
-        if(timerObjs[i].id == pic_id)
+        if(timerObjs[i].pic_id == pic_id)
             timerObjs.splice(i, 1);
     };
     // inserisco il timer nell'array e lo faccio partire
@@ -155,7 +155,7 @@ function sendDataToControllerRoom(messaggio)
     // ciclo l'array degli utenti per rimuovere il vecchio utente (serve se scatta il timer dell'ACK che ri-richiama la funzione, altrimenti avre 2 utenti uguali che provano ad accedere allo stesso PIC)
     for(let i = 0; i < userObjs.length; i++)
     {
-        if(userObjs[i].id == pic_id)
+        if(userObjs[i].user == json.IdUser.toString())
             userObjs.splice(i, 1);
     };
     // aggiungo lo user all'array degli utenti che hanno provato a fare un accesso (serve per quando arriva un messaggio di successo/fallita entrata)

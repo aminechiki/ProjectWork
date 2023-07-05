@@ -39,8 +39,8 @@ Per mettere in funzione l'architettura implementata e osservarne il comportament
   - Una interfaccia seriale virtuale per il simulatore del Raspberry
 - Uno o più simulatori del gateway Raspberry Pi, istanziati attraverso applicazioni Node.js su sistema operativo Windows
   - RASBERRYPI/deviceToCloud.Nodejs
-- Visual Studio
-  - 
+- Visual Studio per istanziare l'Azure Function
+  - CLOUD FOR DATA/CloudManagementData
 - Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
   - FRONTEND E BACKEND/ManagementRoomApp
 - Un dispositivo in grado di visualizzare pagine web

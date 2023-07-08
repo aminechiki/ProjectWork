@@ -69,11 +69,17 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore
 - Aggiungere o rimuovere edifici
+  - Insert/Delete tabella Buildings
 - Aggiungere o rimuovere porte di edifici
-- Aggiungere o rimuovere utenti
-- Visualizzarne gli accessi
+  - Insert/Delete tabella Doors
+- Aggiungere o rimuovere utenti (funzionalità gestita dal servizio AspNetIdentity)
+  - Insert/Delete tabella AspNetUsers
+- Visualizzarne gli accessi alle singole porte
+  - Select From tabella Accesses
 - Modificarne i permessi di accesso
+  - Insert/Delete tabella Permissions
 - Modificarne i privilegi
+  - Update (o Insert/Delete?) tabella AspNetRoles
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”

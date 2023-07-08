@@ -29,7 +29,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
    - Modifica dei permessi di accesso alle porte degli utenti
  - Gli utenti devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione
-### Requisiti tecnici
+### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementata e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - [main.c](PIC/Code)

@@ -94,8 +94,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Il messaggio raggiunge la Raspberry (che riconosce il delimitatore di pacchetti “/r/n”)
    1. Viene verificato che il pacchetto non sia un messaggio ACK
    1. Conversione del messaggio da RS485 a JSON
-     2. Deserializzazione a partire dai separatori “/”
-     1. Viene composto il messaggio per il service bus associato al relativo device dell’IoT Hub
+      1. Deserializzazione a partire dai separatori “/”
+      2. Viene composto il messaggio per il device dell’IoT Hub associato al gateway coinvolto
      
              {
      
@@ -111,22 +111,21 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      
               }
         
-   1. Invio del messaggio all’indirizzo del relativo device dell'istanza dell'IoT Hub
-     2. Reindirizzamento automatico del messaggio all'unica service bus queue, a cui fanno capo tutti i device dell'Hub
-        3. Attesa scodamento
+   2. Invio del messaggio all’indirizzo del relativo device dell'istanza dell'IoT Hub
+     1. Reindirizzamento automatico del messaggio alla bus queue
+        1. Attesa scodamento
    1. Invio dell’ACK al Pic
        - "1/Board/2"
-1. Dalla service bus queue
-   1. Una Azure Function scoda i messaggi discriminando il parametro TypeOfMessage
-      - Se uguale a 0, viene inserito un nuovo record nella tabella Tokens
+1. Una Azure Function consuma i messaggi della coda discriminando il parametro TypeOfMessage
+      - Se uguale a 0, viene eseguito l'inserimento di un nuovo record nella tabella Tokens
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
    - Non corrispondenza
      1. Messaggio di errore
    - Corrispondenza
-     1. Inserimento nuovo record nella tabella Accesses con campo Success a 0
-     2. Visualizzazione dell'utente del secondo codice
-     3. Invio codice all'indirizzo dell'IoT Hub del device di provenienza del primo codice
+     1. Inserimento nuovo record nella tabella Accesses, con campo Success a 0
+     2. Visualizzazione del secondo codice da parte dell'utente
+     3. Invio codice all'indirizzo del device di provenienza del primo codice
 1. Ricezione sul gateway del messaggio col secondo codice
    
                {
@@ -139,27 +138,27 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                }
    
-    1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione del successivo messaggio di sblocco all'utente generatore del secondo codice
-    1. Generazione e invio del pacchetto al Pic
-       - "0/IdDoor/1/Code"
-    1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
+1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione tra successivo messaggio di sblocco e utente generatore del secondo codice
+1. Generazione e invio del pacchetto al Pic
+   - "0/IdDoor/1/Code"
+1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
-   1. Invio ACK al Raspberry
-      - "0/2"
-   1. Tre tentativi di immissione del codice dall’utente e sua convalidazione 
-      - In caso di riuscita
-        1. Generazione pacchetto con la conferma dello sblocco
-           - "0/1/1"
-        1. Messaggio di sblocco sul display
-        1. Attesa ACK e eventuale rinvio
-      - In caso di fallimento
-        1. Generazione pacchetto di fallimento procedura
-           - "0/1/0"
-        1. Messaggio di rifiuto sul display
-        1. Attesa ACK e eventuale rinvio
+1. Invio ACK al Raspberry
+   - "0/2"
+1. Tre tentativi di immissione del secondo codice da parte dell'utente e convalidazione 
+   - In caso di riuscita
+     1. Generazione pacchetto con la conferma dello sblocco
+        - "0/1/1"
+     1. Messaggio di sblocco sul display
+     1. Attesa ACK e eventuale rinvio
+   - In caso di fallimento
+     1. Generazione pacchetto di fallimento procedura
+        - "0/1/0"
+     1. Messaggio di rifiuto sul display
+     1. Attesa ACK e eventuale rinvio
 1. Ricezione messaggio di sblocco sul Raspberry
-   4. Associazione del messaggio al mittente confrontando le associazioni memorizzate
-   1. Composizione messaggio di sblocco
+1. Associazione del messaggio al mittente confrontando le associazioni memorizzate
+1. Composizione messaggio di sblocco
       
              {
       
@@ -177,11 +176,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
              }
       
-   3. Indirizzamento al device dell'hub e accodamento
-   4. Invio ACK al PIC
-      - "1/IdBoard/2"
+3. Invio al Device
+4. Invio ACK al PIC
+   - "1/IdBoard/2"
 1. Scodamento
-   - Se il messaggio è di sblocco riuscito viene aggiornato il relativo record di Accesses, portando Success a 1
+   - Se il messaggio è di sblocco riuscito (TypeOfMessage == 1) viene aggiornato il relativo record di Accesses, portandone il campo Success a 1
 
 ##### Precisazioni
 - Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice sulla porta!

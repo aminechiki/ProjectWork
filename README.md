@@ -30,23 +30,27 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
  - Gli utenti devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione
 ### Requisiti tecnici infrastrutturali
-Per mettere in funzione il sistema implementata e testarne il comportamento sono necessari:
+Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - [main.c](PIC/Code)
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
      - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
-  - In alternativa, uno o più app simulatrici Node.js istanziate su Windows
-     - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
-     - Per ogni simulatore del PIC istanziato, attraverso Com0Com e riconfigurazione delle porte sul codice
-        - Una interfaccia seriale virtuale per il PIC
-        - Una interfaccia seriale virtuale per il gateway di riferimento
+  - In alternativa, uno o più simulatori Node.js istanziati su Windows
+     - Qualora i simulatori dei PIC e quelli dei Raspberry siano istanziati sullo stesso pc, saranno necessari, per ogni simulatore di PIC istanziato
+        - Una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
+        - Una interfaccia seriale virtuale riservata per il suo gateway di riferimento
+     - E' necessario identificare sul codice [Folder progetto Node per Ubuntu](RASPBERRY_PI) le nuove porte di invio/ricezione
+- Istanza Azure IoT Hub
+  - Un Device per gateway istanziato
+    - Il suo Id dev'essere opportunamente referenziato nel codice [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
+  - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
 - Visual Studio per eseguire il progetto dell'Azure Function
   - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
-- Istanza Azure Web App con SQL Azure (o Visual Studio per un esecuzione locale)
+- Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per un esecuzione locale)
   - [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
-  - Verificare l'URL della home del portale
+  - Verificare l'URL della home del portale di sblocco
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 

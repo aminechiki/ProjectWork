@@ -188,7 +188,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Ogni nuovo messaggio di secondo codice ricevuto dal Raspberry per la specifica porta sovrascrive l'eventuale precedente messaggio indirizzato alla medesima
     - Ogni codice ricevuto dal PIC sovrascrive, se presente, quello attualmente in attesa di convalidazione
   - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!
- ##### Suggerimenti post-presentazione
+ ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
    - Infatti, essendo che un PIC comunica unicamente col proprio gateway, è sufficiente verificare la presenza del byte di id della porta per discriminare il tipo di sorgente
 - Se un utente viene espulso dalla piattaforma, stessa sorte tocca alla cronologia dei suoi accessi!

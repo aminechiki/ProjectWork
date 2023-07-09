@@ -34,8 +34,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - [main.c](PIC/Code)
 - Dispositivi Raspberry Pi
-  -  Uno o più gateway fisici con os Ubuntu, collegati serialmente ai pc su cui sono istanziati i simulatori dei PIC
+  -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
      - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
+     - Ogni pc necessita di una connessione cablata al gateway
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry siano istanziati sullo stesso pc, saranno necessari, per ogni simulatore di PIC istanziato
         - Una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)

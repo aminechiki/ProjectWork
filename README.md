@@ -25,7 +25,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
    - Visualizzazione cronologia accessi
    - Espulsione utenti standard dalla piattaforma
    - Modifica dei privilegi degli utenti standard
-   - Aggiunta e rimozione di edifici e/o relative porte dalla piattaforma
+   - Blocco e sblocco di edifici e/o relative porte
    - Modifica dei permessi di accesso alle porte degli utenti
  - Gli utenti devono autenticarsi per accedere alla piattaforma
 ## La nostra soluzione

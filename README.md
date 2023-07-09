@@ -36,7 +36,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
      - [Progetto Node.js per Ubuntu](RASPBERRY_PI)
-     - Ogni pc ospitante simulatori di PIC va cablato fisicamente al gateway
+     - Ogni pc ospitante simulatori di PIC va cablato con interfaccia USB al gateway
        - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato

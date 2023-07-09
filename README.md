@@ -32,17 +32,17 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - [main.c](PIC/Code)
+  - [main.c](PIC/Code/main.c)
 - Dispositivi Raspberry Pi
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
-     - Ogni pc necessita di una connessione cablata al gateway
-       - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code) le porte interconnesse 
+     - [Progetto Node.js per Ubuntu](RASPBERRY_PI)
+     - Ogni pc ospitante simulatori di PIC va cablato fisicamente al gateway
+       - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
-     - Qualora i simulatori dei PIC e quelli dei Raspberry siano istanziati sullo stesso pc, saranno necessari, per ogni simulatore di PIC istanziato
-        - Una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
-        - Una interfaccia seriale virtuale riservata per il suo gateway di riferimento
-     - E' necessario identificare sul codice [Folder progetto Node per Ubuntu](RASPBERRY_PI) le nuove porte di invio/ricezione
+     - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
+         - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
+         - una interfaccia seriale virtuale riservata per il suo gateway di riferimento 
+     - In ogni caso è necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le nuove porte seriali interconnesse
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in

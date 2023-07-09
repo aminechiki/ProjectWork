@@ -42,7 +42,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento 
-     - In ogni caso è necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le nuove porte seriali interconnesse
+     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le nuove porte seriali interconnesse
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in

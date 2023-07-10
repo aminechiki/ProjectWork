@@ -47,13 +47,14 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in
-      - [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
-      - [Folder progetto Node per Ubuntu](RASPBERRY_PI)
+      - [Progetto web app](WEB_APP/ManagementRoomApp)
+      - [index.js](RASPBERRY_PI/index.js)
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
+    - Il suo id dev'essere referenziato opportunamente nel [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
-  - [Progetto portale web](WEB-APP/ManagementRoomApp)
+  - [Progetto portale web](WEB_APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale di sblocco
 ### Guida alle funzionalità

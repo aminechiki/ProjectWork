@@ -69,22 +69,25 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 #### Portale web
 ##### Registrazione utente
 - Il servizio di autenticazione e autorizzazione è gestito interamente dal framework AspNetIdentity, integrato nell'app
+  - Insert tabella AspNetUsers
+  - Insert tabella AspNetUserRoles
 - Alla registrazione l’utente non dispone di alcun permesso di accesso alle porte
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore
-- Aggiungere o rimuovere edifici
-  - Insert/Delete tabella Buildings
-- Aggiungere o rimuovere porte di edifici
-  - Insert/Delete tabella Doors
-- Visualizzarne gli accessi alle singole porte
-  - Select From tabella Accesses
-- Modificarne i permessi di accesso
-  - Insert/Delete tabella Permissions
+- Funzionalità legate alla gestione delle porte
+  - Aggiungere o rimuovere edifici
+    - Insert/Delete tabella Buildings
+  - Aggiungere o rimuovere porte di edifici, assicurandosi che gli id inseriti corrispondano a quelli registrati nelle EEPROM dei dispositivi a esse associati
+    - Insert/Delete tabella Doors
+  - Visualizzare gli accessi alle singole porte
+    - Select From tabella Accesses
+  - Modificarne i permessi di accesso
+    - Insert/Delete tabella Permissions
 - Funzionalità gestite da AspNetIdentity
   - Modificare i privilegi utente
-    - Insert/Delete tabella AspNetUserRoles
-  - Aggiungere o rimuovere utenti
-    - Insert/Delete tabella AspNetUsers
+    - Delete e insert tabella AspNetUserRoles
+  - Rimuovere utenti
+    - Delete tabella AspNetUsers
 ![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”

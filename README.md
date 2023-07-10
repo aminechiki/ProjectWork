@@ -78,6 +78,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Insert tabella AspNetUserRoles con ruolo 'Utenti'
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
+![Porzione del db dedicata alla gestione delle porte del campus](DB/Doors.png)
   - Aggiungere o rimuovere edifici <!--e quindi le porte associate?-->
     - Insert/Delete tabella Buildings
   - Aggiungere o rimuovere porte di edifici, assicurandosi che gli id inseriti corrispondano a quelli registrati nelle EEPROM dei dispositivi a esse associati
@@ -87,11 +88,12 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Modificare i permessi di accesso di ogni utente alle singole porte
     - Insert/Delete tabella Permissions
 - Funzionalità gestite da AspNetIdentity
+![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
   - Modificare i privilegi utente
     - Delete e insert tabella AspNetUserRoles
   - Rimuovere utenti
     - Delete tabella AspNetUsers
-![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
+    - Di conseguenza, delete tabella AspNetUserRoles
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”

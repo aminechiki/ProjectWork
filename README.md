@@ -13,7 +13,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
    - Service bus
    - Web App
    - SQL Azure
- - Browser web
+ - Web browser
 ### Requisiti funzionali minimi
  - Lo sblocco deve avvenire a seguito di una verifica in due passaggi
    1.  Un primo codice di sblocco dev'essere generato dalla porta, tramite interazione diretta dell'utente, che deve poter visualizzare la combinazione generata
@@ -32,11 +32,11 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - Simulano i dispositivi di sblocco applicati alle porte
+  - Simulano i dispositivi di sblocco che nel contesto reale vengono applicati alle singole porte
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
 - Dispositivi Raspberry Pi (uno per edificio)
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - [Progetto Node.js da importare sul dispositivo Ubuntu](RASPBERRY_PI)
+     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY_PI)
      - Ogni pc ospitante simulatori di PIC va cablato con interfaccia USB al gateway
        - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
   - In alternativa, uno o più simulatori Node.js istanziati su Windows

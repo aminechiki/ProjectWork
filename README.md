@@ -43,7 +43,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento 
-     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le nuove porte seriali interconnesse
+     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte seriali interconnesse
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in
@@ -60,7 +60,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 
-<!--![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer](DB/Definitive.png)-->
+![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un'istanza SQLServer](DB/Definitive.sql)
 
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
@@ -68,7 +68,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Se quello inserito è maggiore di 250 viene riavviata la procedura
 #### Portale web
 ##### Registrazione utente
-- Il servizio di autenticazione è gestito dal framework Razor Pages
+- Il servizio di autenticazione e autorizzazione è gestito dal framework AspNetIdentity
+![Porzione del db istanziata dal servizio](DB/Definitive.sql)
 - Alla registrazione l’utente non dispone di alcun permesso di accesso alle porte
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore

@@ -76,14 +76,15 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Insert/Delete tabella Buildings
 - Aggiungere o rimuovere porte di edifici
   - Insert/Delete tabella Doors
-- Aggiungere o rimuovere utenti (funzionalità gestita dal servizio AspNetIdentity)
-  - Insert/Delete tabella AspNetUsers
 - Visualizzarne gli accessi alle singole porte
   - Select From tabella Accesses
 - Modificarne i permessi di accesso
   - Insert/Delete tabella Permissions
-- Modificarne i privilegi
-  - Insert/Delete tabella AspNetUserRoles (funzionalità AspNetIdentity)
+- Funzionalità gestite da AspNetIdentity
+  - Modificare i privilegi utente
+    - Insert/Delete tabella AspNetUserRoles
+  - Aggiungere o rimuovere utenti
+    - Insert/Delete tabella AspNetUsers
 ![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”

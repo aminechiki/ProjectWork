@@ -68,8 +68,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Se quello inserito è maggiore di 250 viene riavviata la procedura
 #### Portale web
 ##### Registrazione utente
-- Il servizio di autenticazione e autorizzazione è gestito dal framework AspNetIdentity
-![Porzione del db istanziata dal servizio](DB/Definitive.sql)
+- Il servizio di autenticazione e autorizzazione è gestito dal framework AspNetIdentity, integrato nell'app
+![Porzione del db istanziata dal servizio](DB/AspNetIdentity.png)
 - Alla registrazione l’utente non dispone di alcun permesso di accesso alle porte
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore

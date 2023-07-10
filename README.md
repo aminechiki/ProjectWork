@@ -32,10 +32,11 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - [main.c](PIC/Code/main.c)
-- Dispositivi Raspberry Pi
+  - Simulano i dispositivi di sblocco applicati alle porte
+  - [Script da caricare in PicSimLab](PIC/Code/main.c)
+- Dispositivi Raspberry Pi (uno per edificio)
   -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - [Progetto Node.js per Ubuntu](RASPBERRY_PI)
+     - [Progetto Node.js da importare sul dispositivo Ubuntu](RASPBERRY_PI)
      - Ogni pc ospitante simulatori di PIC va cablato con interfaccia USB al gateway
        - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
@@ -52,7 +53,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
-  - [Progetto ASP.NET Core Web App](WEB-APP/ManagementRoomApp)
+  - [Progetto portale web](WEB-APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale di sblocco
 ### Guida alle funzionalità

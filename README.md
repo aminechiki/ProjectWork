@@ -69,10 +69,13 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 #### Portale web
 ##### Registrazione utente
 - Il servizio di autenticazione e autorizzazione è gestito interamente dal framework AspNetIdentity, integrato nell'app
+- I ruoli di utente standard 'Utenti' e qeullo di amministratore 'Amministratori' vanno inseriti manualmente nella tabella AspNetRoles prima di registrare utenti
+- Il primo utente amministratore deve venire preregistrato anch'esso
   - Insert tabella AspNetUsers
-  - Insert tabella AspNetUserRoles
-- Alla registrazione l’utente non dispone di alcun permesso di accesso alle porte
-- Il primo utente amministratore è preregistrato
+  - Insert tabella AspNetUserRoles con ruolo 'Amministratori'
+- Alla registrazione, l’utente non dispone di alcun permesso di accesso alle porte
+  - Insert tabella AspNetUsers
+  - Insert tabella AspNetUserRoles con ruolo 'Utenti'
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
   - Aggiungere o rimuovere edifici <!--e quindi le porte associate?-->

@@ -68,8 +68,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    - Se quello inserito è maggiore di 250 viene riavviata la procedura
 #### Portale web
 ##### Registrazione utente
-- Il servizio di autenticazione e autorizzazione è gestito dal framework AspNetIdentity, integrato nell'app
-![Porzione del db istanziata dal servizio](DB/AspNetIdentity.png)
+- Il servizio di autenticazione e autorizzazione è gestito interamente dal framework AspNetIdentity, integrato nell'app
 - Alla registrazione l’utente non dispone di alcun permesso di accesso alle porte
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore
@@ -84,7 +83,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Modificarne i permessi di accesso
   - Insert/Delete tabella Permissions
 - Modificarne i privilegi
-  - Insert/Delete tabella AspNetUserRoles
+  - Insert/Delete tabella AspNetUserRoles (funzionalità AspNetIdentity)
+![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”

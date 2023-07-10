@@ -83,7 +83,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Modificarne i permessi di accesso
   - Insert/Delete tabella Permissions
 - Modificarne i privilegi
-  - Insert/Delete tabella AspNetRoles
+  - Insert/Delete tabella AspNetUserRoles
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”

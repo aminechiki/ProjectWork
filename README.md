@@ -75,13 +75,13 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Il primo utente amministratore è preregistrato
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
-  - Aggiungere o rimuovere edifici
+  - Aggiungere o rimuovere edifici <!--e quindi le porte associate?-->
     - Insert/Delete tabella Buildings
   - Aggiungere o rimuovere porte di edifici, assicurandosi che gli id inseriti corrispondano a quelli registrati nelle EEPROM dei dispositivi a esse associati
     - Insert/Delete tabella Doors
-  - Visualizzare gli accessi alle singole porte
-    - Select From tabella Accesses
-  - Modificarne i permessi di accesso
+  - Visualizzare gli accessi effettuati presso qualsiasi porta
+    - Select tabella Accesses
+  - Modificare i permessi di accesso di ogni utente alle singole porte
     - Insert/Delete tabella Permissions
 - Funzionalità gestite da AspNetIdentity
   - Modificare i privilegi utente

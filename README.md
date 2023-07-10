@@ -61,6 +61,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 
 ![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un'istanza SQLServer](DB/Definitive.sql)
+![](DB/Definitive.sql)
 
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta

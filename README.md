@@ -47,7 +47,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
-  - [Progetto Node.js da importare e avviare sul dispositivo](RASPBERRY%20PI)
+  - [Progetto Node.js da importare e avviare sui gateway](RASPBERRY%20PI)
     - In [.env](RASPBERRY%20PI/.env) è necessario settare una variabile d'ambiente che rappresenti l'id statico del dispositivo 
      ![RaspId nel progetto Node](SETUP/GatewayId/env/GatewayRaspId.png)
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)

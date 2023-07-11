@@ -116,9 +116,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 #### Procedura di sblocco
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”
-1. Il Pic rileva la pressione e genera un codice randomico di 4 cifre, che
-   1. stampa sul display
-   1. converte in stringa
+1. Il Pic rileva la pressione e
+  1. genera un codice randomico di 4 cifre, che
+    1. stampa sul display
+    1. converte in stringa
+  2. avvia un timer di 30 secondi, entro il quale non è possibile richiedere la generazione di nuovi codici 
 1. Viene creato un pacchetto RS485 col codice
    - "0/0/Code"
    

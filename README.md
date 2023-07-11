@@ -38,20 +38,20 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
      - Ognuno di essi va cablato con interfaccia USB al gateway
        - E' necessario referenziare coerentemente le porte effettivamente interconnesse su
-         - [index.js](RASPBERRY_PI/index.js) 
+         - [index.js](RASPBERRY%20PI/index.js) 
 ![Porte seriali Ubuntu](SETUP/Serials/index.js/UbuntuGatewayPorts.png)
          - Serial Remote Tank, tool di PicSimLab
 ![Porte seriali PIC](SETUP/Serials/PicSimLab/SerialRemoteTank.png)
-     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY_PI)
+     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY%20PI)
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
-     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
+     - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
-    - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY_PI/.env)
+    - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY%20PI/.env)
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
 ![Device connection string in .env](SETUP/HubDevices/env/GatewayDeviceConnection.png)
     - Il suo Id dev'essere correttamente inserito nel form di registrazione del relativo edificio sul portale web
@@ -60,9 +60,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
     - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
-  - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
+  - [Progetto Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
-  - [Progetto portale web](WEB_APP/ManagementRoomApp)
+  - [Progetto portale web](WEB%20APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale di sblocco
     - In esecuzione locale

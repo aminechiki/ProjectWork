@@ -229,7 +229,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!
  ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
-   - Infatti, un PIC comunica unicamente col proprio gateway e un gateway comunica, serialmente, solo con PIC
-     - è sufficiente verificare la presenza del byte di identificazione della porta mittente per discriminare il tipo di sorgente
+   - Infatti un gateway comunica, serialmente, solo con PIC mentre un PIC comunica col proprio gateway e con gli altri PIC dell'edificio
+     - Anche se un PIC riceve un messaggio da un altro PIC e quest'ultimo ha, come da convenzione, un id differente, il messaggio non viene processato
 - Se un utente viene espulso dalla piattaforma, stessa sorte tocca alla cronologia dei suoi accessi!
   - Sarebbe opportuno implementare anche il servizio di attivazione e disattivazione temporanee delle utenze, così da renderne persistenti alcune informazioni correlate nonostante l'impossibilità di loggarsi

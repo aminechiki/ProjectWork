@@ -53,7 +53,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in
       - [WEB APP](WEB_APP/ManagementRoomApp)
-      - [index.js](RASPBERRY_PI/index.js)
+      - [.env](RASPBERRY_PI/.env)
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
     - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
@@ -72,7 +72,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 #### Configurazione centralina della porta
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
-   - Se quello inserito è maggiore di 250 viene riavviata la procedura
+   - Se quello digitato è maggiore di 250 o vuoto viene riavviata la procedura
+   - In caso contrario viene stampato un messaggio di completamento della configurazione
 #### Portale web
 ##### Registrazione utente
 - Il servizio di autenticazione e autorizzazione è gestito interamente dal framework AspNetIdentity, integrato nell'app

@@ -42,12 +42,14 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 ![Porte seriali Ubuntu](SETUP/Serials/index.js/UbuntuGatewayPorts.png)
          - Serial Remote Tank, tool di PicSimLab
 ![Porte seriali PIC](SETUP/Serials/PicSimLab/SerialRemoteTank.png)
-     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY%20PI)
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
+  - [Progetto Node.js da importare e avviare sul dispositivo](RASPBERRY%20PI)
+    - In [.env](RASPBERRY%20PI/.env) è necessario settare una variabile d'ambiente che rappresenti l'id statico del dispositivo 
+     ![RaspId nel progetto Node](SETUP/GatewayId/env/GatewayRaspId.png)
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
 - Istanza Azure IoT Hub
   <!-- - La sua connection string dev'essere accuratamente riportata in -->

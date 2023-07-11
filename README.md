@@ -82,7 +82,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
    - Se quello digitato è maggiore di 250 o vuoto viene riavviata la procedura
-   - In caso contrario viene stampato un messaggio di completamento della configurazione
+   - In caso contrario viene stampato un messaggio di successo
+1. A configurazione terminata il dispositivo è pronto per generare codici di sblocco
 #### Portale web
 ##### Registrazione utente
 - Il servizio di autenticazione e autorizzazione è gestito interamente dal framework AspNetIdentity, integrato nell'app

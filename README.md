@@ -236,7 +236,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
     - Ogni codice ricevuto dal PIC sovrascrive, se presente, quello attualmente in attesa di convalidazione
   - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!
 - Alla ricezione di ogni messaggio, un PIC verifica il tipo di mittente e confronta l'id del destinatario col proprio id salvato nella EEPROM
-  - Solo se il mittente è un Raspberry e gli id coincidono il messaggio viene processato
+  - Solo se il mittente è un Raspberry e se gli id coincidono il messaggio viene processato
     - In questo modo, qualora tutti i dispositivi di un edificio siano interconnessi e obbligati a ricevere messaggi broadcast, non vengono generate risposte da PIC non interpellati
  ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione

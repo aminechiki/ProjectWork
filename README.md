@@ -32,7 +32,7 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - Simulano i dispositivi di sblocco che nel contesto reale vengono applicati alle singole porte
+  - Simulano i dispositivi di sblocco che nel contesto reale vengono applicati alle singole porte degli edifici
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
 - Dispositivi gateway (uno per edificio)
   -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC

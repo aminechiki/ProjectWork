@@ -79,8 +79,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
 ![Porzione del db dedicata alla gestione delle porte del campus](DB/Doors.png)
-  - Aggiungere o rimuovere edifici <!--e quindi le porte associate?-->
+  - Aggiungere o rimuovere edifici e, quindi, le loro porte
     - Insert/Delete tabella Buildings
+    - Insert/Delete tabella Doors
   - Aggiungere o rimuovere porte di edifici, assicurandosi che gli id inseriti corrispondano a quelli registrati nelle EEPROM dei dispositivi a esse associati
     - Insert/Delete tabella Doors
   - Visualizzare gli accessi effettuati presso qualsiasi porta

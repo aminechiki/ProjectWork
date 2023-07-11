@@ -50,6 +50,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
 - Istanza Azure IoT Hub
+  <!-- - La sua connection string dev'essere accuratamente riportata in -->
   - Un Device per gateway istanziato
     - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY%20PI/.env)
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
@@ -61,6 +62,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
     - Il suo nome dev'essere opportunamente referenziato in [FunctionApp.cs](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/FunctionApp.cs)
       ![Nome della queue da Azure](SETUP/ServiceBus/QueueName.png)
       ![Nome della queue in FunctionApp.cs](SETUP/ServiceBus/FunctionAppName.png)
+    <!-- - Idem la sua connection string -->
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato

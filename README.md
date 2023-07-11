@@ -36,7 +36,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
 - Dispositivi gateway (uno per edificio)
   -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - Ognuno di essi va cablato con interfaccia USB al gateway
+     - Per ogni simulatore è necessaria una cablatura con interfaccia USB al gateway
        - E' necessario referenziare coerentemente le porte effettivamente interconnesse su
          - [index.js](RASPBERRY%20PI/index.js) 
 ![Porte seriali Ubuntu](SETUP/Serials/index.js/UbuntuGatewayPorts.png)
@@ -64,9 +64,11 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
   - [Progetto portale web](WEB%20APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
-  - E' necessario conoscere l'URL della home page del portale di sblocco
-    - In esecuzione locale
-    - In esecuzione sul cloud
+  - E' necessario conoscere l'URL della home page del portale web del campus
+    - Se l'app è in esecuzione locale
+      - ![URL locale](SETUP/HomePageUrlPath/Local/LocalUrlPath.png)
+    - Se in esecuzione sul cloud
+      - ![URL locale](SETUP/HomePageUrlPath/Cloud/CloudUrlPath.png)
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 

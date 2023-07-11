@@ -55,10 +55,10 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
 ![Device connection string in .env](SETUP/HubDevices/env/GatewayDeviceConnection.png)
     - Il suo Id dev'essere correttamente inserito nel form di registrazione del relativo edificio sul portale web
-![DeviceId dal portale Azure](SETUP/HubDevices/Web_portal/DeviceId.png)
-![DeviceId sul portale web](SETUP/HubDevices/Web_portal/InsertNewBuilding.png)
+![DeviceId dal portale Azure](SETUP/HubDevices/Web%20portal/DeviceId.png)
+![DeviceId sul portale web](SETUP/HubDevices/Web%20portal/InsertNewBuilding.png)
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
-    - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZUREFUNCTION/CloudManagementData)
+    - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato

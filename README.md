@@ -66,9 +66,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale web del campus
     - Se l'app è in esecuzione locale
-      - ![URL locale](SETUP/HomePageUrlPath/Local/LocalUrlPath.png)
+      ![URL locale](SETUP/HomePageUrlPath/Local/LocalUrlPath.png)
     - Se in esecuzione sul cloud
-      - ![URL locale](SETUP/HomePageUrlPath/Cloud/CloudUrlPath.png)
+      ![URL locale](SETUP/HomePageUrlPath/Cloud/CloudUrlPath.png)
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 

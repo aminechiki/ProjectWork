@@ -122,7 +122,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
     1. converte in stringa
   2. avvia un timer di 30 secondi, entro il quale non è possibile richiedere la generazione di nuovi codici 
 1. Viene creato un pacchetto RS485 col codice
-   - "0/0/Code"
+   - "0/PicId/0/Code"
    
    Modello protocollo
    
@@ -142,9 +142,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      
                 TypeOfMessage
      
-                Device: (IdGateway)
+                Device: (GatewayId)
      
-                Board: (IdDoor)
+                Board: (DoorId)
      
                 Code
      
@@ -156,7 +156,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      1. Reindirizzamento automatico del messaggio alla bus queue
         1. Attesa scodamento
    1. Invio dell’ACK al Pic
-       - "1/Board/2"
+       - "1/DoorId/2"
 1. Una Azure Function consuma i messaggi della coda discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene eseguito l'inserimento di un nuovo record nella tabella Tokens
 1. Autenticazione dell’utente sull’app
@@ -171,7 +171,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
                {
    
-                 IdBoard: (IdDoor)
+                 IdBoard: (DoorId)
    
                  Code
    
@@ -181,7 +181,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    
 1. Memorizzazione della coppia IdDoor - IdUser in memoria locale, così da poter effettuare l’associazione tra successivo messaggio di sblocco e utente generatore del secondo codice
 1. Generazione e invio del pacchetto al Pic
-   - "0/IdDoor/1/Code"
+   - "1/IdDoor/0/Code"
 1. Generazione timer per la ricezione dell’ACK e, eventualmente, nuovo tentativo di invio del pacchetto 
 1. Ricezione secondo codice sul Pic
 1. Invio ACK al Raspberry
@@ -205,9 +205,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
       
                 TypeOfMessage
       
-                Device: (RASP_ID)
+                Device: (GatewayId)
       
-                Board:(DOOR_ID)
+                Board:(DoorId)
       
                 Success
       
@@ -229,6 +229,11 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Ogni nuovo messaggio di secondo codice ricevuto dal Raspberry per la specifica porta sovrascrive l'eventuale precedente messaggio indirizzato alla medesima
     - Ogni codice ricevuto dal PIC sovrascrive, se presente, quello attualmente in attesa di convalidazione
   - Se, a seguito della sovrascrittura, viene ricevuto un messaggio di sblocco proveniente dal PIC nessuna associazione al mittente viene effettuata e le informazioni inerenti lo sblocco non pervengono alla queue!
+- Alla ricezione di ogni messaggio, un PIC confronta
+  - il tipo di mittente
+  - l'id del destinatario col proprio id, salvato nella EEPROM
+- Solo se il mittente è un Raspberry e gli id coincidono il messaggio viene processato
+    - In questo modo, qualora tutti i dispositivi di un edificio siano interconnessi e obbligati a ricevere messaggi broadcast, non vengono generate risposte da PIC non interpellati
  ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
    - Infatti un gateway comunica, serialmente, solo con PIC mentre un PIC comunica col proprio gateway e con gli altri PIC dell'edificio

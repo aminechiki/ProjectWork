@@ -51,9 +51,12 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
-    - Il suo Id dev'essere opportunamente referenziato in
-      - [WEB APP](WEB_APP/ManagementRoomApp)
-      - [.env](RASPBERRY_PI/.env)
+    - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY_PI/.env)
+![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
+![Device connection string in .env](SETUP/HubDevices/env/GatewayDeviceConnection.png)
+    - Il suo Id dev'essere correttamente inserito nel from di registrazione del relativo edificio sul portale web
+![DeviceId dal portale Azure](SETUP/HubDevices/Web_portal/GatewayDeviceId.png)
+![DeviceId dal portale Azure](SETUP/HubDevices/Web_portal/InsertNewBuilding.png)
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
     - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZURE_FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus

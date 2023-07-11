@@ -39,36 +39,24 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
      - Per ogni simulatore è necessaria una cablatura con interfaccia USB al gateway
        - E' necessario referenziare coerentemente le porte effettivamente interconnesse su
          - [index.js](RASPBERRY%20PI/index.js)
-           
 ![Porte seriali Ubuntu](SETUP/Serials/index.js/UbuntuGatewayPorts.png)
-
          - Serial Remote Tank, tool di PicSimLab
-           
 ![Porte seriali PIC](SETUP/Serials/PicSimLab/SerialRemoteTank.png)
-
      - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY%20PI)
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
-       
 ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
-
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY%20PI/.env)
-      
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
-
 ![Device connection string in .env](SETUP/HubDevices/env/GatewayDeviceConnection.png)
-
     - Il suo Id dev'essere correttamente inserito nel form di registrazione del relativo edificio sul portale web
-      
 ![DeviceId dal portale Azure](SETUP/HubDevices/Web%20portal/DeviceId.png)
-
 ![DeviceId sul portale web](SETUP/HubDevices/Web%20portal/InsertNewBuilding.png)
-
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
     - Il suo id dev'essere opportunamente referenziato nel progetto [Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
@@ -78,13 +66,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale web del campus
     - Se l'app è in esecuzione locale
-      
       ![URL locale](SETUP/HomePageUrlPath/Local/LocalUrlPath.png)
-      
     - Se in esecuzione sul cloud
-      
       ![URL locale](SETUP/HomePageUrlPath/Cloud/CloudUrlPath.png)
-      
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 
@@ -107,9 +91,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Insert tabella AspNetUserRoles con ruolo 'Utenti'
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
-  
 ![Porzione del db dedicata alla gestione delle porte del campus](DB/Doors.png)
-
   - Aggiungere o rimuovere edifici e, quindi, le loro porte
     - Insert/Delete tabella Buildings
     - Insert/Delete tabella Doors
@@ -120,9 +102,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Modificare i permessi di accesso di ogni utente alle singole porte
     - Insert/Delete tabella Permissions
 - Funzionalità gestite da AspNetIdentity
-
 ![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
-
   - Modificare i privilegi utente
     - Delete e insert tabella AspNetUserRoles
   - Rimuovere utenti

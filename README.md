@@ -102,7 +102,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
     - Insert/Delete tabella Doors
   - Aggiungere o rimuovere porte di edifici
     - Insert/Delete tabella Doors
-    - E' necessario assicurarsi che l'id della porta registrata sul portale web, e quindi nel db, corrisponda a quello salvato nella EEPROM del PIC associato
+    - E' necessario assicurarsi che l'id della porta registrata sul portale web, e quindi nel db, corrisponda a quello salvato nella EEPROM del PIC a essa associato
      ![BoardId sul portale web](SETUP/DoorDevices/Web%20portal/DbPicId.png)
   - Visualizzare gli accessi effettuati presso qualsiasi porta
     - Select tabella Accesses

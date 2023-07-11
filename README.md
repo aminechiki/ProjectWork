@@ -98,12 +98,14 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Funzionalità legate alla gestione delle porte
 ![Porzione del db dedicata alla gestione delle porte del campus](DB/Doors.png)
   - Aggiungere o rimuovere edifici e, quindi, le loro porte
+    - E' necessario assicurarsi che l'id dell'edificio registrato sul portale web, e quindi nel db, corrisponda a quello settato come variabile d'ambiente nel progetto Node.js del gateway a esso associato
+      ![RaspId sul portale web](SETUP/GatewayId/webPortal/AppRaspId.png)
     - Insert/Delete tabella Buildings
-    - Insert/Delete tabella Doors
+    - Delete tabella Doors
   - Aggiungere o rimuovere porte di edifici
-    - Insert/Delete tabella Doors
     - E' necessario assicurarsi che l'id della porta registrata sul portale web, e quindi nel db, corrisponda a quello salvato nella EEPROM del PIC a essa associato
      ![BoardId sul portale web](SETUP/DoorDevices/Web%20portal/DbPicId.png)
+    - Insert/Delete tabella Doors
   - Visualizzare gli accessi effettuati presso qualsiasi porta
     - Select tabella Accesses
   - Modificare i permessi di accesso di ogni utente alle singole porte

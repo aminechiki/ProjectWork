@@ -32,18 +32,18 @@ Viene commissionata la realizzazione di un sistema di sblocco delle porte delle 
 ### Requisiti tecnici infrastrutturali
 Per mettere in funzione il sistema implementato e testarne il comportamento sono necessari:
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
-  - Simulano i dispositivi di sblocco che nel contesto reale vengono applicati alle singole porte degli edifici
+  - Simulano i dispositivi di sblocco, che nel contesto reale vengono applicati alle singole porte degli edifici
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
 - Dispositivi gateway (uno per edificio)
   -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
      - Ognuno di essi va cablato con interfaccia USB al gateway
-       - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
+       - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e sul tool Serial Remote Tank di PicSimLab le porte effettivamente interconnesse
      - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY_PI)
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
-     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte seriali interconnesse
+     - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato
     - Il suo Id dev'essere opportunamente referenziato in

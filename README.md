@@ -36,7 +36,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
 - Dispositivi gateway (uno per edificio)
   -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - Per ogni simulatore è necessaria una cablatura con interfaccia USB al gateway
+     - Per ogni simulatore istanziato è necessaria una cablatura con interfaccia USB al gateway
        - E' necessario referenziare coerentemente le porte effettivamente interconnesse su
          - [index.js](RASPBERRY%20PI/index.js)
 ![Porte seriali Ubuntu](SETUP/Serials/index.js/UbuntuGatewayPorts.png)

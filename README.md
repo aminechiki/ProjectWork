@@ -58,8 +58,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 ![DeviceId dal portale Azure](SETUP/HubDevices/Web%20portal/DeviceId.png)
 ![DeviceId sul portale web](SETUP/HubDevices/Web%20portal/InsertNewBuilding.png)
   - Un'unica istanza Service Bus Queue che raccolga i messaggi provenienti da tutti i Device istanziati
-    - Il suo nome dev'essere opportunamente referenziato in [FunctionApp.js](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/FunctionApp.cs)
+    - Il suo nome dev'essere opportunamente referenziato in [FunctionApp.cs](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/FunctionApp.cs)
       ![Nome della queue da Azure](SETUP/ServiceBus/QueueName.png)
+      ![Nome della queue in FunctionApp.cs](SETUP/ServiceBus/FunctionAppName.png)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato

@@ -34,15 +34,15 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
 - Uno o più simulatori del PIC16F877A, istanziati attraverso PicSimLab
   - Simulano i dispositivi di sblocco che nel contesto reale vengono applicati alle singole porte
   - [Script da caricare in PicSimLab](PIC/Code/main.c)
-- Dispositivi Raspberry Pi (uno per edificio)
-  -  Uno o più gateway fisici con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
-     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY_PI)
-     - Ogni pc ospitante simulatori di PIC va cablato con interfaccia USB al gateway
+- Dispositivi gateway (uno per edificio)
+  -  Uno o più Raspberry Pi con os Ubuntu, collegati serialmente al pc o ai pc su cui sono istanziati i simulatori dei PIC
+     - Ognuno di essi va cablato con interfaccia USB al gateway
        - E' necessario referenziare coerentemente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte interconnesse 
+     - [Progetto Node.js da importare e avviare sul dispositivo Ubuntu](RASPBERRY_PI)
   - In alternativa, uno o più simulatori Node.js istanziati su Windows
      - Qualora i simulatori dei PIC e quelli dei Raspberry vengano istanziati sullo stesso pc, sono necessari, per ogni simulatore di PIC istanziato
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
-         - una interfaccia seriale virtuale riservata per il suo gateway di riferimento 
+         - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY_PI/index.js) e su [main.c](PIC/Code/main.c) le effettive porte seriali interconnesse
 - Istanza Azure IoT Hub
   - Un Device per gateway istanziato

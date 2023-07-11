@@ -57,6 +57,8 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - [Progetto portale web](WEB_APP/ManagementRoomApp)
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale di sblocco
+    - In esecuzione locale
+    - In esecuzione sul cloud
 ### Guida alle funzionalità
 Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un istanza di SQLServer
 

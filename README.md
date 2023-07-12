@@ -143,7 +143,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      ![Modello protocollo](PIC/Protocol/RS485.png)
    
 1. Il pacchetto viene inviato alla porta seriale
-1. Viene generato un timer casuale compreso tra 5 e 15 secondi (per evitare nuovamente la collisione)
+1. Viene generato un timer casuale compreso tra 5 e 15 secondi (casuale per evitare nuove eventuali collisioni dei pacchetti)
    - Se entro il timer non riceve il messaggio di tipo ACK viene spedito nuovamente il pacchetto
    - Se viene ricevuto viene generato un timer di 30 secondi per impedire la generazione di un nuovo codice da parte di un utente
 1. Il messaggio raggiunge il Raspberry (che riconosce il delimitatore di pacchetti “/r/n”)

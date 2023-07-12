@@ -52,7 +52,9 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
     - In [.env](RASPBERRY%20PI/.env) è necessario settare una variabile d'ambiente che rappresenti l'id statico del dispositivo 
      ![RaspId nel progetto Node](SETUP/GatewayId/env/GatewayRaspId.png)
 - Istanza Azure IoT Hub
-  - La sua connection string dev'essere accuratamente riportata nel [progetto portale web](WEB%20APP/ManagementRoomApp)
+  - La sua connection string dev'essere accuratamente riportata in [appsettings.json](WEB%20APP/ManagementRoomApp/appsettings.json)
+![IoT Hub connection string dal portale Azure](SETUP/HubDevices/AzureIoTHub/HubConnectionString.png)
+![IoT Hub connection string in appsettings.json](SETUP/HubDevices/AzureIoTHub/SettingsConnectionString.png)
   - Un Device per gateway istanziato
     - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY%20PI/.env)
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)
@@ -64,12 +66,17 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
     - Il suo nome dev'essere opportunamente referenziato in [FunctionApp.cs](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/FunctionApp.cs)
       ![Nome della queue da Azure](SETUP/ServiceBus/QueueName.png)
       ![Nome della queue in FunctionApp.cs](SETUP/ServiceBus/FunctionAppName.png)
-    <!-- - Idem la sua connection string -->
+    - Così come la sua connection string negli 'user secrets' del [progetto dell'Azure Function](AZURE%20FUNCTION/CloudManagementData/CloudManagementData)
+     ![Connection string della queue da Azure](SETUP/ServiceBus/QueueConnectionString.png)
+     ![Connection string della queue negli user secrets](SETUP/ServiceBus/SettingsConnectionString.jpg)
 - Visual Studio per eseguire il progetto dell'Azure Function deputata a processare la coda di messaggi del Service Bus
   - [Progetto Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
   - [Progetto portale web](WEB%20APP/ManagementRoomApp)
-  <!-- - Db conn string -->
+  - La connection string dell'istanza di Azure SQL dev'essere accuratamente riportata in [host.json](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/host.json) e in [appsettings.json](WEB%20APP/ManagementRoomApp/appsettings.json)
+  ![Connection string del db da Azure](SETUP/DB/AzureConnectionString.png)
+  ![Connection string del db in host.json](SETUP/DB/AzureFunction/FunctionDbConnectionString.png)
+  ![Connection string del db in appsettings.json](SETUP/DB/WebApp/SettingsDbConnectionString.png) 
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale web del campus
     - Se l'app è in esecuzione locale

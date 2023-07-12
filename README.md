@@ -82,7 +82,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 ![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un'istanza SQLServer](DB/Definitive.png)
 
 #### Configurazione centralina della porta 
-- [Procedura illustrata alla 3a diapositiva](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
+- [Procedura illustrata alla diapositiva 3](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
    - Se quello digitato è maggiore di 250 o vuoto viene riavviata la procedura
@@ -135,7 +135,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
    1. genera un codice randomico di 4 cifre, che
       1. stampa sul display
       1. converte in stringa
-   2. avvia un timer di 30 secondi, entro il quale non è possibile richiedere la generazione di nuovi codici 
+   2. avvia un timer di 30 secondi, entro il quale non è possibile richiedere la generazione di nuovi codici
+- [Procedura illustrata nella diapositiva 4](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx) 
 1. Viene creato un pacchetto RS485 col codice
    - "0/PicId/0/Code"
    
@@ -183,6 +184,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      2. Rimozione token
      3. Visualizzazione del secondo codice da parte dell'utente
      4. Invio codice all'indirizzo del device di provenienza del primo codice
+- [Procedura illustrata dalla diapositiva 11 alla 20](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
 1. Ricezione sul gateway del messaggio col secondo codice
    
                {
@@ -205,15 +207,16 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 ![Terza fase](FLUSSO%20DATI/17To23.png)
 1. Tre tentativi di immissione del secondo codice da parte dell'utente e convalidazione 
    - In caso di riuscita
-     1. Generazione pacchetto con la conferma dello sblocco
+     1. Generazione e invio pacchetto con la conferma dello sblocco
         - "0/DoorId/1/1"
      1. Messaggio di sblocco sul display
      1. Attesa ACK e eventuale rinvio
    - In caso di fallimento
-     1. Generazione pacchetto di fallimento procedura
+     1. Generazione e invio pacchetto di fallimento procedura
         - "0/DoorId/1/0"
      1. Messaggio di rifiuto sul display
      1. Attesa ACK e eventuale rinvio
+- [Procedura illustrata dalla diapositiva 21 alla 22](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
 1. Ricezione messaggio di sblocco sul Raspberry
 1. Associazione del messaggio al mittente confrontando le associazioni memorizzate
 1. Composizione messaggio di sblocco

@@ -247,7 +247,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Solo se il mittente è un Raspberry e se gli id coincidono il messaggio viene processato
     - In questo modo, qualora tutti i dispositivi di un edificio siano interconnessi e obbligati a ricevere messaggi broadcast, non vengono generate risposte da PIC non interpellati
 - Se un token non viene convalidato, il suo record nella tabella Tokens non viene cancellato!
-  - Resterà ancora a disposizione di futuri tentativi di convalidazione
+  - Resterà a disposizione di futuri tentativi di convalidazione
  ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
    - Un gateway comunica, serialmente, solo con PIC mentre un PIC comunica col proprio gateway e con gli altri PIC dell'edificio

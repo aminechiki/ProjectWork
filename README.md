@@ -76,7 +76,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - La connection string dell'istanza di Azure SQL dev'essere accuratamente riportata in [host.json](AZURE%20FUNCTION/CloudManagementData/CloudManagementData/host.json) e in [appsettings.json](WEB%20APP/ManagementRoomApp/appsettings.json)
   ![Connection string del db da Azure](SETUP/DB/AzureConnectionString.png)
   ![Connection string del db in host.json](SETUP/DB/AzureFunction/FunctionDbConnectionString.png)
-  ![Connection string del db in appsettings.json](SETUP/DB/WebApp/SettingsDbConnectionString.png) 
+  ![Connection string del db in appsettings.json](SETUP/DB/WebApp/SettingDbConnectionString.png) 
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale web del campus
     - Se l'app è in esecuzione locale

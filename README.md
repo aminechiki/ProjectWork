@@ -178,8 +178,9 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
      1. Messaggio di errore
    - Corrispondenza
      1. Inserimento nuovo record nella tabella Accesses, con campo Success a 0
-     2. Visualizzazione del secondo codice da parte dell'utente
-     3. Invio codice all'indirizzo del device di provenienza del primo codice
+     2. Rimozione token
+     3. Visualizzazione del secondo codice da parte dell'utente
+     4. Invio codice all'indirizzo del device di provenienza del primo codice
 1. Ricezione sul gateway del messaggio col secondo codice
    
                {
@@ -245,6 +246,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 - Alla ricezione di ogni messaggio, un PIC verifica il tipo di mittente e confronta l'id del destinatario col proprio id salvato nella EEPROM
   - Solo se il mittente è un Raspberry e se gli id coincidono il messaggio viene processato
     - In questo modo, qualora tutti i dispositivi di un edificio siano interconnessi e obbligati a ricevere messaggi broadcast, non vengono generate risposte da PIC non interpellati
+- Se un token non viene convalidato, il suo record nella tabella Tokens non viene cancellato!
+  - Resterà ancora a disposizione di futuri tentativi di convalidazione
  ##### Suggerimenti post-esposizione
  - Il protocollo potrebbe essere ottimizzato rimuovendo il primo byte di informazione
    - Un gateway comunica, serialmente, solo con PIC mentre un PIC comunica col proprio gateway e con gli altri PIC dell'edificio

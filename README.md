@@ -81,7 +81,8 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 
 ![Ogni attività rilevante ai fini della piattaforma viene opportunamente documentata in un'istanza SQLServer](DB/Definitive.png)
 
-#### Configurazione centralina della porta
+#### Configurazione centralina della porta 
+- [Procedura illustrata alla 3a diapositiva](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
 1. All’accensione, il programma verifica se nel registro 0 della EEPROM è memorizzato l’id, corrispondente al numero della porta
 1. In caso negativo, viene richiesto all’amministratore di digitarlo, per poi salvarlo premendo “#”
    - Se quello digitato è maggiore di 250 o vuoto viene riavviata la procedura
@@ -95,27 +96,33 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
   - Insert tabella AspNetUsers
   - Insert tabella AspNetUserRoles con ruolo 'Amministratori'
 - Alla registrazione, l’utente non dispone di alcun permesso di accesso alle porte
+  - [Procedura illustrata dalla diapositiva 36 alla 38](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
   - Insert tabella AspNetUsers
   - Insert tabella AspNetUserRoles con ruolo 'Utenti'
 ##### Facoltà utente amministratore
 - Funzionalità legate alla gestione delle porte
 ![Porzione del db dedicata alla gestione delle porte del campus](DB/Doors.png)
-  - Aggiungere o rimuovere edifici e, quindi, le loro porte
+  - Aggiungere o rimuovere edifici e, nel caso della rimozione, le loro porte 
     - E' necessario assicurarsi che l'id dell'edificio registrato sul portale web, e quindi nel db, corrisponda a quello settato come variabile d'ambiente nel progetto Node.js del gateway a esso associato
       ![RaspId sul portale web](SETUP/GatewayId/webPortal/AppRaspId.png)
+    - [Procedura illustrata dalla diapositiva 27 alla 31](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
     - Insert/Delete tabella Buildings
     - Delete tabella Doors
   - Aggiungere o rimuovere porte di edifici
     - E' necessario assicurarsi che l'id della porta registrata sul portale web, e quindi nel db, corrisponda a quello salvato nella EEPROM del PIC a essa associato
      ![BoardId sul portale web](SETUP/DoorDevices/Web%20portal/DbPicId.png)
+    - [Procedura illustrata dalla diapositiva 32 alla 35](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
     - Insert/Delete tabella Doors
   - Visualizzare gli accessi effettuati presso qualsiasi porta
+    - [Procedura illustrata dalla diapositiva 45 alla 49](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
     - Select tabella Accesses
   - Modificare i permessi di accesso di ogni utente alle singole porte
+    - [Procedura illustrata dalla diapositiva 41 alla 44](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
     - Insert/Delete tabella Permissions
 - Funzionalità gestite da AspNetIdentity
 ![Porzione del db istanziata e gestita da AspNetIdentity](DB/AspNetIdentity.png)
   - Modificare i privilegi utente
+    - [Procedura illustrata dalla diapositiva 39 alla 40](PRESENTAZIONE%20PROGETTO/Presentazione%20-%20TECH-GEEKS.pptx)
     - Delete e insert tabella AspNetUserRoles
   - Rimuovere utenti
     - Delete tabella AspNetUsers

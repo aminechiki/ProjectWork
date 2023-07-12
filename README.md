@@ -52,7 +52,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
     - In [.env](RASPBERRY%20PI/.env) è necessario settare una variabile d'ambiente che rappresenti l'id statico del dispositivo 
      ![RaspId nel progetto Node](SETUP/GatewayId/env/GatewayRaspId.png)
 - Istanza Azure IoT Hub
-  <!-- - La sua connection string dev'essere accuratamente riportata in -->
+  - La sua connection string dev'essere accuratamente riportata nel [progetto portale web](WEB%20APP/ManagementRoomApp)
   - Un Device per gateway istanziato
     - La sua connection string dev'essere dev'essere opportunamente riportata in [.env](RASPBERRY%20PI/.env)
 ![Device connection string dal portale Azure](SETUP/HubDevices/env/DeviceConnectionString.png)

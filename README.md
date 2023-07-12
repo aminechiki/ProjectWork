@@ -47,10 +47,10 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
          - una interfaccia seriale virtuale riservata per quel PIC (suggerito l'impiego di Com0Com)
          - una interfaccia seriale virtuale riservata per il suo gateway di riferimento
      - Resta necessario identificare opportunamente su [index.js](RASPBERRY%20PI/index.js) e su Serial Remote Tank le effettive porte seriali interconnesse
+       ![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
   - [Progetto Node.js da importare e avviare sui gateway](RASPBERRY%20PI)
     - In [.env](RASPBERRY%20PI/.env) è necessario settare una variabile d'ambiente che rappresenti l'id statico del dispositivo 
      ![RaspId nel progetto Node](SETUP/GatewayId/env/GatewayRaspId.png)
-![Porte seriali Windows](SETUP/Serials/index.js/WindowsGatewayPorts.png)
 - Istanza Azure IoT Hub
   <!-- - La sua connection string dev'essere accuratamente riportata in -->
   - Un Device per gateway istanziato
@@ -69,6 +69,7 @@ Per mettere in funzione il sistema implementato e testarne il comportamento sono
   - [Progetto Azure Function](AZURE%20FUNCTION/CloudManagementData)
 - Istanza Azure Web App e SQL Azure intergrata (o Visual Studio per l'esecuzione in ambiente locale) per l'avvio dell'app e l'hosting del database associato
   - [Progetto portale web](WEB%20APP/ManagementRoomApp)
+  <!-- - Db conn string -->
 - Un dispositivo in grado di visualizzare pagine web
   - E' necessario conoscere l'URL della home page del portale web del campus
     - Se l'app è in esecuzione locale

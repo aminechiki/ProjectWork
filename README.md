@@ -128,6 +128,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
     - Delete tabella AspNetUsers
     - Di conseguenza, delete tabella AspNetUserRoles
 #### Procedura di sblocco
+![Prima fase](FLUSSO%20DATI/1To8.png)
 1. Viene visualizzato il messaggio “Premi #”
 1. L’utente preme “#”
 1. Il Pic rileva la pressione e
@@ -172,6 +173,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
        - "1/DoorId/2"
 1. Una Azure Function consuma i messaggi della coda discriminando il parametro TypeOfMessage
       - Se uguale a 0, viene eseguito l'inserimento di un nuovo record nella tabella Tokens
+![Seconda fase](FLUSSO%20DATI/9To16.png)
 1. Autenticazione dell’utente sull’app
 1. Convalidazione del token
    - Non corrispondenza
@@ -200,6 +202,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 1. Ricezione secondo codice sul Pic
 1. Invio ACK al Raspberry
    - "0/DoorId/2"
+![Terza fase](FLUSSO%20DATI/17To23.png)
 1. Tre tentativi di immissione del secondo codice da parte dell'utente e convalidazione 
    - In caso di riuscita
      1. Generazione pacchetto con la conferma dello sblocco

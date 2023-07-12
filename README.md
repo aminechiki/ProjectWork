@@ -235,7 +235,7 @@ Ogni attività rilevante ai fini della piattaforma viene opportunamente document
 4. Invio ACK al PIC
    - "1/DoorId/2"
 1. Scodamento
-   - Se il messaggio è di sblocco riuscito (TypeOfMessage == 1) viene aggiornato il relativo record di Accesses, portandone il campo Success a 1
+   - Se il messaggio è di sblocco riuscito (TypeOfMessage == 1), viene aggiornato il record di Accesses a esso associato, portandone il campo Success a 1
 
 ##### Precisazioni
 - Non è previsto che l’utente non effettui il tentativo di convalida del secondo codice sulla porta!
